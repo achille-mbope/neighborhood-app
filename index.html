@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gartenzaun - Deine Nachbarschafts-App</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/i18n.js"></script>
+</head>
+
+<body>
+
+    <div id="app-shell">
+
+        <!-- GLOBAL APPBAND/HEADER (only visible after onboarding, or shown at top of app) -->
+        <header class="app-header" id="global-header" style="display: none;">
+            <div class="app-title-container">
+                <!-- Inline SVG Logo (Fence + Leaves) -->
+                <svg class="app-title-logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 10V20M8 6V20M12 4V20M16 6V20M20 10V20"></path>
+                    <path d="M2 18H22"></path>
+                    <path d="M2 12H22"></path>
+                    <path d="M12 4L14 8M12 4L10 8M8 6L9 9M16 6L15 9"></path>
+                </svg>
+                <span class="app-header-title">Gartenzaun</span>
+            </div>
+
+            <!-- Three-Dot Menu -->
+            <div class="menu-container">
+                <button class="menu-button" id="menu-trigger" aria-label="Menü öffnen" onclick="toggleMenu(event)">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="1"></circle>
+                        <circle cx="12" cy="5" r="1"></circle>
+                        <circle cx="12" cy="19" r="1"></circle>
+                    </svg>
+                </button>
+                <div class="dropdown-menu" id="dropdown-menu">
+                    <button class="dropdown-item" onclick="openGlobalModal('netiquette')">Netiquette</button>
+                    <button class="dropdown-item" onclick="openGlobalModal('hilfe')">Hilfe</button>
+                    <button class="dropdown-item" onclick="openGlobalModal('ueber-uns')">Über uns</button>
+                    <button class="dropdown-item" onclick="openGlobalModal('faqs')">FAQs</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- ONBOARDING SCREENS -->
+        <div id="onboarding-flow">
+
+            <!-- Onboarding Header with Menu (Visible during onboarding) -->
+            <header class="app-header" id="onboarding-header" style="border-bottom: none; background: transparent;">
+                <div></div>
+                <div class="menu-container">
+                    <button class="menu-button" id="onboarding-menu-trigger" aria-label="Menü öffnen"
+                        onclick="toggleMenu(event)">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="1"></circle>
+                            <circle cx="12" cy="5" r="1"></circle>
+                            <circle cx="12" cy="19" r="1"></circle>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu" id="onboarding-dropdown-menu">
+                        <button class="dropdown-item" onclick="openGlobalModal('netiquette')">Netiquette</button>
+                        <button class="dropdown-item" onclick="openGlobalModal('hilfe')">Hilfe</button>
+                        <button class="dropdown-item" onclick="openGlobalModal('ueber-uns')">Über uns</button>
+                        <button class="dropdown-item" onclick="openGlobalModal('faqs')">FAQs</button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- SCREEN 1: Willkommen -->
+            <section class="screen active" id="screen-welcome">
+                <div class="banner-container">
+                    <img src="assets/banner.png" alt="Gartenzaun Banner" class="banner-image">
+                </div>
+
+                <div class="onboarding-content">
+                    <h1 class="onboarding-title" data-i18n="welcome_title">Willkommen bei Gartenzaun</h1>
+                    <p class="onboarding-subtitle" data-i18n="welcome_subtitle">Gemeinsam sind wir stärker. Unterstütze
+                        deine Nachbarn und lass dich unterstützen.</p>
+
+                    <div class="features-list">
+                        <!-- Vertrauen -->
+                        <div class="feature-card">
+                            <div class="feature-icon-wrapper">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h2 class="feature-title" data-i18n="feature_trust_title">Vertrauen</h2>
+                                <p class="feature-desc" data-i18n="feature_trust_desc">Verifizierte Nachbarn</p>
+                            </div>
+                        </div>
+
+                        <!-- Teilen -->
+                        <div class="feature-card">
+                            <div class="feature-icon-wrapper">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5">
+                                    <circle cx="18" cy="5" r="3"></circle>
+                                    <circle cx="6" cy="12" r="3"></circle>
+                                    <circle cx="18" cy="19" r="3"></circle>
+                                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                                </svg>
+                            </div>
+                            <div>
+                                <h2 class="feature-title" data-i18n="feature_share_title">Teilen</h2>
+                                <p class="feature-desc" data-i18n="feature_share_desc">Werkzeuge & Geräte ausleihen</p>
+                            </div>
+                        </div>
+
+                        <!-- Helfen -->
+                        <div class="feature-card">
+                            <div class="feature-icon-wrapper">
+                                <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5">
+                                    <path
+                                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h2 class="feature-title" data-i18n="feature_support_title">Unterstützen</h2>
+                                <p class="feature-desc" data-i18n="feature_support_desc">Gegenseitige Unterstützung</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="onboarding-buttons">
+                        <button class="btn btn-primary" onclick="goToOnboardingStep('netiquette')"
+                            data-i18n="btn_lets_go">Los geht's</button>
+                    </div>
+
+                    <div class="settings-area"
+                        style="margin-top: 24px; text-align: left; background-color: var(--color-card-bg); padding: 16px; border-radius: var(--border-radius-md); border: 1px solid var(--color-border);">
+                        <h3 style="font-size: var(--fs-sm); margin-bottom: 12px; color: var(--color-text-muted);"
+                            data-i18n="settings_title">Einstellungen</h3>
+
+                        <!-- Language Selection -->
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                            <span style="font-weight: 600;" data-i18n="settings_language">Sprache</span>
+                            <div class="custom-select-container" id="welcome-lang-select">
+                                <div class="custom-select-trigger" onclick="toggleCustomSelect(this)" tabindex="0">
+                                    <div class="custom-select-value">
+                                        <img src="Bilder/D Flagge.png" alt="DE"><span>Deutsch</span>
+                                    </div>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M6 9l6 6 6-6" />
+                                    </svg>
+                                </div>
+                                <div class="custom-select-options">
+                                    <div class="custom-select-option" onclick="selectLanguage('de')" tabindex="0">
+                                        <img src="Bilder/D Flagge.png" alt="DE"><span>Deutsch</span>
+                                    </div>
+                                    <div class="custom-select-option" onclick="selectLanguage('en')" tabindex="0">
+                                        <img src="Bilder/US Flagge.png" alt="US"><span>English</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tag-grid">
+                            <!-- High Contrast Toggle -->
+                            <label class="tag-tile settings-high-contrast-tile" for="toggle-high-contrast"
+                                style="justify-content: flex-start; gap: 12px; padding: 14px 16px; margin: 0;">
+                                <input type="checkbox" id="toggle-high-contrast" onchange="toggleHighContrast(this.checked)"
+                                    style="width: 18px; height: 18px; margin: 0; cursor: pointer;">
+                                <span data-i18n="settings_high_contrast">Hoher Kontrast</span>
+                            </label>
+
+                            <!-- Large Font Toggle -->
+                            <label class="tag-tile settings-large-font-tile" for="toggle-large-font"
+                                style="justify-content: flex-start; gap: 12px; padding: 14px 16px; margin: 0;">
+                                <input type="checkbox" id="toggle-large-font" onchange="toggleLargeFont(this.checked)"
+                                    style="width: 18px; height: 18px; margin: 0; cursor: pointer;">
+                                <span data-i18n="settings_large_font">Große Schrift</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SCREEN 2: Netiquette -->
+            <section class="screen" id="screen-netiquette">
+                <h1 class="onboarding-title" style="margin-bottom: 8px;" data-i18n="netiquette_title">Unsere Netiquette
+                </h1>
+                <p class="onboarding-subtitle" data-i18n="netiquette_subtitle" style="margin-bottom: 16px;">Für ein
+                    gutes und respektvolles Miteinander am Gartenzaun.</p>
+
+                <div class="wimmelbild-container">
+                    <img src="assets/netiquette_onboarding.png" class="wimmelbild-image" alt="Nachbarn am Gartenzaun">
+                </div>
+
+                <!-- Vorlesefunktion UI -->
+                <div class="tts-controls" id="tts-controls-short"
+                    style="background-color: var(--color-primary-light); padding: 12px; border-radius: var(--border-radius-md); margin-bottom: 16px; display: flex; flex-direction: column; gap: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span
+                            style="font-weight: 600; font-size: var(--fs-sm); display: flex; align-items: center; gap: 6px;"><i
+                                data-lucide="volume-2" style="width: 18px; height: 18px;"></i> <span
+                                data-i18n="tts_title">Vorlesefunktion</span></span>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn btn-secondary" style="padding: 4px 8px; min-height: 0;"
+                                onclick="startTTS('netiquette-short')" id="tts-play-short" title="Vorlesen"><i
+                                    data-lucide="play" style="width: 18px; height: 18px;"></i></button>
+                            <button class="btn btn-secondary" style="padding: 4px 8px; min-height: 0; display: none;"
+                                onclick="pauseTTS('netiquette-short')" id="tts-pause-short" title="Pause"><i
+                                    data-lucide="pause" style="width: 18px; height: 18px;"></i></button>
+                            <button class="btn btn-secondary" style="padding: 4px 8px; min-height: 0; display: none;"
+                                onclick="stopTTS('netiquette-short')" id="tts-stop-short" title="Stopp"><i
+                                    data-lucide="square" style="width: 18px; height: 18px;"></i></button>
+                        </div>
+                    </div>
+                    <div style="height: 4px; background-color: var(--color-border); border-radius: 2px; overflow: hidden; display: none;"
+                        id="tts-progress-container-short">
+                        <div id="tts-progress-bar-short"
+                            style="height: 100%; width: 0%; background-color: var(--color-primary); transition: width 0.3s ease;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="netiquette-short-list" id="netiquette-short-text-content"
+                    data-i18n-html="netiquette_short_html">
+                    <div class="netiquette-short-item">
+                        <div class="netiquette-short-icon-wrapper">💚</div>
+                        <div class="netiquette-short-content">
+                            <span class="netiquette-short-title">Respektvoll sein</span>
+                            <span class="netiquette-short-desc">Behandle andere so, wie du selbst behandelt werden
+                                möchtest.</span>
+                        </div>
+                    </div>
+                    <div class="netiquette-short-item">
+                        <div class="netiquette-short-icon-wrapper">💬</div>
+                        <div class="netiquette-short-content">
+                            <span class="netiquette-short-title">Hilfsbereit & konstruktiv</span>
+                            <span class="netiquette-short-desc">Teile dein Wissen und unterstütze deine
+                                Nachbar*innen.</span>
+                        </div>
+                    </div>
+                    <div class="netiquette-short-item">
+                        <div class="netiquette-short-icon-wrapper">🔒</div>
+                        <div class="netiquette-short-content">
+                            <span class="netiquette-short-title">Privatsphäre achten</span>
+                            <span class="netiquette-short-desc">Respektiere die Privatsphäre und die Daten
+                                anderer.</span>
+                        </div>
+                    </div>
+                    <div class="netiquette-short-item">
+                        <div class="netiquette-short-icon-wrapper">✋</div>
+                        <div class="netiquette-short-content">
+                            <span class="netiquette-short-title">Kein Hass, kein Spam</span>
+                            <span class="netiquette-short-desc">Diskriminierung, Beleidigungen und Spam haben hier
+                                keinen Platz.</span>
+                        </div>
+                    </div>
+                    <div class="netiquette-short-item">
+                        <div class="netiquette-short-icon-wrapper">🛡️</div>
+                        <div class="netiquette-short-content">
+                            <span class="netiquette-short-title">Regeln einhalten</span>
+                            <span class="netiquette-short-desc">Gemeinsam sorgen wir für eine sichere und positive
+                                Community.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <label class="netiquette-checkbox-container" for="accept-checkbox">
+                    <input type="checkbox" id="accept-checkbox" onchange="toggleNetiquetteAcceptance()">
+                    <span class="netiquette-checkbox-label" style="font-size: var(--fs-sm);"
+                        data-i18n="netiquette_accept">Ich akzeptiere die Netiquette und halte mich an die Regeln.</span>
+                </label>
+
+                <div class="onboarding-buttons">
+                    <button class="btn btn-primary" id="netiquette-next-btn" disabled
+                        onclick="goToOnboardingStep('address-radius')" data-i18n="btn_all_clear">Alles klar!</button>
+                    <button class="btn btn-secondary" onclick="goToOnboardingStep('welcome')">Zurück</button>
+                </div>
+            </section>
+
+            <!-- SCREEN 2.5: Persönliche Daten -->
+            <section class="screen" id="screen-address-radius">
+                <h1 class="onboarding-title" style="margin-bottom: 8px;">Persönliche Daten</h1>
+                <p class="onboarding-subtitle" style="margin-bottom: 20px;">Bitte gib deinen echten Namen und deine
+                    Adresse an, damit wir deine Nachbarschaft bestimmen können.</p>
+
+                <div class="form-group" style="display: flex; flex-direction: column; gap: 12px;">
+                    <div>
+                        <label class="form-label" for="profile-firstname">Vorname *</label>
+                        <input type="text" class="search-bar" id="profile-firstname" placeholder="z.B. Maria"
+                            style="margin-bottom: 0;" required>
+                    </div>
+                    <div>
+                        <label class="form-label" for="profile-lastname">Nachname *</label>
+                        <input type="text" class="search-bar" id="profile-lastname" placeholder="z.B. Schmidt"
+                            style="margin-bottom: 0;" required>
+                    </div>
+                    <p class="feature-desc"
+                        style="font-size: var(--fs-xs); color: var(--color-text-muted); margin-top: -4px;">Bitte gib
+                        hier deinen echten Namen an. Dieser wird für Vertrauen und Nachbarschaftshilfe innerhalb der App
+                        verwendet.</p>
+
+                    <div style="margin-top: 12px;">
+                        <label class="form-label" for="address-street">Straße & Hausnummer</label>
+                        <input type="text" class="search-bar" id="address-street" placeholder="z.B. Tulpenweg 12"
+                            style="margin-bottom: 0;">
+                    </div>
+                    <div>
+                        <label class="form-label" for="address-zip">Postleitzahl & Ort</label>
+                        <input type="text" class="search-bar" id="address-zip" placeholder="z.B. 12345 Neustadt"
+                            style="margin-bottom: 0;">
+                    </div>
+                    <div id="address-validation-status" class="feature-desc" aria-live="polite"
+                        style="display: none; padding: 12px; border-radius: var(--border-radius-sm); border: 1px solid var(--color-border); background-color: var(--color-card-bg);">
+                    </div>
+                </div>
+
+                <h2 class="section-title" style="margin-top: 24px;">Gewünschter Umkreis</h2>
+                <p class="onboarding-subtitle" style="margin-bottom: 12px;">Wie weit soll deine Nachbarschaft reichen?
+                </p>
+
+                <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;">
+                    <div class="verification-option" id="radius-50" onclick="selectOnboardingRadius(50)"
+                        style="padding: 14px 16px; margin-bottom: 0; align-items: center; cursor: pointer;">
+                        <div class="feature-icon-wrapper" style="width: 36px; height: 36px;">📍</div>
+                        <div style="margin-left: 12px;">
+                            <span class="skill-checkbox-label" style="font-size: var(--fs-md); display: block;">50
+                                Meter</span>
+                            <span class="feature-desc" style="display: block; font-size: var(--fs-xs);">Direkte Nachbarn
+                                (ca. 10 Häuser)</span>
+                        </div>
+                    </div>
+                    <div class="verification-option selected" id="radius-100" onclick="selectOnboardingRadius(100)"
+                        style="padding: 14px 16px; margin-bottom: 0; align-items: center; cursor: pointer;">
+                        <div class="feature-icon-wrapper" style="width: 36px; height: 36px;">🏡</div>
+                        <div style="margin-left: 12px;">
+                            <span class="skill-checkbox-label" style="font-size: var(--fs-md); display: block;">100
+                                Meter</span>
+                            <span class="feature-desc" style="display: block; font-size: var(--fs-xs);">Deine gesamte
+                                Straße (Empfohlen)</span>
+                        </div>
+                    </div>
+                    <div class="verification-option" id="radius-500" onclick="selectOnboardingRadius(500)"
+                        style="padding: 14px 16px; margin-bottom: 0; align-items: center; cursor: pointer;">
+                        <div class="feature-icon-wrapper" style="width: 36px; height: 36px;">🌳</div>
+                        <div style="margin-left: 12px;">
+                            <span class="skill-checkbox-label" style="font-size: var(--fs-md); display: block;"
+                                data-i18n="radius_500m">500 Meter</span>
+                            <span class="feature-desc" style="display: block; font-size: var(--fs-xs);"
+                                data-i18n="radius_500m_desc">Dein ganzes Viertel</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="onboarding-buttons" style="margin-top: auto;">
+                    <button class="btn btn-primary" id="address-next-btn" onclick="submitAddressAndRadius()"
+                        data-i18n="btn_verify_address">Adresse verifizieren</button>
+                    <button class="btn btn-secondary" onclick="goToOnboardingStep('netiquette')"
+                        data-i18n="btn_back">Zurück</button>
+                </div>
+            </section>
+
+            <!-- SCREEN 2.7: Profil vervollständigen (Optional) -->
+            <section class="screen" id="screen-profile-setup">
+                <h1 class="onboarding-title" style="margin-bottom: 8px;" data-i18n="profile_setup_title">Profil
+                    vervollständigen</h1>
+                <p class="onboarding-subtitle" style="margin-bottom: 16px;" data-i18n="profile_setup_subtitle">Diese
+                    Angaben sind optional, helfen aber deinen Nachbarinnen und Nachbarn, dich besser kennenzulernen.</p>
+
+                <!-- Interessen -->
+                <div class="form-group">
+                    <label class="form-label" style="font-weight: 700; margin-bottom: 4px;"
+                        data-i18n="label_interests">Deine Interessen</label>
+                    <p class="feature-desc" style="margin-bottom: 8px;" data-i18n="desc_interests">Wofür interessierst
+                        du dich? (Mehrfachauswahl möglich)</p>
+                    <div class="custom-tag-input-group"
+                        style="margin-bottom: 12px; display: flex; flex-direction: column; gap: 8px;">
+                        <input type="text" id="custom-interest-input" class="search-bar"
+                            placeholder="Eigenes Interesse hinzufügen…"
+                            style="margin-bottom: 0; width: 100%; height: 80px; font-size: var(--fs-md); padding: 16px;"
+                            list="interest-suggestions"
+                            onkeydown="if(event.key === 'Enter') addCustomSetupTag('Interessen', 'custom-interest-input')">
+                        <datalist id="interest-suggestions">
+                            <option value="Fotografie">
+                            <option value="Reisen">
+                            <option value="DIY & Basteln">
+                        </datalist>
+                        <div style="display: flex; justify-content: flex-end;">
+                            <button class="btn btn-secondary"
+                                onclick="addCustomSetupTag('Interessen', 'custom-interest-input')"
+                                style="padding: 8px 16px;" data-i18n="btn_add">Hinzufügen</button>
+                        </div>
+                    </div>
+                    <div id="active-interests-container" class="active-tags-container" style="margin-bottom: 16px;">
+                    </div>
+                    <div class="tag-grid" id="setup-interests-tags">
+                        <div class="tag-tile" onclick="toggleSetupTag(this, 'Interessen', 'Gärtnern')">
+                            <span>Gärtnern</span>
+                        </div>
+                        <div class="tag-tile" onclick="toggleSetupTag(this, 'Interessen', 'Kochen & Essen')">
+                            <span>Kochen & Essen</span>
+                        </div>
+                        <div class="tag-tile" onclick="toggleSetupTag(this, 'Interessen', 'Bewegung & Sport')">
+                            <span>Bewegung & Sport</span>
+                        </div>
+                        <div class="tag-tile" onclick="toggleSetupTag(this, 'Interessen', 'Nachhaltigkeit')">
+                            <span>Nachhaltigkeit</span>
+                        </div>
+                        <div class="tag-tile" onclick="toggleSetupTag(this, 'Interessen', 'Kultur & Musik')">
+                            <span>Kultur & Musik</span>
+                        </div>
+                        <div class="tag-tile" onclick="toggleSetupTag(this, 'Interessen', 'Spiele & Gesellschaft')">
+                            <span>Spiele & Gesellschaft</span>
+                        </div>
+                        <div class="tag-tile" onclick="toggleSetupTag(this, 'Interessen', 'Tiere & Natur')">
+                            <span>Tiere & Natur</span>
+                        </div>
+                        <div class="tag-tile" onclick="toggleSetupTag(this, 'Interessen', 'Nachbarschaftsaktionen')">
+                            <span>Nachbarschaftsaktionen</span>
+                        </div>
+                        <div class="tag-tile" onclick="toggleSetupTag(this, 'Interessen', 'Technik & Medien')">
+                            <span>Technik & Medien</span>
+                        </div>
+                        <div class="tag-tile" onclick="toggleSetupTag(this, 'Interessen', 'Gemeinschaft')">
+                            <span>Gemeinschaft</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Talente / Fähigkeiten -->
+                <div class="form-group" style="margin-top: 24px;">
+                    <label class="form-label" style="font-weight: 700; margin-bottom: 4px;"
+                        data-i18n="label_skills">Deine Talente & Fähigkeiten</label>
+                    <p class="feature-desc" style="margin-bottom: 8px;" data-i18n="desc_skills">Wobei kannst du
+                        unterstützen? (Mehrfachauswahl möglich)</p>
+                    <div class="custom-tag-input-group"
+                        style="margin-bottom: 12px; display: flex; flex-direction: column; gap: 8px;">
+                        <input type="text" id="custom-skill-input" class="search-bar"
+                            placeholder="Eigenes Talent hinzufügen…"
+                            style="margin-bottom: 0; width: 100%; height: 80px; font-size: var(--fs-md); padding: 16px;"
+                            list="skill-suggestions"
+                            onkeydown="if(event.key === 'Enter') addCustomSetupTag('Fähigkeiten', 'custom-skill-input')">
+                        <datalist id="skill-suggestions">
+                            <option value="Nachhilfe">
+                            <option value="Umzugshilfe">
+                            <option value="Erste Hilfe">
+                        </datalist>
+                        <div style="display: flex; justify-content: flex-end;">
+                            <button class="btn btn-secondary"
+                                onclick="addCustomSetupTag('Fähigkeiten', 'custom-skill-input')"
+                                style="padding: 8px 16px;" data-i18n="btn_add">Hinzufügen</button>
+                        </div>
+                    </div>
+                    <div id="active-skills-container" class="active-tags-container" style="margin-bottom: 16px;"></div>
+                    <div class="tag-grid" id="setup-skills-tags">
+                        <div class="tag-tile" onclick="toggleSetupTag(this, 'Fähigkeiten', 'Gartenarbeit')">
+                            <span>Gartenarbeit</span>
+                        </div>
+                        <div class="tag-tile" onclick="toggleSetupTag(this, 'Fähigkeiten', 'Handwerkliches')">
+                            <span>Handwerkliches</span>
+                        </div>
+                        <div class="tag-tile" onclick="toggleSetupTag(this, 'Fähigkeiten', 'Technikhilfe')">
+                            <span>Technikhilfe</span>
+                        </div>
+                        <div class="tag-tile" onclick="toggleSetupTag(this, 'Fähigkeiten', 'Kochen & Backen')">
+                            <span>Kochen & Backen</span>
+                        </div>
+                        <div class="tag-tile" onclick="toggleSetupTag(this, 'Fähigkeiten', 'Einkaufshilfe')">
+                            <span>Einkaufshilfe</span>
+                        </div>
+                        <div class="tag-tile" onclick="toggleSetupTag(this, 'Fähigkeiten', 'Kinderbetreuung')">
+                            <span>Kinderbetreuung</span>
+                        </div>
+                        <div class="tag-tile" onclick="toggleSetupTag(this, 'Fähigkeiten', 'Tierbetreuung')">
+                            <span>Tierbetreuung</span>
+                        </div>
+                        <div class="tag-tile" onclick="toggleSetupTag(this, 'Fähigkeiten', 'Organisation')">
+                            <span>Organisation</span>
+                        </div>
+                        <div class="tag-tile" onclick="toggleSetupTag(this, 'Fähigkeiten', 'Sprachkenntnisse')">
+                            <span>Sprachkenntnisse</span>
+                        </div>
+                        <div class="tag-tile" onclick="toggleSetupTag(this, 'Fähigkeiten', 'Kreatives')">
+                            <span>Kreatives</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gegenstände zum Verleihen -->
+                <div class="form-group" style="margin-top: 24px;">
+                    <label class="form-label" style="font-weight: 700; margin-bottom: 4px;"
+                        data-i18n="label_lend_items">Gegenstände, die du verleihen würdest</label>
+                    <p class="feature-desc" style="margin-bottom: 8px;" data-i18n="desc_lend_items">Trage Gegenstände
+                        durch Kommata getrennt ein</p>
+                    <input type="text" class="search-bar" id="setup-lend-items"
+                        placeholder="z.B. Teleskopleiter, Schlagbohrer" style="margin-bottom: 0;">
+                </div>
+
+                <div class="onboarding-buttons" style="margin-top: 24px;">
+                    <button class="btn btn-primary" onclick="submitProfileSetup()"
+                        data-i18n="btn_next_profile_picture">Weiter zum Profilbild</button>
+                    <button class="btn btn-secondary" onclick="goToOnboardingStep('address-radius')"
+                        data-i18n="btn_back">Zurück</button>
+                </div>
+            </section>
+
+            <!-- SCREEN 4.5: Profil gestalten (Optional) -->
+            <section class="screen" id="screen-profile-picture">
+                <div class="verification-header">
+                    <h1 class="onboarding-title" data-i18n="profile_design_title">Profil gestalten</h1>
+                    <p class="onboarding-subtitle" data-i18n="profile_design_subtitle">Du kannst ein Profilbild
+                        hochladen, einen Avatar erstellen oder diesen Schritt überspringen.</p>
+                </div>
+
+                <div
+                    style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 40px 0; flex-grow: 1;">
+                    <div id="onboarding-avatar-preview-container" class="profile-avatar"
+                        style="width: 160px; height: 160px; font-size: 80px; margin-bottom: 24px; background-color: var(--color-primary-light); color: var(--color-primary); display: flex; align-items: center; justify-content: center; overflow: hidden; border: 4px solid var(--color-white); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                        <span id="onboarding-avatar-placeholder">👤</span>
+                        <img id="onboarding-avatar-image" src="" alt="Profilbild"
+                            style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: none;">
+                    </div>
+
+                    <input type="file" id="onboarding-image-input" accept="image/png, image/jpeg, image/heic"
+                        style="display: none;" onchange="handleImageSelection(this, 'onboarding')">
+                    <div style="display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 250px;">
+                        <button class="btn btn-secondary"
+                            style="display: flex; align-items: center; justify-content: center; gap: 8px;"
+                            onclick="openAvatarEditor()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 20h9" />
+                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                            </svg>
+                            <span data-i18n="btn_create_avatar">Avatar erstellen</span>
+                        </button>
+
+                        <button class="btn btn-secondary"
+                            style="display: flex; align-items: center; justify-content: center; gap: 8px;"
+                            onclick="document.getElementById('onboarding-image-input').click()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path
+                                    d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                                <circle cx="12" cy="13" r="4" />
+                            </svg>
+                            <span data-i18n="btn_upload_photo">Foto hochladen</span>
+                        </button>
+
+                        <button id="onboarding-remove-active-btn" class="btn btn-text"
+                            style="color: var(--color-danger); margin-top: 4px; padding: 8px; display: none;"
+                            onclick="removeActiveProfilePicture()" data-i18n="btn_delete_photo">Foto löschen</button>
+                    </div>
+                </div>
+
+                <div class="onboarding-buttons" style="margin-top: auto;">
+                    <button id="profile-picture-next-btn" class="btn btn-primary"
+                        onclick="goToOnboardingStep('verify-select')" data-i18n="btn_skip">Überspringen</button>
+                    <button class="btn btn-secondary" onclick="goToOnboardingStep('profile-setup')"
+                        data-i18n="btn_back">Zurück</button>
+                </div>
+            </section>
+
+            <!-- SCREEN 3: Verifizierungswege -->
+            <section class="screen" id="screen-verify-select">
+                <div class="verification-header">
+                    <div class="step-indicator">
+                        <div class="step-dot active"></div>
+                        <div class="step-dot active"></div>
+                    </div>
+                    <h1 class="onboarding-title"
+                        style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <span data-i18n="verify_title">Sicherheit & Vertrauen</span>
+                        <button class="info-trigger-btn" onclick="openGlobalModal('verify-info')"
+                            aria-label="Mehr Informationen"
+                            style="display: inline-flex; align-items: center; justify-content: center; background: transparent; border: none; padding: 0; margin: 0; cursor: pointer;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                            </svg>
+                        </button>
+                    </h1>
+                    <p class="onboarding-subtitle" data-i18n="verify_subtitle">Wähle einen Weg, um deine Adresse zu
+                        bestätigen und ein verifiziertes Mitglied zu werden.</p>
+                </div>
+
+                <div class="verification-options">
+                    <!-- Postkarte -->
+                    <div class="verification-option" id="opt-postcard" onclick="selectVerifyMethod('postcard')">
+                        <div class="feature-icon-wrapper">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="4" width="18" height="16" rx="2" ry="2" />
+                                <line x1="3" y1="10" x2="21" y2="10" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="feature-title" data-i18n="opt_postcard_title">Postkarte mit QR-Code</h3>
+                            <p class="feature-desc" data-i18n="opt_postcard_desc">Wir senden dir eine Postkarte nach
+                                Hause. Du scannst den Code zur Bestätigung.</p>
+                        </div>
+                    </div>
+
+                    <!-- Video-Ident -->
+                    <div class="verification-option" id="opt-video" onclick="selectVerifyMethod('video')">
+                        <div class="feature-icon-wrapper">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M23 7l-7 5 7 5V7z" />
+                                <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="feature-title" data-i18n="opt_video_title">Video-Ident (Schnellverfahren)</h3>
+                            <p class="feature-desc" data-i18n="opt_video_desc">Bestätige deine Identität in wenigen
+                                Schritten per Webcam oder Smartphone-Kamera.</p>
+                        </div>
+                    </div>
+
+                    <!-- Nachbar-Bestätigung -->
+                    <div class="verification-option" id="opt-neighbor" onclick="selectVerifyMethod('neighbor')">
+                        <div class="feature-icon-wrapper">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                <circle cx="9" cy="7" r="4" />
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="feature-title" data-i18n="opt_neighbor_title">Nachbar-Bestätigung</h3>
+                            <p class="feature-desc" data-i18n="opt_neighbor_desc">Ein bereits verifizierter Nachbar aus
+                                deiner Straße bestätigt deine Identität.</p>
+                        </div>
+                    </div>
+
+                    <!-- Identität verifizieren (eID) -->
+                    <div class="verification-option" id="opt-eid" onclick="selectVerifyMethod('eid')">
+                        <div class="feature-icon-wrapper">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <rect x="3" y="4" width="18" height="16" rx="2" ry="2"></rect>
+                                <line x1="7" y1="8" x2="17" y2="8"></line>
+                                <line x1="7" y1="12" x2="17" y2="12"></line>
+                                <line x1="7" y1="16" x2="11" y2="16"></line>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="feature-title" data-i18n="opt_eid_title">eID</h3>
+                            <p class="feature-desc" data-i18n="opt_eid_desc">Deutsche Online-Ausweisfunktion (eID) über
+                                die offizielle AusweisApp.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="onboarding-buttons" style="margin-top: 24px;">
+                    <button class="btn btn-primary" id="verify-select-next-btn" disabled
+                        onclick="startSimulatedVerification()" data-i18n="btn_verify_start">Verifizierung
+                        starten</button>
+                    <button class="btn btn-secondary" onclick="goToOnboardingStep('profile-picture')"
+                        data-i18n="btn_back">Zurück</button>
+                </div>
+            </section>
+
+            <!-- SCREEN 3.5: eID Intro Screen -->
+            <section class="screen" id="screen-verify-eid-intro">
+                <div class="verification-header">
+                    <div class="step-indicator">
+                        <div class="step-dot active"></div>
+                        <div class="step-dot active"></div>
+                    </div>
+                    <h1 class="onboarding-title" data-i18n="eid_intro_title">eID-Verifizierung</h1>
+                    <p class="onboarding-subtitle" style="margin-top: 16px;" data-i18n="eid_intro_desc">
+                        Zur Verifikation über die offizielle deutsche Online-Ausweisfunktion (eID) benötigst du die
+                        AusweisApp des Bundesamtes für Sicherheit in der Informationstechnik (BSI). Mit Klick auf den
+                        Button unten wirst du in den App Store weitergeleitet, bzw. die App wird auf deinem Gerät
+                        geöffnet.
+                    </p>
+                </div>
+
+                <div class="onboarding-buttons" style="margin-top: auto;">
+                    <button class="btn btn-primary" onclick="startEidSimulation()" data-i18n="btn_to_eid">Zur
+                        eID</button>
+                    <button class="btn btn-secondary" onclick="goToOnboardingStep('verify-select')"
+                        data-i18n="btn_back">Zurück</button>
+                </div>
+            </section>
+
+            <!-- SCREEN 4: Simulierte Verifizierung -->
+            <section class="screen" id="screen-verify-simulation">
+                <div class="verification-header">
+                    <div class="step-indicator">
+                        <div class="step-dot active"></div>
+                        <div class="step-dot active"></div>
+                    </div>
+                    <h1 class="onboarding-title" id="sim-title" data-i18n="sim_title_running">Verifizierung läuft</h1>
+                    <p class="onboarding-subtitle" id="sim-subtitle" data-i18n="sim_subtitle_running">Folge den
+                        Anweisungen auf dem Bildschirm.</p>
+                </div>
+
+                <!-- Content Area dynamically filled by js based on selected method -->
+                <div id="sim-content-area" style="flex: 1; display: flex; flex-direction: column;">
+                    <!-- Postcard Scan Simulation -->
+                    <div id="sim-postcard-view" style="display: none; flex-direction: column; flex: 1;">
+                        <div class="simulator-view">
+                            <div class="simulator-overlay"></div>
+                            <div class="scanner-line"></div>
+                            <div class="camera-preview">Lese QR-Code von Postkarte ein...</div>
+                        </div>
+                        <p class="onboarding-subtitle" style="text-align: center;">Halte den QR-Code auf der Rückseite
+                            deiner Gartenzaun-Postkarte vor die Kamera.</p>
+                        <button class="btn btn-primary" style="margin-top: auto;"
+                            onclick="completeSimulationFlow()">QR-Code einscannen (Simulieren)</button>
+                    </div>
+
+                    <!-- Video Ident Simulation -->
+                    <div id="sim-video-view" style="display: none; flex-direction: column; flex: 1;">
+                        <div class="simulator-view">
+                            <div class="simulator-video-face"></div>
+                            <div class="camera-preview" style="position: absolute; bottom: 10px;">Bitte richte dein
+                                Gesicht im Kreis aus</div>
+                        </div>
+                        <p class="onboarding-subtitle" style="text-align: center;">Halte deinen Personalausweis neben
+                            dein Gesicht und blicke in die Kamera.</p>
+                        <button class="btn btn-primary" style="margin-top: auto;"
+                            onclick="completeSimulationFlow()">Video-Ident abschließen (Simulieren)</button>
+                    </div>
+
+                    <!-- Neighbor Confirmation Simulation -->
+                    <div id="sim-neighbor-view" style="display: none; flex-direction: column; flex: 1;">
+                        <p class="onboarding-subtitle" style="margin-bottom: 12px;">Wähle einen Nachbarn aus deiner
+                            direkten Umgebung aus, der deine Identität kennt:</p>
+                        <div class="neighbor-list">
+                            <div class="neighbor-item">
+                                <div>
+                                    <div class="neighbor-name">Helga Schmidt</div>
+                                    <div class="neighbor-address">Tulpenweg 12 (Verifiziert)</div>
+                                </div>
+                                <button class="btn btn-secondary group-action-btn"
+                                    onclick="sendNeighborRequest(this, 'Helga Schmidt')">Anfragen</button>
+                            </div>
+                            <div class="neighbor-item">
+                                <div>
+                                    <div class="neighbor-name">Dieter Müller</div>
+                                    <div class="neighbor-address">Tulpenweg 8 (Verifiziert)</div>
+                                </div>
+                                <button class="btn btn-secondary group-action-btn"
+                                    onclick="sendNeighborRequest(this, 'Dieter Müller')">Anfragen</button>
+                            </div>
+                            <div class="neighbor-item">
+                                <div>
+                                    <div class="neighbor-name">Familie Krause</div>
+                                    <div class="neighbor-address">Tulpenweg 15 (Verifiziert)</div>
+                                </div>
+                                <button class="btn btn-secondary group-action-btn"
+                                    onclick="sendNeighborRequest(this, 'Familie Krause')">Anfragen</button>
+                            </div>
+                        </div>
+
+                        <!-- Simulating waiting area -->
+                        <div id="neighbor-waiting"
+                            style="display: none; text-align: center; margin-top: auto; padding: 20px; border-radius: var(--border-radius-md); background-color: var(--color-primary-light);">
+                            <svg class="app-title-logo-icon"
+                                style="animation: scan 2s infinite linear; margin: 0 auto 12px;" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2.5">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            <h3 class="feature-title" id="neighbor-waiting-title">Warte auf Bestätigung...</h3>
+                            <p class="feature-desc">Wir haben eine Anfrage an den Nachbarn gesendet. Dies dauert
+                                normalerweise einen Moment.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="onboarding-buttons" style="margin-top: 24px;">
+                    <button class="btn btn-secondary" onclick="goToOnboardingStep('verify-select')">Abbrechen</button>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- MAIN APP SHELL (tabs-based system) -->
+        <main id="main-app" style="display: none; flex: 1; flex-direction: column;">
+
+            <!-- TAB 1: HOME (Dashboard) -->
+            <section class="screen active" id="tab-home">
+                <!-- Thermometer Card -->
+                <div class="thermometer-container">
+                    <div class="thermometer-header">
+                        <span class="thermometer-title">🌳 Nachbarschafts-Barometer</span>
+                        <span class="thermometer-value" id="barometer-value">8 / 10</span>
+                    </div>
+                    <div class="thermometer-bar-bg">
+                        <div class="thermometer-bar-fill" id="barometer-fill" style="width: 80%;"></div>
+                    </div>
+                    <p class="thermometer-desc">Unsere Nachbarschaft blüht! Diese Woche gab es bereits 8 geteilte
+                        Gegenstände oder gegenseitige Unterstützungen.</p>
+                </div>
+
+                <!-- Gemeinschaftsziel -->
+                <div class="thermometer-container"
+                    style="background-color: var(--color-primary-light); border-color: var(--color-primary); margin-top: -8px;">
+                    <div class="thermometer-header" style="margin-bottom: 4px;">
+                        <span class="thermometer-title" style="font-weight: 800;">🏆 Gemeinschaftsziel</span>
+                    </div>
+                    <p class="thermometer-desc" style="color: var(--color-text-dark); font-weight: 600;">Ziel: 10 gute
+                        Taten diese Woche. Noch 2 bis zum goldenen Kleeblatt-Abzeichen für alle!</p>
+                </div>
+
+                <!-- Deine Botschafter -->
+                <h2 class="section-title">Deine Botschafter</h2>
+                <div class="ambassadors-section">
+                    <div class="ambassador-card">
+                        <div class="ambassador-profile">
+                            <!-- Simulated Ambassador Avatar -->
+                            <div class="feature-icon-wrapper"
+                                style="width: 48px; height: 48px; border: 2px solid var(--color-primary); background-color: var(--color-border); font-size: 24px;">
+                                👩🏼</div>
+                            <div class="ambassador-info">
+                                <div class="ambassador-name">Helga Schmidt</div>
+                                <span class="ambassador-badge">Ehrenamtliche Botschafterin</span>
+                            </div>
+                        </div>
+                        <p class="ambassador-desc">„Ich unterstütze dich sehr gerne bei den ersten Schritten in der App
+                            oder erkläre dir, wie das Teilen funktioniert. Sprich mich einfach an!“</p>
+                        <button class="btn btn-secondary" onclick="openAmbassadorChat('Helga Schmidt')">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                            Helga eine Frage stellen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Gruppen-Sektion -->
+                <div class="section-title">
+                    <span>👥 Nachbarschafts-Gruppen</span>
+                    <button class="btn-text" style="font-size: var(--fs-sm);" onclick="openCreateGroupModal()">+ Neue
+                        Gruppe</button>
+                </div>
+                <div class="groups-section" id="groups-list">
+                    <!-- Group 1 -->
+                    <div class="group-card">
+                        <div style="flex: 1;">
+                            <div class="group-name">🌱 Gartenfreunde Tulpenweg</div>
+                            <div class="group-members">14 Nachbarn aktiv</div>
+                        </div>
+                        <div style="display: flex; gap: 8px; align-items: center;">
+                            <button class="btn btn-primary group-action-btn" style="min-width: 100px;"
+                                onclick="toggleJoinGroup(this, 'Gartenfreunde Tulpenweg')">Beitreten</button>
+                            <button class="btn btn-secondary group-action-btn chat-btn"
+                                style="display: none; padding: 6px 12px;"
+                                onclick="openGroupChat('Gartenfreunde Tulpenweg')">💬 Chat</button>
+                        </div>
+                    </div>
+                    <!-- Group 2 -->
+                    <div class="group-card">
+                        <div style="flex: 1;">
+                            <div class="group-name">🚲 Lastenrad-Gemeinschaft</div>
+                            <div class="group-members">8 Nachbarn aktiv</div>
+                        </div>
+                        <div style="display: flex; gap: 8px; align-items: center;">
+                            <button class="btn btn-primary group-action-btn" style="min-width: 100px;"
+                                onclick="toggleJoinGroup(this, 'Lastenrad-Gemeinschaft')">Beitreten</button>
+                            <button class="btn btn-secondary group-action-btn chat-btn"
+                                style="display: none; padding: 6px 12px;"
+                                onclick="openGroupChat('Lastenrad-Gemeinschaft')">💬 Chat</button>
+                        </div>
+                    </div>
+                    <!-- Group 3 -->
+                    <div class="group-card">
+                        <div style="flex: 1;">
+                            <div class="group-name">☕ Kaffeeklatsch am Sonntag</div>
+                            <div class="group-members">19 Nachbarn aktiv</div>
+                        </div>
+                        <div style="display: flex; gap: 8px; align-items: center;">
+                            <button class="btn btn-primary group-action-btn" style="min-width: 100px;"
+                                onclick="toggleJoinGroup(this, 'Kaffeeklatsch am Sonntag')">Beitreten</button>
+                            <button class="btn btn-secondary group-action-btn chat-btn"
+                                style="display: none; padding: 6px 12px;"
+                                onclick="openGroupChat('Kaffeeklatsch am Sonntag')">💬 Chat</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sanfte Gamification (Abzeichen) -->
+                <h2 class="section-title">Deine Auszeichnungen</h2>
+                <div class="badge-grid">
+                    <div class="badge-item">
+                        <span class="badge-icon">🤝</span>
+                        <span class="badge-name">Erst-Unterstützer</span>
+                    </div>
+                    <div class="badge-item" style="opacity: 0.5;">
+                        <span class="badge-icon">📦</span>
+                        <span class="badge-name">Teil-Profi</span>
+                    </div>
+                    <div class="badge-item" style="opacity: 0.5;">
+                        <span class="badge-icon">🌻</span>
+                        <span class="badge-name">Naturfreund</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: UNTERSTÜTZUNG (Gegenseitige Unterstützung) -->
+            <section class="screen" id="tab-hilfe">
+                <!-- Green Rules Infobox -->
+                <div class="rules-infobox">
+                    <div class="rules-infobox-title">💚 Faire Unterstützung</div>
+                    <ul class="rules-infobox-list">
+                        <li class="rules-infobox-item">Unterstützung ist freiwillig und unentgeltlich.</li>
+                        <li class="rules-infobox-item">Zuverlässigkeit: Absprachen bitte einhalten.</li>
+                        <li class="rules-infobox-item">Private Details gehören nur in den direkten Chat.</li>
+                        <li class="rules-infobox-item">Wertschätzender Umgang miteinander ist Pflicht.</li>
+                    </ul>
+                </div>
+
+                <!-- Tab Toggle -->
+                <div class="segmented-control">
+                    <button class="segmented-btn active" id="btn-show-can-help" onclick="toggleHelpView('can-help')">Ich
+                        kann unterstützen</button>
+                    <button class="segmented-btn" id="btn-show-need-help" onclick="toggleHelpView('need-help')">Ich
+                        brauche Unterstützung</button>
+                </div>
+
+                <!-- Tab View 1: Ich kann unterstützen (Liste von Nachbarschafts-Anfragen) -->
+                <div id="view-can-help" style="display: flex; flex-direction: column; gap: 16px;">
+                    <p class="onboarding-subtitle">Hier siehst du, wer in deiner Nähe Unterstützung sucht. Klicke auf
+                        eine Karte, um Unterstützung anzubieten.</p>
+
+                    <div class="requests-list" id="neighbor-requests-container">
+                        <!-- Request 1 -->
+                        <div class="request-card">
+                            <div class="request-header">
+                                <span class="request-author">Inge Müller (Hausnr. 14)</span>
+                                <span class="request-badge">🛒 Einkäufe</span>
+                            </div>
+                            <p class="request-desc">„Ich schaffe es diese Woche leider nicht zum Supermarkt. Könnte mir
+                                jemand Äpfel, Brot und Milch mitbringen?“</p>
+                            <button class="btn btn-primary" onclick="startHelpMatch('Inge Müller', 'Einkäufe')">
+                                Unterstützung anbieten
+                            </button>
+                        </div>
+
+                        <!-- Request 2 -->
+                        <div class="request-card">
+                            <div class="request-header">
+                                <span class="request-author">Karl Becker (Hausnr. 9)</span>
+                                <span class="request-badge">🔧 Technik-Unterstützung</span>
+                            </div>
+                            <p class="request-desc">„Mein Drucker druckt leider nicht mehr rot. Kennt sich jemand mit
+                                Canon-Druckern aus?“</p>
+                            <button class="btn btn-primary"
+                                onclick="startHelpMatch('Karl Becker', 'Technik-Unterstützung')">
+                                Unterstützung anbieten
+                            </button>
+                        </div>
+
+                        <!-- Request 3 -->
+                        <div class="request-card">
+                            <div class="request-header">
+                                <span class="request-author">Sabine & Paul (Hausnr. 22)</span>
+                                <span class="request-badge">🗑️ Entsorgung</span>
+                            </div>
+                            <p class="request-desc">„Wir haben Holzschnitt im Garten und kein großes Auto. Fährt
+                                demnächst jemand zum Wertstoffhof?“</p>
+                            <button class="btn btn-primary" onclick="startHelpMatch('Sabine & Paul', 'Entsorgung')">
+                                Unterstützung anbieten
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab View 2: Ich brauche Unterstützung (Formular zum Erstellen) -->
+                <div id="view-need-help" style="display: none; flex-direction: column;">
+                    <p class="onboarding-subtitle" style="margin-bottom: 16px;">Wähle einen Bereich aus und beschreibe
+                        kurz, wobei du Unterstützung benötigst.</p>
+
+                    <div class="form-group">
+                        <label class="form-label">Bereich auswählen</label>
+                        <div class="category-grid">
+                            <button class="category-button selected" onclick="selectHelpCategory(this, 'Einkäufe')">
+                                🛒
+                                <span>Einkäufe</span>
+                            </button>
+                            <button class="category-button" onclick="selectHelpCategory(this, 'Gartenarbeit')">
+                                🌱
+                                <span>Garten</span>
+                            </button>
+                            <button class="category-button" onclick="selectHelpCategory(this, 'Technik-Unterstützung')">
+                                🔧
+                                <span>Technik</span>
+                            </button>
+                            <button class="category-button" onclick="selectHelpCategory(this, 'Sonstiges')">
+                                💬
+                                <span>Sonstiges</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="help-request-text">Beschreibung deiner Anfrage</label>
+                        <textarea class="form-textarea" id="help-request-text"
+                            placeholder="Beispiel: Hallo Nachbarn, ich bräuchte Hilfe beim Rasenmähen am Samstag..."></textarea>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="submitHelpRequest()">Unterstützungsanfrage
+                        absenden</button>
+                </div>
+            </section>
+
+            <!-- TAB 3: TEILEN (Verleih-Katalog) -->
+            <section class="screen" id="tab-teilen">
+                <!-- Green Rules Infobox -->
+                <div class="rules-infobox">
+                    <div class="rules-infobox-title">🤝 Faire Nutzung</div>
+                    <ul class="rules-infobox-list">
+                        <li class="rules-infobox-item">Gegenstände sorgfältig und sauber behandeln.</li>
+                        <li class="rules-infobox-item">Pünktlich zum vereinbarten Termin zurückgeben.</li>
+                        <li class="rules-infobox-item">Bei Schäden sofort den Besitzer informieren.</li>
+                        <li class="rules-infobox-item">Danke sagen nicht vergessen!</li>
+                    </ul>
+                </div>
+
+                <input type="text" class="search-bar" id="item-search"
+                    placeholder="Suche nach Geräten (z.B. Leiter, Bohrer)..." onkeyup="filterSharedItems()">
+
+                <div class="section-title">
+                    <span>Verfügbare Gegenstände</span>
+                    <button class="btn-text" style="font-size: var(--fs-sm);" onclick="openAddShareItemModal()">+
+                        Gegenstand teilen</button>
+                </div>
+
+                <div class="items-grid" id="items-container">
+                    <!-- Item 1 -->
+                    <div class="item-card">
+                        <div class="item-card-header">
+                            <div class="item-img-placeholder">🛠️</div>
+                            <div class="item-name">Schlagbohrmaschine</div>
+                        </div>
+                        <div class="feature-desc" style="font-size: var(--fs-xs);">von Klaus Weber (Hausnr. 12)</div>
+                        <span class="item-status available">Sofort verfügbar</span>
+                        <div style="display: flex; flex-direction: column; gap: 6px; margin-top: auto; width: 100%;">
+                            <button class="btn btn-primary"
+                                style="min-height: 40px; font-size: var(--fs-sm); padding: 8px 12px;"
+                                onclick="borrowItem(this, 'Schlagbohrmaschine', 'Klaus Weber')">Ausleihen</button>
+                            <button class="btn btn-secondary chat-btn"
+                                style="display: none; min-height: 40px; font-size: var(--fs-sm); padding: 8px 12px;"
+                                onclick="openBorrowChat('Schlagbohrmaschine', 'Klaus Weber')">💬 Chat mit Klaus</button>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="item-card">
+                        <div class="item-card-header">
+                            <div class="item-img-placeholder">🪜</div>
+                            <div class="item-name">3m Teleskopleiter</div>
+                        </div>
+                        <div class="feature-desc" style="font-size: var(--fs-xs);">von Dieter Müller (Hausnr. 8)</div>
+                        <span class="item-status available">Sofort verfügbar</span>
+                        <div style="display: flex; flex-direction: column; gap: 6px; margin-top: auto; width: 100%;">
+                            <button class="btn btn-primary"
+                                style="min-height: 40px; font-size: var(--fs-sm); padding: 8px 12px;"
+                                onclick="borrowItem(this, '3m Teleskopleiter', 'Dieter Müller')">Ausleihen</button>
+                            <button class="btn btn-secondary chat-btn"
+                                style="display: none; min-height: 40px; font-size: var(--fs-sm); padding: 8px 12px;"
+                                onclick="openBorrowChat('3m Teleskopleiter', 'Dieter Müller')">💬 Chat mit
+                                Dieter</button>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="item-card">
+                        <div class="item-card-header">
+                            <div class="item-img-placeholder">🚲</div>
+                            <div class="item-name">E-Lastenrad</div>
+                        </div>
+                        <div class="feature-desc" style="font-size: var(--fs-xs);">von Familie Krause (Hausnr. 15)</div>
+                        <span class="item-status available">Sofort verfügbar</span>
+                        <div style="display: flex; flex-direction: column; gap: 6px; margin-top: auto; width: 100%;">
+                            <button class="btn btn-primary"
+                                style="min-height: 40px; font-size: var(--fs-sm); padding: 8px 12px;"
+                                onclick="borrowItem(this, 'E-Lastenrad', 'Familie Krause')">Ausleihen</button>
+                            <button class="btn btn-secondary chat-btn"
+                                style="display: none; min-height: 40px; font-size: var(--fs-sm); padding: 8px 12px;"
+                                onclick="openBorrowChat('E-Lastenrad', 'Familie Krause')">💬 Chat mit Krauses</button>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="item-card">
+                        <div class="item-card-header">
+                            <div class="item-img-placeholder">✂️</div>
+                            <div class="item-name">Elektr. Heckenschere</div>
+                        </div>
+                        <div class="feature-desc" style="font-size: var(--fs-xs);">von Sabine & Paul (Hausnr. 22)</div>
+                        <span class="item-status borrowed">Aktuell verliehen</span>
+                        <div style="display: flex; flex-direction: column; gap: 6px; margin-top: auto; width: 100%;">
+                            <button class="btn btn-secondary"
+                                style="min-height: 40px; font-size: var(--fs-sm); padding: 8px 12px;"
+                                disabled>Ausgeliehen</button>
+                            <button class="btn btn-secondary chat-btn"
+                                style="min-height: 40px; font-size: var(--fs-sm); padding: 8px 12px;"
+                                onclick="openBorrowChat('Elektr. Heckenschere', 'Sabine & Paul')">💬 Chat mit
+                                Sabine</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: EVENTS (Events & Begegnungen) -->
+            <section class="screen" id="tab-events">
+                <!-- Green Rules Infobox -->
+                <div class="rules-infobox">
+                    <div class="rules-infobox-title">🌱 Gemeinsame Aktionen</div>
+                    <ul class="rules-infobox-list">
+                        <li class="rules-infobox-item">Zusagen sind verbindlich – bitte rechtzeitig absagen.</li>
+                        <li class="rules-infobox-item">Gemeinsam anpacken: Jede helfende Hand zählt.</li>
+                        <li class="rules-infobox-item">Müll vermeiden und den Treffpunkt sauber hinterlassen.</li>
+                        <li class="rules-infobox-item">Respektvoller Austausch bei allen Begegnungen.</li>
+                    </ul>
+                </div>
+
+                <p class="onboarding-subtitle" style="margin-bottom: 20px;">Gemeinsam aktiv: Hier findest du Aktionen
+                    und Treffen in deiner Nachbarschaft.</p>
+
+                <div class="events-list">
+                    <!-- Event 1 -->
+                    <div class="event-card">
+                        <div class="event-title">🗑️ Sauberes Viertel: Müllsammel-Aktion</div>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <span>📅</span>
+                                <span>Samstag, 13. Juni um 10:00 Uhr</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <span>📍</span>
+                                <span>Treffpunkt: Am Spielplatz Tulpenweg</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <span>👥</span>
+                                <span class="event-participants-count">8 Nachbarn nehmen teil</span>
+                            </div>
+                        </div>
+                        <p class="event-desc">Wir machen unsere Nachbarschaft schick! Greifzangen und Müllsäcke werden
+                            gestellt. Im Anschluss gibt es kühle Getränke am Gartenzaun.</p>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn btn-primary" style="flex: 1;"
+                                onclick="toggleJoinEvent(this, 'Sauberes Viertel: Müllsammel-Aktion')">Ich bin
+                                dabei!</button>
+                            <button class="btn btn-secondary chat-btn"
+                                style="display: none; flex: 1; padding: 6px 12px;"
+                                onclick="openEventChat('Sauberes Viertel: Müllsammel-Aktion')">💬 Event-Chat</button>
+                        </div>
+                    </div>
+
+                    <!-- Event 2 -->
+                    <div class="event-card">
+                        <div class="event-title">🍪 Plätzchentausch & Sommerkaffee</div>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <span>📅</span>
+                                <span>Sonntag, 21. Juni um 15:00 Uhr</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <span>📍</span>
+                                <span>Treffpunkt: Helgas Vorgarten (Hausnr. 12)</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <span>👥</span>
+                                <span class="event-participants-count">12 Nachbarn nehmen teil</span>
+                            </div>
+                        </div>
+                        <p class="event-desc">Jeder bringt eine Kleinigkeit zu knabbern oder zu trinken mit. Wir
+                            quatschen, tauschen Rezepte und lernen uns besser kennen.</p>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn btn-primary" style="flex: 1;"
+                                onclick="toggleJoinEvent(this, 'Plätzchentausch & Sommerkaffee')">Ich bin
+                                dabei!</button>
+                            <button class="btn btn-secondary chat-btn"
+                                style="display: none; flex: 1; padding: 6px 12px;"
+                                onclick="openEventChat('Plätzchentausch & Sommerkaffee')">💬 Event-Chat</button>
+                        </div>
+                    </div>
+
+                    <!-- Event 3 -->
+                    <div class="event-card">
+                        <div class="event-title">🌱 Garten-Mit-Mach-Tag</div>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <span>📅</span>
+                                <span>Samstag, 27. Juni um 11:00 Uhr</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <span>📍</span>
+                                <span>Treffpunkt: Gemeinschaftsgarten Ecke Tulpenweg/Hauptstr.</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <span>👥</span>
+                                <span class="event-participants-count">5 Nachbarn nehmen teil</span>
+                            </div>
+                        </div>
+                        <p class="event-desc">Wir pflanzen neue Stauden und jäten Unkraut. Bringt gerne eigene
+                            Pflanzensprösslinge oder Ableger zum Tauschen mit!</p>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn btn-primary" style="flex: 1;"
+                                onclick="toggleJoinEvent(this, 'Garten-Mit-Mach-Tag')">Ich bin dabei!</button>
+                            <button class="btn btn-secondary chat-btn"
+                                style="display: none; flex: 1; padding: 6px 12px;"
+                                onclick="openEventChat('Garten-Mit-Mach-Tag')">💬 Event-Chat</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 5: PROFIL (Nutzerprofil) -->
+            <section class="screen" id="tab-profil">
+                <div class="profile-header" style="flex-direction: column; text-align: center; gap: 16px;">
+                    <div class="profile-avatar-container" style="margin: 0 auto; width: 120px; height: 120px;">
+                        <div id="profile-avatar-preview-container" class="profile-avatar"
+                            style="width: 100%; height: 100%; font-size: 60px; background-color: var(--color-primary-light); color: var(--color-primary); display: flex; align-items: center; justify-content: center;">
+                            <span id="profile-avatar-placeholder">🧔</span>
+                            <img id="profile-avatar-image" src="" alt="Profilbild"
+                                style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: none;">
+                        </div>
+                        <div class="verification-status-badge" title="Verifiziertes Mitglied"
+                            style="bottom: 0; right: 0;">
+                            ✓
+                        </div>
+                    </div>
+
+                    <div
+                        style="display: flex; flex-direction: column; gap: 8px; align-items: center; width: 100%; max-width: 250px;">
+                        <input type="file" id="profile-image-input" accept="image/png, image/jpeg, image/heic"
+                            style="display: none;" onchange="handleImageSelection(this, 'profile')">
+
+                        <button id="profile-btn-avatar" class="btn btn-secondary"
+                            style="width: 100%; padding: 8px 12px; font-size: var(--fs-sm); display: flex; align-items: center; justify-content: center; gap: 8px;"
+                            onclick="openAvatarEditor()">
+                            Avatar erstellen
+                        </button>
+
+                        <button id="profile-btn-photo" class="btn btn-secondary"
+                            style="width: 100%; padding: 8px 12px; font-size: var(--fs-sm); display: flex; align-items: center; justify-content: center; gap: 8px;"
+                            onclick="document.getElementById('profile-image-input').click()">
+                            Foto hochladen
+                        </button>
+
+                        <button id="profile-remove-active-btn" class="btn btn-text"
+                            style="color: var(--color-danger); margin-top: 4px; padding: 4px; font-size: var(--fs-xs); display: none;"
+                            onclick="removeActiveProfilePicture()">Foto löschen</button>
+                    </div>
+
+                    <div style="margin-top: 8px;">
+                        <h1 class="profile-name" id="profile-display-name" style="margin-bottom: 8px;">Max Mustermann
+                        </h1>
+                        <span class="ambassador-badge" id="profile-verify-status"
+                            style="background-color: #E8F8F5; color: var(--color-success); display: inline-block;">✓
+                            Verifizierter Nachbar</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="profile-name-input">Dein Name</label>
+                    <input type="text" class="search-bar" id="profile-name-input" value="Max Mustermann"
+                        style="margin-bottom: 0;" oninput="updateProfileName(this.value)">
+                </div>
+
+                <h2 class="section-title">Deine Adresse & Umkreis</h2>
+                <div class="form-group"
+                    style="background-color: var(--color-card-bg); border: 1px solid var(--color-border); padding: 16px; border-radius: var(--border-radius-md); display: flex; flex-direction: column; gap: 12px;">
+                    <div>
+                        <label class="form-label" for="profile-street-input"
+                            style="font-size: var(--fs-sm); margin-bottom: 4px;">Straße & Hausnummer</label>
+                        <input type="text" class="search-bar" id="profile-street-input" value=""
+                            oninput="updateProfileStreet(this.value)"
+                            style="margin-bottom: 0; padding: 8px 12px; font-size: var(--fs-sm);">
+                    </div>
+                    <div>
+                        <label class="form-label" for="profile-zip-input"
+                            style="font-size: var(--fs-sm); margin-bottom: 4px;">Postleitzahl & Ort</label>
+                        <input type="text" class="search-bar" id="profile-zip-input" value=""
+                            oninput="updateProfileZip(this.value)"
+                            style="margin-bottom: 0; padding: 8px 12px; font-size: var(--fs-sm);">
+                    </div>
+                    <div>
+                        <label class="form-label"
+                            style="font-size: var(--fs-sm); margin-bottom: 6px;">Nachbar-Umkreis</label>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn btn-secondary" id="profile-rad-50"
+                                style="min-height: 40px; font-size: var(--fs-sm); padding: 6px 12px; flex: 1;"
+                                onclick="updateProfileRadius(50)">50m</button>
+                            <button class="btn btn-primary" id="profile-rad-100"
+                                style="min-height: 40px; font-size: var(--fs-sm); padding: 6px 12px; flex: 1;"
+                                onclick="updateProfileRadius(100)">100m</button>
+                            <button class="btn btn-secondary" id="profile-rad-500"
+                                style="min-height: 40px; font-size: var(--fs-sm); padding: 6px 12px; flex: 1;"
+                                onclick="updateProfileRadius(500)">500m</button>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Meine Interessen</h2>
+                <div class="tag-group" id="profile-interests-display"
+                    style="background-color: var(--color-white); border: 1px solid var(--color-border); padding: 16px; border-radius: var(--border-radius-md); margin-bottom: 20px;">
+                    <span class="tag-pill active">Keine Interessen ausgewählt</span>
+                </div>
+
+                <h2 class="section-title">Meine Fähigkeiten (Ich kann unterstützen bei...)</h2>
+                <div class="skills-list" id="profile-skills-checkboxes">
+                    <label class="skill-checkbox-item" for="skill-shopping">
+                        <input type="checkbox" id="skill-shopping" checked onchange="toggleProfileSkill('Einkäufe')">
+                        <span class="skill-checkbox-label">🛒 Einkäufe mitbringen</span>
+                    </label>
+                    <label class="skill-checkbox-item" for="skill-garden">
+                        <input type="checkbox" id="skill-garden" checked onchange="toggleProfileSkill('Gartenarbeit')">
+                        <span class="skill-checkbox-label">🌱 Garten & Pflanzen pflegen</span>
+                    </label>
+                    <label class="skill-checkbox-item" for="skill-tech">
+                        <input type="checkbox" id="skill-tech" onchange="toggleProfileSkill('Technik-Unterstützung')">
+                        <span class="skill-checkbox-label">🔧 Technik & Handwerk erklären</span>
+                    </label>
+                    <label class="skill-checkbox-item" for="skill-craft">
+                        <input type="checkbox" id="skill-craft" onchange="toggleProfileSkill('Handwerk')">
+                        <span class="skill-checkbox-label">🔨 Handwerk</span>
+                    </label>
+                    <label class="skill-checkbox-item" for="skill-animals">
+                        <input type="checkbox" id="skill-animals" onchange="toggleProfileSkill('Haustier-Betreuung')">
+                        <span class="skill-checkbox-label">🐾 Haustier-Betreuung</span>
+                    </label>
+                    <label class="skill-checkbox-item" for="skill-chat">
+                        <input type="checkbox" id="skill-chat" onchange="toggleProfileSkill('Gesellschaft leisten')">
+                        <span class="skill-checkbox-label">💬 Gesellschaft leisten</span>
+                    </label>
+                </div>
+
+                <h2 class="section-title">Gegenstände zum Verleihen</h2>
+                <div class="form-group">
+                    <input type="text" class="search-bar" id="profile-lend-items-input" value=""
+                        placeholder="z.B. Teleskopleiter, Schlagbohrer" style="margin-bottom: 0;"
+                        oninput="updateProfileLendItems(this.value)">
+                </div>
+
+                <h2 class="section-title" data-i18n="settings_title">Barrierefreiheit & Einstellungen</h2>
+                <div style="margin-bottom: 24px;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; background-color: var(--color-card-bg); border: 1px solid var(--color-border); padding: 14px 16px; border-radius: var(--border-radius-md); margin-bottom: 16px;">
+                        <span style="font-weight: 600;" data-i18n="settings_language">Sprache</span>
+                        <div class="custom-select-container" id="profile-lang-select">
+                            <div class="custom-select-trigger" onclick="toggleCustomSelect(this)" tabindex="0">
+                                <div class="custom-select-value">
+                                    <img src="Bilder/D Flagge.png" alt="DE"><span>Deutsch</span>
+                                </div>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M6 9l6 6 6-6" />
+                                </svg>
+                            </div>
+                            <div class="custom-select-options">
+                                <div class="custom-select-option" onclick="selectLanguage('de')" tabindex="0">
+                                    <img src="Bilder/D Flagge.png" alt="DE"><span>Deutsch</span>
+                                </div>
+                                <div class="custom-select-option" onclick="selectLanguage('en')" tabindex="0">
+                                    <img src="Bilder/US Flagge.png" alt="US"><span>English</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tag-grid">
+                        <label class="tag-tile settings-high-contrast-tile" for="profile-toggle-high-contrast"
+                            style="justify-content: flex-start; gap: 12px; padding: 14px 16px; margin: 0;">
+                            <input type="checkbox" id="profile-toggle-high-contrast" onchange="toggleHighContrast(this.checked)"
+                                style="width: 18px; height: 18px; margin: 0; cursor: pointer;">
+                            <span data-i18n="settings_high_contrast">Hoher Kontrast</span>
+                        </label>
+                        <label class="tag-tile settings-large-font-tile" for="profile-toggle-large-font"
+                            style="justify-content: flex-start; gap: 12px; padding: 14px 16px; margin: 0;">
+                            <input type="checkbox" id="profile-toggle-large-font" onchange="toggleLargeFont(this.checked)"
+                                style="width: 18px; height: 18px; margin: 0; cursor: pointer;">
+                            <span data-i18n="settings_large_font">Große Schrift</span>
+                        </label>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Privatsphäre & Sicherheit</h2>
+                <div class="skills-list">
+                    <label class="skill-checkbox-item" for="privacy-address">
+                        <input type="checkbox" id="privacy-address" checked>
+                        <span class="skill-checkbox-label">Hausnummer für Nicht-Nachbarn verbergen</span>
+                    </label>
+                    <label class="skill-checkbox-item" for="privacy-status">
+                        <input type="checkbox" id="privacy-status" checked>
+                        <span class="skill-checkbox-label">Online-Status nicht anzeigen</span>
+                    </label>
+                </div>
+
+                <button class="btn btn-secondary"
+                    style="margin-top: 12px; color: var(--color-danger); border-color: var(--color-danger); background: transparent;"
+                    onclick="logoutSimulation()">Abmelden</button>
+            </section>
+
+            <!-- Bottom Navigation Bar -->
+            <nav class="bottom-nav">
+                <!-- Home -->
+                <button class="nav-item active" onclick="switchTab('home')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <span data-i18n="nav_home">Home</span>
+                </button>
+                <!-- Hilfe -->
+                <button class="nav-item" onclick="switchTab('hilfe')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path
+                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                        </path>
+                    </svg>
+                    <span data-i18n="nav_support">Unterstützung</span>
+                </button>
+                <!-- Teilen -->
+                <button class="nav-item" onclick="switchTab('teilen')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                    <span data-i18n="nav_share">Teilen</span>
+                </button>
+                <!-- Events -->
+                <button class="nav-item" onclick="switchTab('events')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    <span data-i18n="nav_events">Events</span>
+                </button>
+                <!-- Profil -->
+                <button class="nav-item" onclick="switchTab('profil')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span data-i18n="nav_profile">Profil</span>
+                </button>
+            </nav>
+
+        </main>
+
+        <!-- TOAST NOTIFICATION -->
+        <div class="toast" id="global-toast">Erfolgreich durchgeführt!</div>
+
+        <!-- MODAL OVERLAYS -->
+
+        <!-- Modal 1: Netiquette -->
+        <div class="modal-overlay" id="modal-netiquette">
+            <div class="modal-content" style="max-height: 85vh;">
+                <button class="modal-close-btn" onclick="closeGlobalModal('netiquette')">✕</button>
+                <h2 class="modal-title" data-i18n="netiquette_title">Gartenzaun-Netiquette</h2>
+
+                <!-- Vorlesefunktion UI -->
+                <div class="tts-controls" id="tts-controls-long"
+                    style="background-color: var(--color-primary-light); padding: 12px; border-radius: var(--border-radius-md); margin-bottom: 16px; display: flex; flex-direction: column; gap: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span
+                            style="font-weight: 600; font-size: var(--fs-sm); display: flex; align-items: center; gap: 6px;"><i
+                                data-lucide="volume-2" style="width: 18px; height: 18px;"></i> <span
+                                data-i18n="tts_title">Vorlesefunktion</span></span>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn btn-secondary" style="padding: 4px 8px; min-height: 0;"
+                                onclick="startTTS('netiquette-long')" id="tts-play-long" title="Vorlesen"><i
+                                    data-lucide="play" style="width: 18px; height: 18px;"></i></button>
+                            <button class="btn btn-secondary" style="padding: 4px 8px; min-height: 0; display: none;"
+                                onclick="pauseTTS('netiquette-long')" id="tts-pause-long" title="Pause"><i
+                                    data-lucide="pause" style="width: 18px; height: 18px;"></i></button>
+                            <button class="btn btn-secondary" style="padding: 4px 8px; min-height: 0; display: none;"
+                                onclick="stopTTS('netiquette-long')" id="tts-stop-long" title="Stopp"><i
+                                    data-lucide="square" style="width: 18px; height: 18px;"></i></button>
+                        </div>
+                    </div>
+                    <div style="height: 4px; background-color: var(--color-border); border-radius: 2px; overflow: hidden; display: none;"
+                        id="tts-progress-container-long">
+                        <div id="tts-progress-bar-long"
+                            style="height: 100%; width: 0%; background-color: var(--color-primary); transition: width 0.3s ease;">
+                        </div>
+                    </div>
+                </div>
+                <div id="netiquette-long-text-content"
+                    style="font-size: var(--fs-sm); color: var(--color-text-dark); display: flex; flex-direction: column; gap: 12px; line-height: 1.5; overflow-y: auto; max-height: 55vh; padding-right: 8px;"
+                    data-i18n-html="netiquette_long_html">
+                </div>
+                <button class="btn btn-primary" style="margin-top: 20px;"
+                    onclick="closeGlobalModal('netiquette')">Schließen</button>
+            </div>
+        </div>
+
+        <!-- Modal 2: Hilfe / FAQ -->
+        <div class="modal-overlay" id="modal-hilfe">
+            <div class="modal-content">
+                <button class="modal-close-btn" onclick="closeGlobalModal('hilfe')">✕</button>
+                <h2 class="modal-title">Unterstützung & Kontakt</h2>
+                <div
+                    style="font-size: var(--fs-sm); color: var(--color-text-dark); display: flex; flex-direction: column; gap: 12px;">
+                    <p><strong>Wie funktioniert das Ausleihen?</strong><br>Klicke im Bereich „Teilen“ auf einen freien
+                        Gegenstand und bestätige die Ausleihe. Stimmt euch über den Chat ab.</p>
+                    <p><strong>Kostet Gartenzaun Geld?</strong><br>Nein, die Nutzung der App und das Teilen von
+                        Gegenständen sind komplett kostenlos und basieren auf Gemeinschaftshilfe.</p>
+                    <p><strong>Wer betreibt die App?</strong><br>Die App wird von einem ehrenamtlichen
+                        Nachbarschaftsverein betrieben, um den Zusammenhalt im Tulpenweg zu stärken.</p>
+                </div>
+                <button class="btn btn-primary" style="margin-top: 20px;"
+                    onclick="closeGlobalModal('hilfe')">Schließen</button>
+            </div>
+        </div>
+
+        <!-- Modal 3: Über uns -->
+        <div class="modal-overlay" id="modal-ueber-uns">
+            <div class="modal-content">
+                <button class="modal-close-btn" onclick="closeGlobalModal('ueber-uns')">✕</button>
+                <h2 class="modal-title">Über Gartenzaun</h2>
+                <div
+                    style="font-size: var(--fs-sm); color: var(--color-text-dark); display: flex; flex-direction: column; gap: 12px;">
+                    <p>Gartenzaun entstand aus der Idee, den Austausch zwischen den Generationen in unserer
+                        Nachbarschaft zu vereinfachen.</p>
+                    <p>Ob Werkzeuge teilen, beim Einkauf unterstützen oder sich einfach bei einer Tasse Kaffee
+                        austauschen: Gartenzaun bringt Menschen von 25 bis 80 Jahren zusammen.</p>
+                    <p>Entwickelt mit Herz, Engagement und viel Liebe für unsere Nachbarschaft. ❤️</p>
+                </div>
+                <button class="btn btn-primary" style="margin-top: 20px;"
+                    onclick="closeGlobalModal('ueber-uns')">Schließen</button>
+            </div>
+        </div>
+
+        <!-- Modal 4: FAQs -->
+        <div class="modal-overlay" id="modal-faqs">
+            <div class="modal-content">
+                <button class="modal-close-btn" onclick="closeGlobalModal('faqs')">✕</button>
+                <h2 class="modal-title">Häufige Fragen (FAQs)</h2>
+                <div
+                    style="font-size: var(--fs-sm); color: var(--color-text-dark); display: flex; flex-direction: column; gap: 12px;">
+                    <p><strong>Ist mein Profil öffentlich?</strong><br>Nur deine verifizierten Nachbarn können deinen
+                        Namen und deine Fähigkeiten sehen. Deine Hausnummer wird standardmäßig geschützt.</p>
+                    <p><strong>Wer sind die Botschafter?</strong><br>Botschafter sind hilfsbereite Nachbarn, die sich
+                        bereit erklärt haben, neuen Mitgliedern die App zu erklären.</p>
+                    <p><strong>Kann ich Gegenstände wieder löschen?</strong><br>Ja, unter deinem Profil oder direkt im
+                        Teilen-Bereich kannst du deine eigenen eingestellten Gegenstände bearbeiten.</p>
+                </div>
+                <button class="btn btn-primary" style="margin-top: 20px;"
+                    onclick="closeGlobalModal('faqs')">Schließen</button>
+            </div>
+        </div>
+
+        <!-- Modal 5: Botschafter-Chat & Hilfeberechtigten-Chat -->
+        <div class="modal-overlay" id="modal-chat">
+            <div class="modal-content" style="padding: 16px;">
+                <button class="modal-close-btn" onclick="closeChatModal()">✕</button>
+
+                <div class="chat-header-container">
+                    <h2 class="modal-title" id="chat-title" style="margin-bottom: 0;">Chat mit Helga</h2>
+                    <button class="chat-report-btn" onclick="openGlobalModal('report')" title="Inhalt melden"
+                        aria-label="Beitrag melden">
+                        <!-- Alert Triangle SVG -->
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
+                            </path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="chat-container">
+                    <div class="chat-messages" id="chat-messages-box">
+                        <div class="chat-bubble received" id="chat-welcome-msg">Hallo! Wie kann ich dich in der
+                            Nachbarschaft oder in der App unterstützen?</div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" class="chat-input" id="chat-text-input"
+                            placeholder="Schreibe eine Nachricht..."
+                            onkeydown="if(event.key === 'Enter') sendChatMessage()">
+                        <button class="btn btn-primary chat-send-btn" onclick="sendChatMessage()">Senden</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal 4.5: Verifizierung Info -->
+        <div class="modal-overlay" id="modal-verify-info">
+            <div class="modal-content">
+                <button class="modal-close-btn" onclick="closeGlobalModal('verify-info')">✕</button>
+                <h2 class="modal-title">Warum verifizieren?</h2>
+                <div
+                    style="font-size: var(--fs-sm); color: var(--color-text-dark); display: flex; flex-direction: column; gap: 12px; line-height: 1.5;">
+                    <p>Gartenzaun bringt echte Nachbarinnen und Nachbarn zusammen.</p>
+                    <p>Damit sich alle sicher fühlen können, ist es wichtig, dass jede Person ihre Identität bestätigt.
+                    </p>
+                    <p>Die Verifizierung schützt die Gemeinschaft vor Fake‑Profilen und sorgt dafür, dass Vertrauen
+                        entstehen kann.</p>
+                    <p
+                        style="font-weight: 600; color: var(--color-primary); border-top: 1px solid var(--color-border); padding-top: 10px; margin-top: 6px;">
+                        🔒 Deine Daten sind bei uns sicher. Wir halten uns an die DSGVO und speichern deine Daten auf
+                        einem deutschen Server.
+                    </p>
+                </div>
+                <button class="btn btn-primary" style="margin-top: 20px;"
+                    onclick="closeGlobalModal('verify-info')">Verstanden</button>
+            </div>
+        </div>
+
+        <!-- Modal 5.5: Beitrag melden -->
+        <div class="modal-overlay" id="modal-report">
+            <div class="modal-content">
+                <button class="modal-close-btn" onclick="closeGlobalModal('report')">✕</button>
+                <h2 class="modal-title">Beitrag melden</h2>
+
+                <div style="text-align: center; margin-bottom: 16px;">
+                    <!-- Phone illustration with warning bubble -->
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round"
+                        style="color: var(--color-primary); margin: 0 auto;">
+                        <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                        <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                        <circle cx="12" cy="9" r="3" fill="var(--color-primary-light)"></circle>
+                        <path d="M12 9v2" stroke="var(--color-accent)" stroke-width="2.5"></path>
+                        <path d="M12 13v.01" stroke="var(--color-accent)" stroke-width="2.5"></path>
+                    </svg>
+                </div>
+
+                <p class="onboarding-subtitle"
+                    style="font-size: var(--fs-sm); text-align: center; margin-bottom: 12px; font-weight: bold;">Was
+                    möchtest du melden?</p>
+
+                <div class="report-options-list">
+                    <div class="report-option" onclick="submitReport('Unangemessener Inhalt')">
+                        <div class="report-option-content">
+                            <div class="report-option-icon">⚠️</div>
+                            <div class="report-option-text">
+                                <span class="report-option-title">Unangemessener Inhalt</span>
+                                <span class="report-option-desc">Beleidigungen, Hassrede, Gewalt</span>
+                            </div>
+                        </div>
+                        <span class="report-arrow">›</span>
+                    </div>
+
+                    <div class="report-option" onclick="submitReport('Spam / Werbung')">
+                        <div class="report-option-content">
+                            <div class="report-option-icon">📢</div>
+                            <div class="report-option-text">
+                                <span class="report-option-title">Spam / Werbung</span>
+                                <span class="report-option-desc">Unerwünschte Werbung oder Spam</span>
+                            </div>
+                        </div>
+                        <span class="report-arrow">›</span>
+                    </div>
+
+                    <div class="report-option" onclick="submitReport('Falsche Informationen')">
+                        <div class="report-option-content">
+                            <div class="report-option-icon">🔍</div>
+                            <div class="report-option-text">
+                                <span class="report-option-title">Falsche Informationen</span>
+                                <span class="report-option-desc">Irreführende oder falsche Inhalte</span>
+                            </div>
+                        </div>
+                        <span class="report-arrow">›</span>
+                    </div>
+
+                    <div class="report-option" onclick="submitReport('Betrug / Scam')">
+                        <div class="report-option-content">
+                            <div class="report-option-icon">🔒</div>
+                            <div class="report-option-text">
+                                <span class="report-option-title">Betrug / Scam</span>
+                                <span class="report-option-desc">Verdächtige Aktivitäten oder Betrugsversuche</span>
+                            </div>
+                        </div>
+                        <span class="report-arrow">›</span>
+                    </div>
+
+                    <div class="report-option" onclick="submitReport('Sonstiges')">
+                        <div class="report-option-content">
+                            <div class="report-option-icon">💬</div>
+                            <div class="report-option-text">
+                                <span class="report-option-title">Sonstiges</span>
+                                <span class="report-option-desc">Etwas anderes</span>
+                            </div>
+                        </div>
+                        <span class="report-arrow">›</span>
+                    </div>
+                </div>
+
+                <div class="report-disclaimer">
+                    <span class="report-disclaimer-icon">🛡️</span>
+                    <span>Deine Meldung ist anonym und hilft, unsere Nachbarschaft sicher zu halten.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal 6: Neue Gruppe gründen -->
+        <div class="modal-overlay" id="modal-create-group">
+            <div class="modal-content">
+                <button class="modal-close-btn" onclick="closeCreateGroupModal()">✕</button>
+                <h2 class="modal-title">Neue Gruppe gründen</h2>
+
+                <div class="form-group">
+                    <label class="form-label" for="new-group-name">Name der Gruppe</label>
+                    <input type="text" class="search-bar" id="new-group-name" placeholder="z.B. Spieleabend Tulpenweg"
+                        style="margin-bottom: 0;">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="new-group-desc">Beschreibung</label>
+                    <textarea class="form-textarea" id="new-group-desc"
+                        placeholder="Worum geht es in dieser Gruppe? Wer kann mitmachen?"
+                        style="min-height: 80px;"></textarea>
+                </div>
+
+                <button class="btn btn-primary" onclick="submitCreateGroup()">Gruppe gründen</button>
+            </div>
+        </div>
+
+        <!-- Modal 7: Neuen Gegenstand teilen -->
+        <div class="modal-overlay" id="modal-add-item">
+            <div class="modal-content">
+                <button class="modal-close-btn" onclick="closeAddShareItemModal()">✕</button>
+                <h2 class="modal-title">Gegenstand zum Teilen hinzufügen</h2>
+
+                <div class="form-group">
+                    <label class="form-label" for="new-item-name">Name des Gegenstands</label>
+                    <input type="text" class="search-bar" id="new-item-name" placeholder="z.B. Vertikutierer, Bohrer"
+                        style="margin-bottom: 0;">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="new-item-icon">Kategorie / Symbol</label>
+                    <div style="display: flex; gap: 8px; justify-content: space-around; font-size: 28px;">
+                        <button class="category-button selected" style="padding: 10px; width: 60px; height: 60px;"
+                            onclick="selectItemIcon(this, '🛠️')">🛠️</button>
+                        <button class="category-button" style="padding: 10px; width: 60px; height: 60px;"
+                            onclick="selectItemIcon(this, '🪜')">🪜</button>
+                        <button class="category-button" style="padding: 10px; width: 60px; height: 60px;"
+                            onclick="selectItemIcon(this, '🚲')">🚲</button>
+                        <button class="category-button" style="padding: 10px; width: 60px; height: 60px;"
+                            onclick="selectItemIcon(this, '🔌')">🔌</button>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="submitAddShareItem()">Hinzufügen</button>
+            </div>
+        </div>
+
+        <!-- Modal 8: Avatar Editor -->
+        <div class="modal-overlay" id="modal-avatar-editor">
+            <div class="modal-content" style="max-width: 400px; padding: 20px;">
+                <button class="modal-close-btn" onclick="closeAvatarEditor()">✕</button>
+                <h2 class="modal-title">Avatar erstellen</h2>
+
+                <div style="text-align: center;">
+                    <!-- Live Preview -->
+                    <div id="avatar-live-preview"
+                        style="width: 140px; height: 140px; margin: 0 auto 24px auto; border-radius: 50%; overflow: hidden; border: 4px solid var(--color-white); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                        <!-- SVG gets injected here -->
+                    </div>
+
+                    <!-- Controls -->
+                    <div style="text-align: left;">
+                        <!-- Shape -->
+                        <div style="margin-bottom: 16px;">
+                            <label
+                                style="display: block; font-weight: bold; margin-bottom: 8px; font-size: var(--fs-sm);">Kopfform</label>
+                            <div style="display: flex; gap: 8px;">
+                                <button class="avatar-option-btn active" data-category="shape" data-value="rund"
+                                    onclick="updateAvatarPreview('shape', 'rund')">Rund</button>
+                                <button class="avatar-option-btn" data-category="shape" data-value="oval"
+                                    onclick="updateAvatarPreview('shape', 'oval')">Oval</button>
+                                <button class="avatar-option-btn" data-category="shape" data-value="eckig"
+                                    onclick="updateAvatarPreview('shape', 'eckig')">Eckig</button>
+                            </div>
+                        </div>
+
+                        <!-- Skin Color -->
+                        <div style="margin-bottom: 16px;">
+                            <label
+                                style="display: block; font-weight: bold; margin-bottom: 8px; font-size: var(--fs-sm);">Hautfarbe</label>
+                            <div style="display: flex; gap: 12px;">
+                                <button class="avatar-color-btn active" style="background: #fce2c4;"
+                                    data-category="skinColor" data-value="#fce2c4"
+                                    onclick="updateAvatarPreview('skinColor', '#fce2c4')"></button>
+                                <button class="avatar-color-btn" style="background: #f1c27d;" data-category="skinColor"
+                                    data-value="#f1c27d" onclick="updateAvatarPreview('skinColor', '#f1c27d')"></button>
+                                <button class="avatar-color-btn" style="background: #c68642;" data-category="skinColor"
+                                    data-value="#c68642" onclick="updateAvatarPreview('skinColor', '#c68642')"></button>
+                                <button class="avatar-color-btn" style="background: #8d5524;" data-category="skinColor"
+                                    data-value="#8d5524" onclick="updateAvatarPreview('skinColor', '#8d5524')"></button>
+                                <button class="avatar-color-btn" style="background: #3d2204;" data-category="skinColor"
+                                    data-value="#3d2204" onclick="updateAvatarPreview('skinColor', '#3d2204')"></button>
+                            </div>
+                        </div>
+
+                        <!-- Hair Style -->
+                        <div style="margin-bottom: 16px;">
+                            <label
+                                style="display: block; font-weight: bold; margin-bottom: 8px; font-size: var(--fs-sm);">Frisur</label>
+                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                <button class="avatar-option-btn active" data-category="hairStyle" data-value="kurz"
+                                    onclick="updateAvatarPreview('hairStyle', 'kurz')">Kurz</button>
+                                <button class="avatar-option-btn" data-category="hairStyle" data-value="lang"
+                                    onclick="updateAvatarPreview('hairStyle', 'lang')">Emo</button>
+                                <button class="avatar-option-btn" data-category="hairStyle" data-value="lang_offen"
+                                    onclick="updateAvatarPreview('hairStyle', 'lang_offen')">Lange Haare</button>
+                                <button class="avatar-option-btn" data-category="hairStyle" data-value="lockig"
+                                    onclick="updateAvatarPreview('hairStyle', 'lockig')">Lockig</button>
+                                <button class="avatar-option-btn" data-category="hairStyle" data-value="glatze"
+                                    onclick="updateAvatarPreview('hairStyle', 'glatze')">Keine</button>
+                            </div>
+                        </div>
+
+                        <!-- Hair Color -->
+                        <div style="margin-bottom: 16px;">
+                            <label
+                                style="display: block; font-weight: bold; margin-bottom: 8px; font-size: var(--fs-sm);">Haarfarbe</label>
+                            <div style="display: flex; gap: 12px;">
+                                <button class="avatar-color-btn active" style="background: #4a3b32;"
+                                    data-category="hairColor" data-value="#4a3b32"
+                                    onclick="updateAvatarPreview('hairColor', '#4a3b32')"></button>
+                                <button class="avatar-color-btn" style="background: #d6b85a;" data-category="hairColor"
+                                    data-value="#d6b85a" onclick="updateAvatarPreview('hairColor', '#d6b85a')"></button>
+                                <button class="avatar-color-btn" style="background: #111111;" data-category="hairColor"
+                                    data-value="#111111" onclick="updateAvatarPreview('hairColor', '#111111')"></button>
+                                <button class="avatar-color-btn" style="background: #b55239;" data-category="hairColor"
+                                    data-value="#b55239" onclick="updateAvatarPreview('hairColor', '#b55239')"></button>
+                                <button class="avatar-color-btn" style="background: #a3a3a3;" data-category="hairColor"
+                                    data-value="#a3a3a3" onclick="updateAvatarPreview('hairColor', '#a3a3a3')"></button>
+                            </div>
+                        </div>
+
+                        <!-- Accessory: Brille/Mütze -->
+                        <div style="margin-bottom: 16px;">
+                            <label
+                                style="display: block; font-weight: bold; margin-bottom: 8px; font-size: var(--fs-sm);">Kopf
+                                & Gesicht</label>
+                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                <button class="avatar-option-btn active" data-category="accessory" data-value="none"
+                                    onclick="updateAvatarPreview('accessory', 'none')">Ohne</button>
+                                <button class="avatar-option-btn" data-category="accessory" data-value="brille"
+                                    onclick="updateAvatarPreview('accessory', 'brille')">Brille</button>
+                                <button class="avatar-option-btn" data-category="accessory" data-value="sonnenbrille"
+                                    onclick="updateAvatarPreview('accessory', 'sonnenbrille')">Sonnenbrille</button>
+                                <button class="avatar-option-btn" data-category="accessory" data-value="muetze"
+                                    onclick="updateAvatarPreview('accessory', 'muetze')">Mütze</button>
+                            </div>
+                        </div>
+
+                        <!-- Accessory: Bärte -->
+                        <div style="margin-bottom: 16px;">
+                            <label
+                                style="display: block; font-weight: bold; margin-bottom: 8px; font-size: var(--fs-sm);">Bart</label>
+                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                <button class="avatar-option-btn active" data-category="beard" data-value="none"
+                                    onclick="updateAvatarPreview('beard', 'none')">Ohne</button>
+                                <button class="avatar-option-btn" data-category="beard" data-value="schnaeuzer"
+                                    onclick="updateAvatarPreview('beard', 'schnaeuzer')">Schnäuzer</button>
+                                <button class="avatar-option-btn" data-category="beard" data-value="vollbart"
+                                    onclick="updateAvatarPreview('beard', 'vollbart')">Vollbart</button>
+                                <button class="avatar-option-btn" data-category="beard" data-value="goatee"
+                                    onclick="updateAvatarPreview('beard', 'goatee')">Goatee</button>
+                            </div>
+                        </div>
+
+                        <!-- Accessory: Ohrringe -->
+                        <div style="margin-bottom: 24px;">
+                            <label
+                                style="display: block; font-weight: bold; margin-bottom: 8px; font-size: var(--fs-sm);">Ohrringe</label>
+                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                <button class="avatar-option-btn active" data-category="earrings" data-value="none"
+                                    onclick="updateAvatarPreview('earrings', 'none')">Ohne</button>
+                                <button class="avatar-option-btn" data-category="earrings" data-value="perlenstecker"
+                                    onclick="updateAvatarPreview('earrings', 'perlenstecker')">Perlenstecker</button>
+                                <button class="avatar-option-btn" data-category="earrings" data-value="creolen"
+                                    onclick="updateAvatarPreview('earrings', 'creolen')">Creolen</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" style="width: 100%;" onclick="applyAvatarConfig()">Avatar
+                        speichern</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="js/app.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
