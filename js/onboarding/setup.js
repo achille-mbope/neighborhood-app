@@ -27,7 +27,7 @@ function renderSetupTags(type) {
         pill.className = 'active-tag-pill';
         const label = document.createElement('span');
         label.className = 'active-tag-label';
-        label.textContent = tag;
+        label.textContent = typeof translateStaticText === 'function' ? translateStaticText(tag) : tag;
 
         const removeButton = document.createElement('button');
         removeButton.type = 'button';
@@ -82,7 +82,11 @@ function hydrateSetupTags(type) {
     if (!container) return;
     const tags = getSetupTags(type);
     container.querySelectorAll('.tag-tile').forEach(tile => {
-        tile.classList.toggle('active', tags.includes(tile.textContent.trim()));
+        const labelNode = tile.querySelector('span') ? tile.querySelector('span').firstChild : null;
+        const original = labelNode && labelNode.__i18nOriginalText
+            ? labelNode.__i18nOriginalText
+            : tile.textContent.trim();
+        tile.classList.toggle('active', tags.includes(original));
     });
     renderSetupTags(type);
 }

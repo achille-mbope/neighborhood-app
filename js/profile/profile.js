@@ -75,7 +75,7 @@ function renderTagDisplay(containerId, tags, emptyText) {
     const container = document.getElementById(containerId);
     if (!container) return;
     container.innerHTML = tags.length
-        ? tags.map(tag => `<span class="tag-pill active">${tag}</span>`).join('')
+        ? tags.map(tag => `<span class="tag-pill active">${typeof translateStaticText === 'function' ? translateStaticText(tag) : tag}</span>`).join('')
         : `<span class="tag-pill active">${emptyText}</span>`;
 }
 
