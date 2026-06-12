@@ -153,7 +153,42 @@ const translations = {
         "toast_welcome": "Willkommen in der Nachbarschaft! 🎉",
         "toast_avatar_saved": "Avatar gespeichert!",
         "toast_photo_removed": "Foto entfernt.",
-        "toast_avatar_removed": "Avatar entfernt."
+        "toast_avatar_removed": "Avatar entfernt.",
+
+        "share_kicker": "Teilen & Ausleihen",
+        "share_title": "Dinge leihen, ohne weit zu suchen.",
+        "share_subtitle": "Finde Werkzeuge, Gartengeräte und Alltagshelfer in deiner Nähe. Anfragen, Übergabe und Rückgabe laufen geschützt innerhalb der Nachbarschaft.",
+        "share_add_item": "Gegenstand einstellen",
+        "share_available_today": "Heute verfügbar",
+        "share_items_nearby": "4 Gegenstände in deiner Umgebung",
+        "share_search_placeholder": "Was suchst du heute?",
+        "share_search_aria": "Was möchtest du ausleihen?",
+        "share_filter_aria": "Filter anzeigen",
+        "share_filter_categories": "Kategorien",
+        "share_filter_options": "Optionen",
+        "share_cat_tools": "Werkzeug",
+        "share_cat_garden": "Garten",
+        "share_cat_household": "Haushalt",
+        "share_cat_sports": "Freizeit & Sport",
+        "share_only_available": "Nur verfügbare",
+        "share_location": "Standortfreigabe",
+        "share_sort": "Sortierung",
+        "share_sort_distance": "Entfernung",
+        "share_sort_condition": "Zustand",
+        "share_sort_newest": "Neueste zuerst",
+        "share_stat_listings": "Inserate",
+        "share_stat_categories": "Kategorien",
+        "share_stat_nearest": "nächstes Angebot",
+        "share_back_aria": "Zurück zur Übersicht",
+        "share_status_available": "Verfügbar",
+        "share_status_borrowed": "Aktuell verliehen",
+        "share_request_running": "Anfrage läuft",
+        "share_view_details": "Details ansehen",
+        "share_condition_label": "Zustand",
+        "share_count_label": "Anzahl",
+        "share_distance_away": "{distance} m entfernt",
+        "share_available_label": "Verfügbar",
+        "share_owner_label": "Anbieter"
     },
     en: {
         "app_title": "Gartenzaun",
@@ -309,7 +344,42 @@ const translations = {
         "toast_welcome": "Welcome to the neighborhood! 🎉",
         "toast_avatar_saved": "Avatar saved!",
         "toast_photo_removed": "Photo removed.",
-        "toast_avatar_removed": "Avatar removed."
+        "toast_avatar_removed": "Avatar removed.",
+
+        "share_kicker": "Share & Borrow",
+        "share_title": "Borrow things without searching far.",
+        "share_subtitle": "Find tools, garden equipment, and everyday helpers near you. Requests, handover, and return stay protected within the neighborhood.",
+        "share_add_item": "List an item",
+        "share_available_today": "Available today",
+        "share_items_nearby": "4 items near you",
+        "share_search_placeholder": "What are you looking for today?",
+        "share_search_aria": "What would you like to borrow?",
+        "share_filter_aria": "Show filters",
+        "share_filter_categories": "Categories",
+        "share_filter_options": "Options",
+        "share_cat_tools": "Tools",
+        "share_cat_garden": "Garden",
+        "share_cat_household": "Household",
+        "share_cat_sports": "Leisure & sports",
+        "share_only_available": "Only available",
+        "share_location": "Share location",
+        "share_sort": "Sort",
+        "share_sort_distance": "Distance",
+        "share_sort_condition": "Condition",
+        "share_sort_newest": "Newest first",
+        "share_stat_listings": "Listings",
+        "share_stat_categories": "Categories",
+        "share_stat_nearest": "nearest offer",
+        "share_back_aria": "Back to overview",
+        "share_status_available": "Available",
+        "share_status_borrowed": "Currently borrowed",
+        "share_request_running": "Request pending",
+        "share_view_details": "View details",
+        "share_condition_label": "Condition",
+        "share_count_label": "Count",
+        "share_distance_away": "{distance} m away",
+        "share_available_label": "Available",
+        "share_owner_label": "Provider"
     }
 };
 
@@ -713,6 +783,12 @@ function setLanguage(lang) {
         }
         applyTranslations();
         updateLanguageSelectors();
+        if (typeof renderShareItems === 'function') {
+            renderShareItems();
+        }
+        if (typeof state !== 'undefined' && state.selectedShareItemId && typeof openShareItemDetail === 'function') {
+            openShareItemDetail(state.selectedShareItemId);
+        }
     }
 }
 
