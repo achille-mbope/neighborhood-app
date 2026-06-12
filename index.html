@@ -16,6 +16,14 @@
         <!-- GLOBAL APPBAND/HEADER (only visible after onboarding, or shown at top of app) -->
         <header class="app-header" id="global-header" style="display: none;">
             <div class="app-title-container">
+                <button class="header-back-button" id="share-header-back" type="button"
+                    onclick="closeShareItemDetail()" aria-label="Zurück zur Übersicht"
+                    data-i18n-aria-label="share_back_aria" hidden>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 18L9 12L15 6"></path>
+                    </svg>
+                </button>
                 <!-- Inline SVG Logo (Fence + Leaves) -->
                 <svg class="app-title-logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1027,103 +1035,133 @@
                 </div>
             </section>
 
-            <!-- TAB 3: TEILEN (Verleih-Katalog) -->
+            <!-- TAB 3: TEILEN (Teilen & Ausleihen) -->
+
             <section class="screen" id="tab-teilen">
-                <!-- Green Rules Infobox -->
-                <div class="rules-infobox">
-                    <div class="rules-infobox-title">🤝 Faire Nutzung</div>
-                    <ul class="rules-infobox-list">
-                        <li class="rules-infobox-item">Gegenstände sorgfältig und sauber behandeln.</li>
-                        <li class="rules-infobox-item">Pünktlich zum vereinbarten Termin zurückgeben.</li>
-                        <li class="rules-infobox-item">Bei Schäden sofort den Besitzer informieren.</li>
-                        <li class="rules-infobox-item">Danke sagen nicht vergessen!</li>
-                    </ul>
+                <div id="share-root">
+
+                </div>
+                <div style="display:block" id="share-overview" class="share-marketplace">
+                    <div class="share-hero">
+                        <div class="share-hero-content">
+                            <p class="share-kicker" data-i18n="share_kicker">Teilen & Ausleihen</p>
+                            <h1 class="share-title" data-i18n="share_title">Dinge leihen, ohne weit zu suchen.</h1>
+                            <p class="share-subtitle" data-i18n="share_subtitle">Finde Werkzeuge, Gartengeräte und Alltagshelfer in deiner Nähe.
+                                Anfragen, Übergabe und Rückgabe laufen geschützt innerhalb der Nachbarschaft.</p>
+                            <div class="share-hero-actions">
+                                <button class="btn btn-primary share-add-btn" onclick="openAddShareItemModal()" data-i18n="share_add_item">Gegenstand
+                                    einstellen</button>
+                                <div class="share-hero-note">
+                                    <strong data-i18n="share_available_today">Heute verfügbar</strong>
+                                    <span data-i18n="share_items_nearby">4 Gegenstände in deiner Umgebung</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="share-hero-visual" aria-hidden="true">
+                            <span class="share-visual-main">🛠️</span>
+                            <span class="share-visual-badge share-visual-badge-top">🌱</span>
+                            <span class="share-visual-badge share-visual-badge-bottom">🚲</span>
+                        </div>
+                    </div>
+
+                    <div class="share-search-panel">
+                        <div class="share-search-shell">
+                            <span class="share-search-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="7"></circle>
+                                    <path d="M20 20L16.5 16.5"></path>
+                                </svg>
+                            </span>
+                            <input type="search" class="search-bar" id="item-search"
+                                placeholder="Was suchst du heute?" aria-label="Was möchtest du ausleihen?"
+                                data-i18n-placeholder="share_search_placeholder"
+                                data-i18n-aria-label="share_search_aria"
+                                oninput="filterSharedItems()">
+                            <details class="share-filter-disclosure">
+                                <summary class="share-filter-button" aria-label="Filter anzeigen"
+                                    data-i18n-aria-label="share_filter_aria">
+                                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4 7H20"></path>
+                                        <path d="M4 17H20"></path>
+                                        <circle cx="9" cy="7" r="2"></circle>
+                                        <circle cx="15" cy="17" r="2"></circle>
+                                    </svg>
+                                </summary>
+                                <div class="share-filter-menu">
+                                    <div class="share-filter-group">
+                                        <span class="share-filter-label" data-i18n="share_filter_categories">Kategorien</span>
+                                        <div class="share-category-grid" aria-label="Kategorien" data-i18n-aria-label="share_filter_categories">
+                                            <button class="share-category-tile" type="button" data-category="Werkzeug"
+                                                onclick="toggleShareCategory(this, 'Werkzeug')">
+                                                <span class="share-category-icon">🛠️</span>
+                                                <span data-i18n="share_cat_tools">Werkzeug</span>
+                                            </button>
+                                            <button class="share-category-tile" type="button" data-category="Garten"
+                                                onclick="toggleShareCategory(this, 'Garten')">
+                                                <span class="share-category-icon">🌱</span>
+                                                <span data-i18n="share_cat_garden">Garten</span>
+                                            </button>
+                                            <button class="share-category-tile" type="button" data-category="Haushalt"
+                                                onclick="toggleShareCategory(this, 'Haushalt')">
+                                                <span class="share-category-icon">🏠</span>
+                                                <span data-i18n="share_cat_household">Haushalt</span>
+                                            </button>
+                                            <button class="share-category-tile" type="button" data-category="Freizeit & Sport"
+                                                onclick="toggleShareCategory(this, 'Freizeit & Sport')">
+                                                <span class="share-category-icon">🚲</span>
+                                                <span data-i18n="share_cat_sports">Freizeit & Sport</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="share-filter-group">
+                                        <span class="share-filter-label" data-i18n="share_filter_options">Optionen</span>
+                                        <div class="share-filterbar">
+                                            <label class="share-toggle">
+                                                <input type="checkbox" id="share-available-only" onchange="filterSharedItems()" checked>
+                                                <span data-i18n="share_only_available">Nur verfügbare</span>
+                                            </label>
+                                            <label class="share-toggle">
+                                                <input type="checkbox" id="share-location-enabled" onchange="filterSharedItems()">
+                                                <span data-i18n="share_location">Standortfreigabe</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="share-filter-group">
+                                        <label class="share-sort-control">
+                                            <span data-i18n="share_sort">Sortierung</span>
+                                            <select id="share-sort" onchange="filterSharedItems()">
+                                                <option value="distance" data-i18n="share_sort_distance">Entfernung</option>
+                                                <option value="condition" data-i18n="share_sort_condition">Zustand</option>
+                                                <option value="newest" data-i18n="share_sort_newest">Neueste zuerst</option>
+                                            </select>
+                                        </label>
+                                    </div>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+
+                    <div class="share-quick-stats" aria-label="Teilen Übersicht">
+                        <div>
+                            <strong>5</strong>
+                            <span data-i18n="share_stat_listings">Inserate</span>
+                        </div>
+                        <div>
+                            <strong>4</strong>
+                            <span data-i18n="share_stat_categories">Kategorien</span>
+                        </div>
+                        <div>
+                            <strong>60 m</strong>
+                            <span data-i18n="share_stat_nearest">nächstes Angebot</span>
+                        </div>
+                    </div>
+
+                    <div class="items-grid share-items-grid" id="items-container" aria-live="polite"></div>
                 </div>
 
-                <input type="text" class="search-bar" id="item-search"
-                    placeholder="Suche nach Geräten (z.B. Leiter, Bohrer)..." onkeyup="filterSharedItems()">
-
-                <div class="section-title">
-                    <span>Verfügbare Gegenstände</span>
-                    <button class="btn-text" style="font-size: var(--fs-sm);" onclick="openAddShareItemModal()">+
-                        Gegenstand teilen</button>
-                </div>
-
-                <div class="items-grid" id="items-container">
-                    <!-- Item 1 -->
-                    <div class="item-card">
-                        <div class="item-card-header">
-                            <div class="item-img-placeholder">🛠️</div>
-                            <div class="item-name">Schlagbohrmaschine</div>
-                        </div>
-                        <div class="feature-desc" style="font-size: var(--fs-xs);">von Klaus Weber (Hausnr. 12)</div>
-                        <span class="item-status available">Sofort verfügbar</span>
-                        <div style="display: flex; flex-direction: column; gap: 6px; margin-top: auto; width: 100%;">
-                            <button class="btn btn-primary"
-                                style="min-height: 40px; font-size: var(--fs-sm); padding: 8px 12px;"
-                                onclick="borrowItem(this, 'Schlagbohrmaschine', 'Klaus Weber')">Ausleihen</button>
-                            <button class="btn btn-secondary chat-btn"
-                                style="display: none; min-height: 40px; font-size: var(--fs-sm); padding: 8px 12px;"
-                                onclick="openBorrowChat('Schlagbohrmaschine', 'Klaus Weber')">💬 Chat mit Klaus</button>
-                        </div>
-                    </div>
-
-                    <!-- Item 2 -->
-                    <div class="item-card">
-                        <div class="item-card-header">
-                            <div class="item-img-placeholder">🪜</div>
-                            <div class="item-name">3m Teleskopleiter</div>
-                        </div>
-                        <div class="feature-desc" style="font-size: var(--fs-xs);">von Dieter Müller (Hausnr. 8)</div>
-                        <span class="item-status available">Sofort verfügbar</span>
-                        <div style="display: flex; flex-direction: column; gap: 6px; margin-top: auto; width: 100%;">
-                            <button class="btn btn-primary"
-                                style="min-height: 40px; font-size: var(--fs-sm); padding: 8px 12px;"
-                                onclick="borrowItem(this, '3m Teleskopleiter', 'Dieter Müller')">Ausleihen</button>
-                            <button class="btn btn-secondary chat-btn"
-                                style="display: none; min-height: 40px; font-size: var(--fs-sm); padding: 8px 12px;"
-                                onclick="openBorrowChat('3m Teleskopleiter', 'Dieter Müller')">💬 Chat mit
-                                Dieter</button>
-                        </div>
-                    </div>
-
-                    <!-- Item 3 -->
-                    <div class="item-card">
-                        <div class="item-card-header">
-                            <div class="item-img-placeholder">🚲</div>
-                            <div class="item-name">E-Lastenrad</div>
-                        </div>
-                        <div class="feature-desc" style="font-size: var(--fs-xs);">von Familie Krause (Hausnr. 15)</div>
-                        <span class="item-status available">Sofort verfügbar</span>
-                        <div style="display: flex; flex-direction: column; gap: 6px; margin-top: auto; width: 100%;">
-                            <button class="btn btn-primary"
-                                style="min-height: 40px; font-size: var(--fs-sm); padding: 8px 12px;"
-                                onclick="borrowItem(this, 'E-Lastenrad', 'Familie Krause')">Ausleihen</button>
-                            <button class="btn btn-secondary chat-btn"
-                                style="display: none; min-height: 40px; font-size: var(--fs-sm); padding: 8px 12px;"
-                                onclick="openBorrowChat('E-Lastenrad', 'Familie Krause')">💬 Chat mit Krauses</button>
-                        </div>
-                    </div>
-
-                    <!-- Item 4 -->
-                    <div class="item-card">
-                        <div class="item-card-header">
-                            <div class="item-img-placeholder">✂️</div>
-                            <div class="item-name">Elektr. Heckenschere</div>
-                        </div>
-                        <div class="feature-desc" style="font-size: var(--fs-xs);">von Sabine & Paul (Hausnr. 22)</div>
-                        <span class="item-status borrowed">Aktuell verliehen</span>
-                        <div style="display: flex; flex-direction: column; gap: 6px; margin-top: auto; width: 100%;">
-                            <button class="btn btn-secondary"
-                                style="min-height: 40px; font-size: var(--fs-sm); padding: 8px 12px;"
-                                disabled>Ausgeliehen</button>
-                            <button class="btn btn-secondary chat-btn"
-                                style="min-height: 40px; font-size: var(--fs-sm); padding: 8px 12px;"
-                                onclick="openBorrowChat('Elektr. Heckenschere', 'Sabine & Paul')">💬 Chat mit
-                                Sabine</button>
-                        </div>
-                    </div>
-                </div>
+                <div style="display: none" id="share-detail-view" class="share-detail-view" hidden></div>
             </section>
 
             <!-- TAB 4: EVENTS (Events & Begegnungen) -->
