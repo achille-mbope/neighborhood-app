@@ -152,7 +152,7 @@
                             <div class="custom-select-container" id="welcome-lang-select">
                                 <div class="custom-select-trigger" onclick="toggleCustomSelect(this)" tabindex="0">
                                     <div class="custom-select-value">
-                                        <img src="Bilder/D Flagge.png" alt="DE"><span>Deutsch</span>
+                                        <img src="assets/flag-de.svg" alt="DE"><span>Deutsch</span>
                                     </div>
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2">
@@ -161,10 +161,10 @@
                                 </div>
                                 <div class="custom-select-options">
                                     <div class="custom-select-option" onclick="selectLanguage('de')" tabindex="0">
-                                        <img src="Bilder/D Flagge.png" alt="DE"><span>Deutsch</span>
+                                        <img src="assets/flag-de.svg" alt="DE"><span>Deutsch</span>
                                     </div>
                                     <div class="custom-select-option" onclick="selectLanguage('en')" tabindex="0">
-                                        <img src="Bilder/US Flagge.png" alt="US"><span>English</span>
+                                        <img src="assets/flag-us.svg" alt="US"><span>English</span>
                                     </div>
                                 </div>
                             </div>
@@ -225,7 +225,7 @@
                     <div style="height: 4px; background-color: var(--color-border); border-radius: 2px; overflow: hidden; display: none;"
                         id="tts-progress-container-short">
                         <div id="tts-progress-bar-short"
-                            style="height: 100%; width: 0%; background-color: var(--color-primary); transition: width 0.3s ease;">
+                            style="height: 100%; width: 0; background-color: var(--color-primary); transition: width 0.3s ease;">
                         </div>
                     </div>
                 </div>
@@ -1362,7 +1362,7 @@
                         <div class="custom-select-container" id="profile-lang-select">
                             <div class="custom-select-trigger" onclick="toggleCustomSelect(this)" tabindex="0">
                                 <div class="custom-select-value">
-                                    <img src="Bilder/D Flagge.png" alt="DE"><span>Deutsch</span>
+                                    <img src="assets/flag-de.svg" alt="DE"><span>Deutsch</span>
                                 </div>
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2">
@@ -1371,10 +1371,10 @@
                             </div>
                             <div class="custom-select-options">
                                 <div class="custom-select-option" onclick="selectLanguage('de')" tabindex="0">
-                                    <img src="Bilder/D Flagge.png" alt="DE"><span>Deutsch</span>
+                                    <img src="assets/flag-de.svg" alt="DE"><span>Deutsch</span>
                                 </div>
                                 <div class="custom-select-option" onclick="selectLanguage('en')" tabindex="0">
-                                    <img src="Bilder/US Flagge.png" alt="US"><span>English</span>
+                                    <img src="assets/flag-us.svg" alt="US"><span>English</span>
                                 </div>
                             </div>
                         </div>
@@ -1499,7 +1499,7 @@
                     <div style="height: 4px; background-color: var(--color-border); border-radius: 2px; overflow: hidden; display: none;"
                         id="tts-progress-container-long">
                         <div id="tts-progress-bar-long"
-                            style="height: 100%; width: 0%; background-color: var(--color-primary); transition: width 0.3s ease;">
+                            style="height: 100%; width: 0; background-color: var(--color-primary); transition: width 0.3s ease;">
                         </div>
                     </div>
                 </div>
@@ -1751,7 +1751,7 @@
 
                 <div class="form-group">
                     <label class="form-label" for="new-item-icon">Kategorie / Symbol</label>
-                    <div style="display: flex; gap: 8px; justify-content: space-around; font-size: 28px;">
+                    <div id="new-item-icon" style="display: flex; gap: 8px; justify-content: space-around; font-size: 28px;">
                         <button class="category-button selected" style="padding: 10px; width: 60px; height: 60px;"
                             onclick="selectItemIcon(this, '🛠️')">🛠️</button>
                         <button class="category-button" style="padding: 10px; width: 60px; height: 60px;"
@@ -1908,8 +1908,24 @@
 
     </div>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="js/app.js"></script>
+    <script src="js/core/lucide.js"></script>
+    <script src="js/core/state.js"></script>
+    <script src="js/core/ui.js"></script>
+    <script src="js/core/forms.js"></script>
+    <script src="js/core/router.js"></script>
+    <script src="js/onboarding/netiquette.js"></script>
+    <script src="js/onboarding/address.js"></script>
+    <script src="js/onboarding/setup.js"></script>
+    <script src="js/onboarding/verification.js"></script>
+    <script src="js/profile/avatar.js"></script>
+    <script src="js/profile/profile.js"></script>
+    <script src="js/messages/chat.js"></script>
+    <script src="js/messages/tts.js"></script>
+    <script src="js/support/help.js"></script>
+    <script src="js/groups/groups.js"></script>
+    <script src="js/sharing/sharing.js"></script>
+    <script src="js/events/events.js"></script>
+    <script src="js/main.js"></script>
     <script>
         lucide.createIcons();
     </script>
