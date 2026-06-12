@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role="img" aria-label="Deutschland">
+  <rect width="30" height="20" rx="2" fill="#000"/>
+  <rect y="6.667" width="30" height="6.666" fill="#dd0000"/>
+  <rect y="13.333" width="30" height="6.667" rx="2" fill="#ffce00"/>
+  <path d="M0 13.333h30v4.667a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2z" fill="#ffce00"/>
+</svg>

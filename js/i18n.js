@@ -1,6 +1,7 @@
 const translations = {
     de: {
         "app_title": "Gartenzaun",
+        "app_document_title": "Gartenzaun - Deine Nachbarschafts-App",
         "welcome_title": "Willkommen bei Gartenzaun",
         "welcome_subtitle": "Gemeinsam sind wir stärker. Unterstütze deine Nachbarn und lass dich unterstützen.",
         "feature_trust_title": "Vertrauen",
@@ -85,6 +86,23 @@ const translations = {
         "address_subtitle": "Damit wir dir Nachbarn in deiner Nähe anzeigen können.",
         "address_placeholder": "Straße und Hausnummer...",
         "address_radius": "Suchradius",
+        "personal_data_title": "Persönliche Daten",
+        "personal_data_subtitle": "Bitte gib deinen echten Namen und deine Adresse an, damit wir deine Nachbarschaft bestimmen können.",
+        "first_name_label": "Vorname *",
+        "first_name_placeholder": "z.B. Maria",
+        "last_name_label": "Nachname *",
+        "last_name_placeholder": "z.B. Schmidt",
+        "real_name_note": "Bitte gib hier deinen echten Namen an. Dieser wird für Vertrauen und Nachbarschaftshilfe innerhalb der App verwendet.",
+        "street_label": "Straße & Hausnummer",
+        "street_placeholder": "z.B. Tulpenweg 12",
+        "zip_city_label": "Postleitzahl & Ort",
+        "zip_city_placeholder": "z.B. 12345 Neustadt",
+        "desired_radius_title": "Gewünschter Umkreis",
+        "desired_radius_subtitle": "Wie weit soll deine Nachbarschaft reichen?",
+        "radius_50m": "50 Meter",
+        "radius_50m_desc": "Direkte Nachbarn (ca. 10 Häuser)",
+        "radius_100m": "100 Meter",
+        "radius_100m_desc": "Deine gesamte Straße (Empfohlen)",
         "radius_500m": "500 Meter",
         "radius_500m_desc": "Dein ganzes Viertel",
         "btn_verify_address": "Adresse verifizieren",
@@ -139,6 +157,7 @@ const translations = {
     },
     en: {
         "app_title": "Gartenzaun",
+        "app_document_title": "Gartenzaun - Your neighborhood app",
         "welcome_title": "Welcome to Gartenzaun",
         "welcome_subtitle": "Together we are stronger. Support your neighbors and get supported.",
         "feature_trust_title": "Trust",
@@ -223,6 +242,23 @@ const translations = {
         "address_subtitle": "So we can show you neighbors in your area.",
         "address_placeholder": "Street and house number...",
         "address_radius": "Search radius",
+        "personal_data_title": "Personal data",
+        "personal_data_subtitle": "Please enter your real name and address so we can identify your neighborhood.",
+        "first_name_label": "First name *",
+        "first_name_placeholder": "e.g. Maria",
+        "last_name_label": "Last name *",
+        "last_name_placeholder": "e.g. Smith",
+        "real_name_note": "Please enter your real name here. It is used to build trust and support neighborhood help inside the app.",
+        "street_label": "Street and house number",
+        "street_placeholder": "e.g. Tulip Lane 12",
+        "zip_city_label": "Postal code and city",
+        "zip_city_placeholder": "e.g. 12345 Neustadt",
+        "desired_radius_title": "Preferred radius",
+        "desired_radius_subtitle": "How far should your neighborhood reach?",
+        "radius_50m": "50 meters",
+        "radius_50m_desc": "Direct neighbors (about 10 homes)",
+        "radius_100m": "100 meters",
+        "radius_100m_desc": "Your whole street (recommended)",
         "radius_500m": "500 Meters",
         "radius_500m_desc": "Your entire neighborhood",
         "btn_verify_address": "Verify Address",
@@ -279,6 +315,382 @@ const translations = {
 
 let currentLang = 'de';
 
+const autoTextTranslations = {
+    en: {
+        "Netiquette": "Netiquette",
+        "Hilfe": "Help",
+        "Über uns": "About us",
+        "FAQs": "FAQs",
+        "Zurück": "Back",
+        "Schließen": "Close",
+        "Verstanden": "Understood",
+        "Persönliche Daten": "Personal data",
+        "Bitte gib deinen echten Namen und deine Adresse an, damit wir deine Nachbarschaft bestimmen können.": "Please enter your real name and address so we can identify your neighborhood.",
+        "Vorname *": "First name *",
+        "Nachname *": "Last name *",
+        "Bitte gib hier deinen echten Namen an. Dieser wird für Vertrauen und Nachbarschaftshilfe innerhalb der App verwendet.": "Please enter your real name here. It is used to build trust and support neighborhood help inside the app.",
+        "Straße & Hausnummer": "Street and house number",
+        "Postleitzahl & Ort": "Postal code and city",
+        "Gewünschter Umkreis": "Preferred radius",
+        "Wie weit soll deine Nachbarschaft reichen?": "How far should your neighborhood reach?",
+        "50 Meter": "50 meters",
+        "Direkte Nachbarn (ca. 10 Häuser)": "Direct neighbors (about 10 homes)",
+        "100 Meter": "100 meters",
+        "Deine gesamte Straße (Empfohlen)": "Your whole street (recommended)",
+        "Eigenes Interesse hinzufügen…": "Add your own interest...",
+        "Eigenes Talent hinzufügen…": "Add your own skill...",
+        "Gärtnern": "Gardening",
+        "Kochen & Essen": "Cooking & food",
+        "Bewegung & Sport": "Exercise & sports",
+        "Nachhaltigkeit": "Sustainability",
+        "Kultur & Musik": "Culture & music",
+        "Spiele & Gesellschaft": "Games & socializing",
+        "Tiere & Natur": "Animals & nature",
+        "Nachbarschaftsaktionen": "Neighborhood activities",
+        "Technik & Medien": "Technology & media",
+        "Gemeinschaft": "Community",
+        "Gartenarbeit": "Gardening",
+        "Handwerkliches": "Handywork",
+        "Technikhilfe": "Tech help",
+        "Kochen & Backen": "Cooking & baking",
+        "Einkaufshilfe": "Shopping help",
+        "Kinderbetreuung": "Childcare",
+        "Tierbetreuung": "Pet care",
+        "Organisation": "Organization",
+        "Sprachkenntnisse": "Language skills",
+        "Kreatives": "Creative work",
+        "Fotografie": "Photography",
+        "Reisen": "Travel",
+        "Nachhilfe": "Tutoring",
+        "Umzugshilfe": "Moving help",
+        "Erste Hilfe": "First aid",
+        "Sicherheit & Vertrauen": "Safety & trust",
+        "Mehr Informationen": "More information",
+        "QR-Code einscannen (Simulieren)": "Scan QR code (simulate)",
+        "Video-Ident abschließen (Simulieren)": "Complete video ID (simulate)",
+        "Abbrechen": "Cancel",
+        "Home": "Home",
+        "Unterstützung": "Support",
+        "Teilen": "Share",
+        "Events": "Events",
+        "Profil": "Profile",
+        "Deine Botschafter": "Your ambassadors",
+        "Helga eine Frage stellen": "Ask Helga a question",
+        "Nachbarschafts-Gruppen": "Neighborhood groups",
+        "+ Neue Gruppe": "+ New group",
+        "Beitreten": "Join",
+        "Beigetreten": "Joined",
+        "Deine Auszeichnungen": "Your badges",
+        "Erst-Unterstützer": "First supporter",
+        "Teil-Profi": "Sharing pro",
+        "Naturfreund": "Nature friend",
+        "Faire Unterstützung": "Fair support",
+        "Unterstützung ist freiwillig und unentgeltlich.": "Support is voluntary and unpaid.",
+        "Zuverlässigkeit: Absprachen bitte einhalten.": "Reliability: please keep agreements.",
+        "Private Details gehören nur in den direkten Chat.": "Private details belong only in direct chat.",
+        "Wertschätzender Umgang miteinander ist Pflicht.": "Respectful interaction is required.",
+        "Ich kann unterstützen": "I can help",
+        "Ich brauche Unterstützung": "I need help",
+        "Bereich auswählen": "Choose a category",
+        "Einkäufe": "Shopping",
+        "Garten": "Garden",
+        "Technik": "Technology",
+        "Sonstiges": "Other",
+        "Beschreibung deiner Anfrage": "Describe your request",
+        "Unterstützungsanfrage absenden": "Send support request",
+        "Unterstützung anbieten": "Offer support",
+        "Faire Nutzung": "Fair use",
+        "Gegenstände sorgfältig und sauber behandeln.": "Handle items carefully and keep them clean.",
+        "Pünktlich zum vereinbarten Termin zurückgeben.": "Return items on time as agreed.",
+        "Bei Schäden sofort den Besitzer informieren.": "Inform the owner immediately if something is damaged.",
+        "Danke sagen nicht vergessen!": "Do not forget to say thank you.",
+        "Verfügbare Gegenstände": "Available items",
+        "+ Gegenstand teilen": "+ Share item",
+        "Ausleihen": "Borrow",
+        "Sofort verfügbar": "Available now",
+        "Derzeit ausgeliehen": "Currently borrowed",
+        "Event-Kalender": "Event calendar",
+        "Ich bin dabei!": "I'm in!",
+        "Event-Chat": "Event chat",
+        "Dein Name": "Your name",
+        "Deine Adresse & Umkreis": "Your address & radius",
+        "Nachbar-Umkreis": "Neighbor radius",
+        "Meine Interessen": "My interests",
+        "Keine Interessen ausgewählt": "No interests selected",
+        "Meine Fähigkeiten (Ich kann unterstützen bei...)": "My skills (I can help with...)",
+        "Einkäufe mitbringen": "Bring groceries",
+        "Garten & Pflanzen pflegen": "Take care of gardens & plants",
+        "Technik & Handwerk erklären": "Explain technology & repairs",
+        "Handwerk": "Handywork",
+        "Haustier-Betreuung": "Pet care",
+        "Gesellschaft leisten": "Keep company",
+        "Gegenstände zum Verleihen": "Items to lend",
+        "Barrierefreiheit & Einstellungen": "Accessibility & settings",
+        "Privatsphäre & Sicherheit": "Privacy & security",
+        "Hausnummer für Nicht-Nachbarn verbergen": "Hide house number from non-neighbors",
+        "Online-Status nicht anzeigen": "Do not show online status",
+        "Abmelden": "Log out",
+        "Gartenzaun-Netiquette": "Gartenzaun netiquette",
+        "Unterstützung & Kontakt": "Support & contact",
+        "Über Gartenzaun": "About Gartenzaun",
+        "Häufige Fragen": "Frequently asked questions",
+        "Chat mit Helga": "Chat with Helga",
+        "Inhalt melden": "Report content",
+        "Senden": "Send",
+        "Warum Verifizierung?": "Why verification?",
+        "Beitrag melden": "Report post",
+        "Was möchtest du melden?": "What would you like to report?",
+        "Unangemessener Inhalt": "Inappropriate content",
+        "Beleidigungen, Hassrede, Gewalt": "Insults, hate speech, violence",
+        "Spam / Werbung": "Spam / advertising",
+        "Unerwünschte Werbung oder Spam": "Unwanted ads or spam",
+        "Falsche Informationen": "False information",
+        "Irreführende oder falsche Inhalte": "Misleading or false content",
+        "Betrug / Scam": "Fraud / scam",
+        "Verdächtige Aktivitäten oder Betrugsversuche": "Suspicious activity or fraud attempts",
+        "Etwas anderes": "Something else",
+        "Deine Meldung ist anonym und hilft, unsere Nachbarschaft sicher zu halten.": "Your report is anonymous and helps keep our neighborhood safe.",
+        "Neue Gruppe gründen": "Create a new group",
+        "Name der Gruppe": "Group name",
+        "Beschreibung": "Description",
+        "Gruppe gründen": "Create group",
+        "Gegenstand zum Teilen hinzufügen": "Add an item to share",
+        "Name des Gegenstands": "Item name",
+        "Kategorie / Symbol": "Category / symbol",
+        "Avatar erstellen": "Create avatar",
+        "Kopfform": "Head shape",
+        "Rund": "Round",
+        "Oval": "Oval",
+        "Eckig": "Square",
+        "Hautfarbe": "Skin tone",
+        "Frisur": "Hair style",
+        "Kurz": "Short",
+        "Emo": "Side fringe",
+        "Lange Haare": "Long hair",
+        "Lockig": "Curly",
+        "Keine": "None",
+        "Haarfarbe": "Hair color",
+        "Kopf & Gesicht": "Head & face",
+        "Ohne": "None",
+        "Brille": "Glasses",
+        "Sonnenbrille": "Sunglasses",
+        "Mütze": "Cap",
+        "Bart": "Beard",
+        "Schnäuzer": "Mustache",
+        "Vollbart": "Full beard",
+        "Ohrringe": "Earrings",
+        "Perlenstecker": "Pearl studs",
+        "Creolen": "Hoops",
+        "Avatar speichern": "Save avatar"
+    }
+};
+
+Object.assign(autoTextTranslations.en, {
+    "Gartenzaun - Deine Nachbarschafts-App": "Gartenzaun - Your neighborhood app",
+    "Deutsch": "German",
+    "English": "English",
+    "Lese QR-Code von Postkarte ein...": "Reading postcard QR code...",
+    "Warte auf Bestätigung...": "Waiting for confirmation...",
+    "Tulpenweg 12 (Verifiziert)": "Tulip Lane 12 (verified)",
+    "Tulpenweg 8 (Verifiziert)": "Tulip Lane 8 (verified)",
+    "Tulpenweg 15 (Verifiziert)": "Tulip Lane 15 (verified)",
+    "Anfragen": "Request",
+    "Nachbarschafts-Barometer": "Neighborhood barometer",
+    "Gemeinschaftsziel": "Community goal",
+    "Ehrenamtliche Botschafterin": "Volunteer ambassador",
+    "14 Nachbarn aktiv": "14 neighbors active",
+    "8 Nachbarn aktiv": "8 neighbors active",
+    "19 Nachbarn aktiv": "19 neighbors active",
+    "Chat": "Chat",
+    "Chat mit Klaus": "Chat with Klaus",
+    "Chat mit Krauses": "Chat with the Krause family",
+    "Gartenfreunde Tulpenweg": "Tulip Lane garden friends",
+    "Lastenrad-Gemeinschaft": "Cargo-bike community",
+    "Kaffeeklatsch am Sonntag": "Sunday coffee meetup",
+    "Inge Müller (Hausnr. 14)": "Inge Müller (house no. 14)",
+    "Karl Becker (Hausnr. 9)": "Karl Becker (house no. 9)",
+    "Sabine & Paul (Hausnr. 22)": "Sabine & Paul (house no. 22)",
+    "Entsorgung": "Disposal",
+    "Schlagbohrmaschine": "Hammer drill",
+    "3m Teleskopleiter": "3m telescopic ladder",
+    "E-Lastenrad": "Electric cargo bike",
+    "Elektr. Heckenschere": "Electric hedge trimmer",
+    "von Klaus Weber (Hausnr. 12)": "from Klaus Weber (house no. 12)",
+    "von Dieter Müller (Hausnr. 8)": "from Dieter Müller (house no. 8)",
+    "von Familie Krause (Hausnr. 15)": "from the Krause family (house no. 15)",
+    "von Sabine & Paul (Hausnr. 22)": "from Sabine & Paul (house no. 22)",
+    "Aktuell verliehen": "Currently borrowed",
+    "Ausgeliehen": "Borrowed",
+    "Gemeinsame Aktionen": "Community activities",
+    "Zusagen sind verbindlich – bitte rechtzeitig absagen.": "Commitments are binding - please cancel in time.",
+    "Gemeinsam anpacken: Jede helfende Hand zählt.": "Pitch in together: every helping hand counts.",
+    "Müll vermeiden und den Treffpunkt sauber hinterlassen.": "Avoid waste and leave the meeting point clean.",
+    "Respektvoller Austausch bei allen Begegnungen.": "Respectful exchange in every interaction.",
+    "Sauberes Viertel: Müllsammel-Aktion": "Clean neighborhood: litter cleanup",
+    "Plätzchentausch & Sommerkaffee": "Cookie swap & summer coffee",
+    "Garten-Mit-Mach-Tag": "Garden participation day",
+    "Samstag, 13. Juni um 10:00 Uhr": "Saturday, June 13 at 10:00",
+    "Sonntag, 21. Juni um 15:00 Uhr": "Sunday, June 21 at 15:00",
+    "Samstag, 27. Juni um 11:00 Uhr": "Saturday, June 27 at 11:00",
+    "Treffpunkt: Am Spielplatz Tulpenweg": "Meeting point: Tulip Lane playground",
+    "Treffpunkt: Helgas Vorgarten (Hausnr. 12)": "Meeting point: Helga's front garden (house no. 12)",
+    "Treffpunkt: Gemeinschaftsgarten Ecke Tulpenweg/Hauptstr.": "Meeting point: community garden at Tulip Lane/Main St.",
+    "8 Nachbarn nehmen teil": "8 neighbors are joining",
+    "12 Nachbarn nehmen teil": "12 neighbors are joining",
+    "5 Nachbarn nehmen teil": "5 neighbors are joining",
+    "Verifiziertes Mitglied": "Verified member",
+    "Erfolgreich durchgeführt!": "Successfully completed!",
+    "Wie funktioniert das Ausleihen?": "How does borrowing work?",
+    "Kostet Gartenzaun Geld?": "Does Gartenzaun cost money?",
+    "Wer betreibt die App?": "Who runs the app?",
+    "Entwickelt mit Herz, Engagement und viel Liebe für unsere Nachbarschaft. ❤️": "Built with heart, commitment, and a lot of love for our neighborhood.",
+    "Ist mein Profil öffentlich?": "Is my profile public?",
+    "Wer sind die Botschafter?": "Who are the ambassadors?",
+    "Kann ich Gegenstände wieder löschen?": "Can I delete shared items again?",
+    "Gartenzaun bringt echte Nachbarinnen und Nachbarn zusammen.": "Gartenzaun brings real neighbors together.",
+    "Damit sich alle sicher fühlen können, ist es wichtig, dass jede Person ihre Identität bestätigt.": "So everyone can feel safe, it is important that each person confirms their identity.",
+    "Die Verifizierung schützt die Gemeinschaft vor Fake-Profilen und sorgt dafür, dass Vertrauen entstehen kann.": "Verification protects the community from fake profiles and helps trust grow.",
+    "Deine Daten sind bei uns sicher. Wir halten uns an die DSGVO und speichern deine Daten auf einem deutschen Server.": "Your data is safe with us. We comply with GDPR and store your data on a German server.",
+    "Goatee": "Goatee"
+});
+
+Object.assign(autoTextTranslations.en, {
+    "FÃ¼r ein gutes und respektvolles Miteinander am Gartenzaun.": "For respectful and positive interaction at the garden fence.",
+    "Respektvoll sein": "Be respectful",
+    "Hilfsbereit & konstruktiv": "Helpful & constructive",
+    "PrivatsphÃ¤re achten": "Respect privacy",
+    "Kein Hass, kein Spam": "No hate, no spam",
+    "Regeln einhalten": "Follow the rules",
+    "ZurÃ¼ck": "Back",
+    "Bitte richte dein Gesicht im Kreis aus": "Please align your face inside the circle",
+    "Halte den QR-Code auf der RÃ¼ckseite deiner Gartenzaun-Postkarte vor die Kamera.": "Hold the QR code on the back of your Gartenzaun postcard in front of the camera.",
+    "Halte deinen Personalausweis neben dein Gesicht und blicke in die Kamera.": "Hold your ID card next to your face and look into the camera.",
+    "WÃ¤hle einen Nachbarn aus deiner direkten Umgebung aus, der deine IdentitÃ¤t kennt:": "Choose a neighbor nearby who knows your identity:",
+    "Wir haben eine Anfrage an den Nachbarn gesendet. Dies dauert normalerweise einen Moment.": "We sent a request to the neighbor. This usually takes a moment.",
+    "Helga Schmidt": "Helga Schmidt",
+    "Dieter MÃ¼ller": "Dieter Müller",
+    "Familie Krause": "Krause family",
+    "ðŸŒ³ Nachbarschafts-Barometer": "Neighborhood barometer",
+    "Unsere Nachbarschaft blÃ¼ht! Diese Woche gab es bereits 8 geteilte GegenstÃ¤nde oder gegenseitige UnterstÃ¼tzungen.": "Our neighborhood is thriving! This week there have already been 8 shared items or mutual support actions.",
+    "ðŸ† Gemeinschaftsziel": "Community goal",
+    "Ziel: 10 gute Taten diese Woche. Noch 2 bis zum goldenen Kleeblatt-Abzeichen fÃ¼r alle!": "Goal: 10 good deeds this week. Only 2 more until everyone earns the golden clover badge!",
+    "â€žIch unterstÃ¼tze dich sehr gerne bei den ersten Schritten in der App oder erklÃ¤re dir, wie das Teilen funktioniert. Sprich mich einfach an!â€œ": "\"I am happy to help you with your first steps in the app or explain how sharing works. Just ask me!\"",
+    "ðŸ‘¥ Nachbarschafts-Gruppen": "Neighborhood groups",
+    "ðŸŒ± Gartenfreunde Tulpenweg": "Tulip Lane garden friends",
+    "ðŸš² Lastenrad-Gemeinschaft": "Cargo-bike community",
+    "â˜• Kaffeeklatsch am Sonntag": "Sunday coffee meetup",
+    "ðŸ’¬ Chat": "Chat",
+    "ðŸ’š Faire UnterstÃ¼tzung": "Fair support",
+    "Hier siehst du, wer in deiner NÃ¤he UnterstÃ¼tzung sucht. Klicke auf eine Karte, um UnterstÃ¼tzung anzubieten.": "Here you can see who nearby is looking for support. Click a card to offer help.",
+    "ðŸ›’ EinkÃ¤ufe": "Shopping",
+    "ðŸ”§ Technik-UnterstÃ¼tzung": "Tech support",
+    "ðŸ—‘ï¸ Entsorgung": "Disposal",
+    "â€žIch schaffe es diese Woche leider nicht zum Supermarkt. KÃ¶nnte mir jemand Ã„pfel, Brot und Milch mitbringen?â€œ": "\"I cannot make it to the supermarket this week. Could someone bring me apples, bread, and milk?\"",
+    "â€žMein Drucker druckt leider nicht mehr rot. Kennt sich jemand mit Canon-Druckern aus?â€œ": "\"My printer unfortunately no longer prints red. Does anyone know Canon printers?\"",
+    "â€žWir haben Holzschnitt im Garten und kein groÃŸes Auto. FÃ¤hrt demnÃ¤chst jemand zum Wertstoffhof?â€œ": "\"We have wood cuttings in the garden and no large car. Is anyone going to the recycling center soon?\"",
+    "WÃ¤hle einen Bereich aus und beschreibe kurz, wobei du UnterstÃ¼tzung benÃ¶tigst.": "Choose a category and briefly describe what you need help with.",
+    "ðŸ¤ Faire Nutzung": "Fair use",
+    "GegenstÃ¤nde sorgfÃ¤ltig und sauber behandeln.": "Handle items carefully and keep them clean.",
+    "PÃ¼nktlich zum vereinbarten Termin zurÃ¼ckgeben.": "Return items on time as agreed.",
+    "Bei SchÃ¤den sofort den Besitzer informieren.": "Inform the owner immediately if something is damaged.",
+    "ðŸŒ± Gemeinsame Aktionen": "Community activities",
+    "Zusagen sind verbindlich â€“ bitte rechtzeitig absagen.": "Commitments are binding - please cancel in time.",
+    "Gemeinsam anpacken: Jede helfende Hand zÃ¤hlt.": "Pitch in together: every helping hand counts.",
+    "MÃ¼ll vermeiden und den Treffpunkt sauber hinterlassen.": "Avoid waste and leave the meeting point clean.",
+    "Gemeinsam aktiv: Hier findest du Aktionen und Treffen in deiner Nachbarschaft.": "Active together: here you can find activities and meetups in your neighborhood.",
+    "ðŸ—‘ï¸ Sauberes Viertel: MÃ¼llsammel-Aktion": "Clean neighborhood: litter cleanup",
+    "ðŸª PlÃ¤tzchentausch & Sommerkaffee": "Cookie swap & summer coffee",
+    "ðŸŒ± Garten-Mit-Mach-Tag": "Garden participation day",
+    "Wir machen unsere Nachbarschaft schick! Greifzangen und MÃ¼llsÃ¤cke werden gestellt. Im Anschluss gibt es kÃ¼hle GetrÃ¤nke am Gartenzaun.": "We are making our neighborhood look good! Grabbers and trash bags are provided. Afterwards there will be cold drinks at the garden fence.",
+    "Jeder bringt eine Kleinigkeit zu knabbern oder zu trinken mit. Wir quatschen, tauschen Rezepte und lernen uns besser kennen.": "Everyone brings a small snack or drink. We chat, swap recipes, and get to know each other better.",
+    "Wir pflanzen neue Stauden und jÃ¤ten Unkraut. Bringt gerne eigene PflanzensprÃ¶sslinge oder Ableger zum Tauschen mit!": "We will plant new perennials and weed the garden. Feel free to bring sprouts or cuttings to swap!",
+    "ðŸ’¬ Event-Chat": "Event chat",
+    "Foto lÃ¶schen": "Delete photo",
+    "StraÃŸe & Hausnummer": "Street and house number",
+    "Meine FÃ¤higkeiten (Ich kann unterstÃ¼tzen bei...)": "My skills (I can help with...)",
+    "ðŸ›’ EinkÃ¤ufe mitbringen": "Bring groceries",
+    "ðŸŒ± Garten & Pflanzen pflegen": "Take care of gardens & plants",
+    "ðŸ”§ Technik & Handwerk erklÃ¤ren": "Explain technology & repairs",
+    "ðŸ”¨ Handwerk": "Handywork",
+    "ðŸ¾ Haustier-Betreuung": "Pet care",
+    "ðŸ’¬ Gesellschaft leisten": "Keep company",
+    "HÃ¤ufige Fragen (FAQs)": "Frequently asked questions",
+    "Wie funktioniert das Ausleihen? Klicke im Bereich â€žTeilenâ€œ auf einen freien Gegenstand und bestÃ¤tige die Ausleihe. Stimmt euch Ã¼ber den Chat ab.": "How does borrowing work? In the Share section, click an available item and confirm the loan. Coordinate through chat.",
+    "Kostet Gartenzaun Geld? Nein, die Nutzung der App und das Teilen von GegenstÃ¤nden sind komplett kostenlos und basieren auf Gemeinschaftshilfe.": "Does Gartenzaun cost money? No, using the app and sharing items are completely free and based on community help.",
+    "Wer betreibt die App? Die App wird von einem ehrenamtlichen Nachbarschaftsverein betrieben, um den Zusammenhalt im Tulpenweg zu stÃ¤rken.": "Who runs the app? The app is run by a volunteer neighborhood association to strengthen community on Tulip Lane.",
+    "Gartenzaun entstand aus der Idee, den Austausch zwischen den Generationen in unserer Nachbarschaft zu vereinfachen.": "Gartenzaun was created from the idea of making exchange between generations in our neighborhood easier.",
+    "Ob Werkzeuge teilen, beim Einkauf unterstÃ¼tzen oder sich einfach bei einer Tasse Kaffee austauschen: Gartenzaun bringt Menschen von 25 bis 80 Jahren zusammen.": "Whether sharing tools, helping with shopping, or simply chatting over coffee: Gartenzaun brings people from 25 to 80 together.",
+    "Entwickelt mit Herz, Engagement und viel Liebe fÃ¼r unsere Nachbarschaft. â¤ï¸": "Built with heart, commitment, and a lot of love for our neighborhood.",
+    "Ist mein Profil Ã¶ffentlich? Nur deine verifizierten Nachbarn kÃ¶nnen deinen Namen und deine FÃ¤higkeiten sehen. Deine Hausnummer wird standardmÃ¤ÃŸig geschÃ¼tzt.": "Is my profile public? Only your verified neighbors can see your name and skills. Your house number is protected by default.",
+    "Wer sind die Botschafter? Botschafter sind hilfsbereite Nachbarn, die sich bereit erklÃ¤rt haben, neuen Mitgliedern die App zu erklÃ¤ren.": "Who are the ambassadors? Ambassadors are helpful neighbors who have agreed to explain the app to new members.",
+    "Kann ich GegenstÃ¤nde wieder lÃ¶schen? Ja, unter deinem Profil oder direkt im Teilen-Bereich kannst du deine eigenen eingestellten GegenstÃ¤nde bearbeiten.": "Can I delete shared items again? Yes, you can edit your own shared items in your profile or directly in the Share section.",
+    "Warum verifizieren?": "Why verify?",
+    "Die Verifizierung schÃ¼tzt die Gemeinschaft vor Fakeâ€‘Profilen und sorgt dafÃ¼r, dass Vertrauen entstehen kann.": "Verification protects the community from fake profiles and helps trust grow.",
+    "ðŸ”’ Deine Daten sind bei uns sicher. Wir halten uns an die DSGVO und speichern deine Daten auf einem deutschen Server.": "Your data is safe with us. We comply with GDPR and store your data on a German server."
+});
+
+const pendingAutoAttributeTranslations = {
+    "Menü öffnen": "Open menu",
+    "Vorlesen": "Read aloud",
+    "Pause": "Pause",
+    "Stopp": "Stop",
+    "Verifiziertes Mitglied": "Verified member",
+    "Inhalt melden": "Report content"
+};
+
+const autoAttributeTranslations = {
+    en: {
+        "z.B. Maria": "e.g. Maria",
+        "z.B. Schmidt": "e.g. Smith",
+        "z.B. Tulpenweg 12": "e.g. Tulip Lane 12",
+        "z.B. 12345 Neustadt": "e.g. 12345 Neustadt",
+        "Eigenes Interesse hinzufügen…": "Add your own interest...",
+        "Eigenes Talent hinzufügen…": "Add your own skill...",
+        "z.B. Teleskopleiter, Schlagbohrer": "e.g. telescopic ladder, drill",
+        "Suche nach Geräten (z.B. Leiter, Bohrer)...": "Search for items (e.g. ladder, drill)...",
+        "Beispiel: Hallo Nachbarn, ich bräuchte Hilfe beim Rasenmähen am Samstag...": "Example: Hello neighbors, I could use help mowing the lawn on Saturday...",
+        "Schreibe eine Nachricht...": "Write a message...",
+        "z.B. Spieleabend Tulpenweg": "e.g. Game night on Tulip Lane",
+        "Worum geht es in dieser Gruppe? Wer kann mitmachen?": "What is this group about? Who can join?",
+        "z.B. Vertikutierer, Bohrer": "e.g. scarifier, drill",
+        "Mehr Informationen": "More information",
+        "Beitrag melden": "Report post"
+    }
+};
+
+Object.assign(autoAttributeTranslations.en, pendingAutoAttributeTranslations);
+
+Object.assign(autoTextTranslations.en, {
+    "Hinzufügen": "Add",
+    "👥 Nachbarschafts-Gruppen": "Neighborhood groups",
+    "🌱 Gartenfreunde Tulpenweg": "Tulip Lane garden friends",
+    "🚲 Lastenrad-Gemeinschaft": "Cargo-bike community",
+    "☕ Kaffeeklatsch am Sonntag": "Sunday coffee meetup",
+    "💬 Chat": "Chat",
+    "💚 Faire Unterstützung": "Fair support",
+    "🛒 Einkäufe": "Shopping",
+    "🔧 Technik-Unterstützung": "Tech support",
+    "🗑️ Entsorgung": "Disposal",
+    "🤝 Faire Nutzung": "Fair use",
+    "🌱 Gemeinsame Aktionen": "Community activities",
+    "🗑️ Sauberes Viertel: Müllsammel-Aktion": "Clean neighborhood: litter cleanup",
+    "🍪 Plätzchentausch & Sommerkaffee": "Cookie swap & summer coffee",
+    "🌱 Garten-Mit-Mach-Tag": "Garden participation day",
+    "💬 Event-Chat": "Event chat",
+    "🌳 Nachbarschafts-Barometer": "Neighborhood barometer",
+    "🏆 Gemeinschaftsziel": "Community goal",
+    "🛒 Einkäufe mitbringen": "Bring groceries",
+    "🌱 Garten & Pflanzen pflegen": "Take care of gardens & plants",
+    "🔧 Technik & Handwerk erklären": "Explain technology & repairs",
+    "🔨 Handwerk": "Handywork",
+    "🐾 Haustier-Betreuung": "Pet care",
+    "💬 Gesellschaft leisten": "Keep company",
+    "💬 Chat mit Klaus": "Chat with Klaus",
+    "💬 Chat mit Dieter": "Chat with Dieter",
+    "💬 Chat mit Krauses": "Chat with the Krauses",
+    "💬 Chat mit Sabine": "Chat with Sabine"
+});
+
 function initI18n() {
     try {
         const savedLang = localStorage.getItem('gartenzaun_language');
@@ -305,6 +717,14 @@ function setLanguage(lang) {
 }
 
 function applyTranslations() {
+    if (translations[currentLang].app_document_title) {
+        document.title = translations[currentLang].app_document_title;
+    } else {
+        document.title = currentLang === 'en'
+            ? 'Gartenzaun - Your neighborhood app'
+            : 'Gartenzaun - Deine Nachbarschafts-App';
+    }
+
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (translations[currentLang][key]) {
@@ -327,6 +747,125 @@ function applyTranslations() {
             el.innerHTML = translations[currentLang][key];
         }
     });
+
+    translateAttributeKey('data-i18n-placeholder', 'placeholder');
+    translateAttributeKey('data-i18n-title', 'title');
+    translateAttributeKey('data-i18n-aria-label', 'aria-label');
+
+    applyAutomaticTextTranslations();
+    applyAutomaticAttributeTranslations();
+}
+
+function translateAttributeKey(dataAttr, targetAttr) {
+    document.querySelectorAll(`[${dataAttr}]`).forEach(el => {
+        const key = el.getAttribute(dataAttr);
+        if (translations[currentLang][key]) {
+            el.setAttribute(targetAttr, translations[currentLang][key]);
+        }
+    });
+}
+
+function getAutoTranslation(lang, text) {
+    if (lang === 'de') return null;
+    const normalized = normalizeI18nText(text);
+    const dictionary = autoTextTranslations[lang];
+    if (!dictionary) return null;
+    return dictionary[text] || dictionary[normalized] || findCanonicalTranslation(dictionary, text);
+}
+
+function normalizeI18nText(text) {
+    return (text || '').replace(/\s+/g, ' ').trim();
+}
+
+function findCanonicalTranslation(dictionary, text) {
+    const canonical = canonicalI18nText(text);
+    if (!canonical) return null;
+    for (const [key, value] of Object.entries(dictionary)) {
+        if (canonicalI18nText(key) === canonical) {
+            return value;
+        }
+    }
+    return null;
+}
+
+function canonicalI18nText(text) {
+    let current = normalizeI18nText(text);
+    for (let i = 0; i < 3; i++) {
+        const repaired = repairMojibakeText(current);
+        if (repaired === current) break;
+        current = normalizeI18nText(repaired);
+    }
+    return current;
+}
+
+function repairMojibakeText(text) {
+    if (!/[ÃÂâð]/.test(text) || typeof TextDecoder === 'undefined') {
+        return text;
+    }
+    try {
+        const bytes = new Uint8Array(Array.from(text, char => char.charCodeAt(0) & 0xff));
+        const repaired = new TextDecoder('utf-8', { fatal: false }).decode(bytes);
+        return repaired.includes('\uFFFD') ? text : repaired;
+    } catch (e) {
+        return text;
+    }
+}
+
+function getAutoAttributeTranslation(lang, text) {
+    if (lang === 'de') return null;
+    const dictionary = autoAttributeTranslations[lang];
+    if (!dictionary) return null;
+    const normalized = normalizeI18nText(text);
+    return dictionary[text] || dictionary[normalized] || findCanonicalTranslation(dictionary, text);
+}
+
+function applyAutomaticTextTranslations() {
+    const walker = document.createTreeWalker(
+        document.body,
+        NodeFilter.SHOW_TEXT,
+        {
+            acceptNode(node) {
+                const parent = node.parentElement;
+                if (!parent) return NodeFilter.FILTER_REJECT;
+                if (parent.closest('script, style, svg, textarea, [data-i18n], [data-i18n-html]')) {
+                    return NodeFilter.FILTER_REJECT;
+                }
+                const text = node.textContent.trim();
+                return text ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+            }
+        }
+    );
+
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+
+    nodes.forEach(node => {
+        if (!node.__i18nOriginalText) {
+            node.__i18nOriginalText = normalizeI18nText(node.textContent);
+        }
+        const original = node.__i18nOriginalText;
+        const translated = getAutoTranslation(currentLang, original);
+        const leading = node.textContent.match(/^\s*/)[0];
+        const trailing = node.textContent.match(/\s*$/)[0];
+        node.textContent = leading + (translated || original) + trailing;
+    });
+}
+
+function applyAutomaticAttributeTranslations() {
+    document.querySelectorAll('[placeholder], [title], [aria-label]').forEach(el => {
+        if (el.hasAttribute('data-i18n')) return;
+        ['placeholder', 'title', 'aria-label'].forEach(attr => {
+            if (!el.hasAttribute(attr)) return;
+            const originalAttr = 'i18nOriginal' + attr.replace(/(^|-)([a-z])/g, (_, _dash, char) => char.toUpperCase());
+            if (!el.dataset[originalAttr]) {
+                el.dataset[originalAttr] = el.getAttribute(attr);
+            }
+            const original = normalizeI18nText(el.dataset[originalAttr]);
+            const translated = getAutoAttributeTranslation(currentLang, original)
+                || getAutoAttributeTranslation(currentLang, el.dataset[originalAttr]);
+            el.setAttribute(attr, translated || original);
+        });
+    });
 }
 
 function updateLanguageSelectors() {
@@ -337,6 +876,10 @@ function updateLanguageSelectors() {
 
 function t(key) {
     return translations[currentLang][key] || key;
+}
+
+function translateStaticText(text) {
+    return getAutoTranslation(currentLang, text) || text;
 }
 
 // Ensure it runs after DOM is loaded

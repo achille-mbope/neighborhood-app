@@ -152,7 +152,7 @@
                             <div class="custom-select-container" id="welcome-lang-select">
                                 <div class="custom-select-trigger" onclick="toggleCustomSelect(this)" tabindex="0">
                                     <div class="custom-select-value">
-                                        <img src="Bilder/D Flagge.png" alt="DE"><span>Deutsch</span>
+                                        <img src="assets/flag-de.svg" alt="DE"><span>Deutsch</span>
                                     </div>
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2">
@@ -161,10 +161,10 @@
                                 </div>
                                 <div class="custom-select-options">
                                     <div class="custom-select-option" onclick="selectLanguage('de')" tabindex="0">
-                                        <img src="Bilder/D Flagge.png" alt="DE"><span>Deutsch</span>
+                                        <img src="assets/flag-de.svg" alt="DE"><span>Deutsch</span>
                                     </div>
                                     <div class="custom-select-option" onclick="selectLanguage('en')" tabindex="0">
-                                        <img src="Bilder/US Flagge.png" alt="US"><span>English</span>
+                                        <img src="assets/flag-us.svg" alt="US"><span>English</span>
                                     </div>
                                 </div>
                             </div>
@@ -225,7 +225,7 @@
                     <div style="height: 4px; background-color: var(--color-border); border-radius: 2px; overflow: hidden; display: none;"
                         id="tts-progress-container-short">
                         <div id="tts-progress-bar-short"
-                            style="height: 100%; width: 0%; background-color: var(--color-primary); transition: width 0.3s ease;">
+                            style="height: 100%; width: 0; background-color: var(--color-primary); transition: width 0.3s ease;">
                         </div>
                     </div>
                 </div>
@@ -289,34 +289,39 @@
 
             <!-- SCREEN 2.5: Persönliche Daten -->
             <section class="screen" id="screen-address-radius">
-                <h1 class="onboarding-title" style="margin-bottom: 8px;">Persönliche Daten</h1>
-                <p class="onboarding-subtitle" style="margin-bottom: 20px;">Bitte gib deinen echten Namen und deine
+                <h1 class="onboarding-title" style="margin-bottom: 8px;" data-i18n="personal_data_title">Persönliche Daten</h1>
+                <p class="onboarding-subtitle" style="margin-bottom: 20px;" data-i18n="personal_data_subtitle">Bitte gib deinen echten Namen und deine
                     Adresse an, damit wir deine Nachbarschaft bestimmen können.</p>
 
                 <div class="form-group" style="display: flex; flex-direction: column; gap: 12px;">
                     <div>
-                        <label class="form-label" for="profile-firstname">Vorname *</label>
+                        <label class="form-label" for="profile-firstname" data-i18n="first_name_label">Vorname *</label>
                         <input type="text" class="search-bar" id="profile-firstname" placeholder="z.B. Maria"
+                            data-i18n="first_name_placeholder"
                             style="margin-bottom: 0;" required>
                     </div>
                     <div>
-                        <label class="form-label" for="profile-lastname">Nachname *</label>
+                        <label class="form-label" for="profile-lastname" data-i18n="last_name_label">Nachname *</label>
                         <input type="text" class="search-bar" id="profile-lastname" placeholder="z.B. Schmidt"
+                            data-i18n="last_name_placeholder"
                             style="margin-bottom: 0;" required>
                     </div>
                     <p class="feature-desc"
-                        style="font-size: var(--fs-xs); color: var(--color-text-muted); margin-top: -4px;">Bitte gib
+                        style="font-size: var(--fs-xs); color: var(--color-text-muted); margin-top: -4px;"
+                        data-i18n="real_name_note">Bitte gib
                         hier deinen echten Namen an. Dieser wird für Vertrauen und Nachbarschaftshilfe innerhalb der App
                         verwendet.</p>
 
                     <div style="margin-top: 12px;">
-                        <label class="form-label" for="address-street">Straße & Hausnummer</label>
+                        <label class="form-label" for="address-street" data-i18n="street_label">Straße & Hausnummer</label>
                         <input type="text" class="search-bar" id="address-street" placeholder="z.B. Tulpenweg 12"
+                            data-i18n="street_placeholder"
                             style="margin-bottom: 0;">
                     </div>
                     <div>
-                        <label class="form-label" for="address-zip">Postleitzahl & Ort</label>
+                        <label class="form-label" for="address-zip" data-i18n="zip_city_label">Postleitzahl & Ort</label>
                         <input type="text" class="search-bar" id="address-zip" placeholder="z.B. 12345 Neustadt"
+                            data-i18n="zip_city_placeholder"
                             style="margin-bottom: 0;">
                     </div>
                     <div id="address-validation-status" class="feature-desc" aria-live="polite"
@@ -324,8 +329,8 @@
                     </div>
                 </div>
 
-                <h2 class="section-title" style="margin-top: 24px;">Gewünschter Umkreis</h2>
-                <p class="onboarding-subtitle" style="margin-bottom: 12px;">Wie weit soll deine Nachbarschaft reichen?
+                <h2 class="section-title" style="margin-top: 24px;" data-i18n="desired_radius_title">Gewünschter Umkreis</h2>
+                <p class="onboarding-subtitle" style="margin-bottom: 12px;" data-i18n="desired_radius_subtitle">Wie weit soll deine Nachbarschaft reichen?
                 </p>
 
                 <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;">
@@ -333,9 +338,9 @@
                         style="padding: 14px 16px; margin-bottom: 0; align-items: center; cursor: pointer;">
                         <div class="feature-icon-wrapper" style="width: 36px; height: 36px;">📍</div>
                         <div style="margin-left: 12px;">
-                            <span class="skill-checkbox-label" style="font-size: var(--fs-md); display: block;">50
+                            <span class="skill-checkbox-label" style="font-size: var(--fs-md); display: block;" data-i18n="radius_50m">50
                                 Meter</span>
-                            <span class="feature-desc" style="display: block; font-size: var(--fs-xs);">Direkte Nachbarn
+                            <span class="feature-desc" style="display: block; font-size: var(--fs-xs);" data-i18n="radius_50m_desc">Direkte Nachbarn
                                 (ca. 10 Häuser)</span>
                         </div>
                     </div>
@@ -343,9 +348,9 @@
                         style="padding: 14px 16px; margin-bottom: 0; align-items: center; cursor: pointer;">
                         <div class="feature-icon-wrapper" style="width: 36px; height: 36px;">🏡</div>
                         <div style="margin-left: 12px;">
-                            <span class="skill-checkbox-label" style="font-size: var(--fs-md); display: block;">100
+                            <span class="skill-checkbox-label" style="font-size: var(--fs-md); display: block;" data-i18n="radius_100m">100
                                 Meter</span>
-                            <span class="feature-desc" style="display: block; font-size: var(--fs-xs);">Deine gesamte
+                            <span class="feature-desc" style="display: block; font-size: var(--fs-xs);" data-i18n="radius_100m_desc">Deine gesamte
                                 Straße (Empfohlen)</span>
                         </div>
                     </div>
@@ -1362,7 +1367,7 @@
                         <div class="custom-select-container" id="profile-lang-select">
                             <div class="custom-select-trigger" onclick="toggleCustomSelect(this)" tabindex="0">
                                 <div class="custom-select-value">
-                                    <img src="Bilder/D Flagge.png" alt="DE"><span>Deutsch</span>
+                                    <img src="assets/flag-de.svg" alt="DE"><span>Deutsch</span>
                                 </div>
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2">
@@ -1371,10 +1376,10 @@
                             </div>
                             <div class="custom-select-options">
                                 <div class="custom-select-option" onclick="selectLanguage('de')" tabindex="0">
-                                    <img src="Bilder/D Flagge.png" alt="DE"><span>Deutsch</span>
+                                    <img src="assets/flag-de.svg" alt="DE"><span>Deutsch</span>
                                 </div>
                                 <div class="custom-select-option" onclick="selectLanguage('en')" tabindex="0">
-                                    <img src="Bilder/US Flagge.png" alt="US"><span>English</span>
+                                    <img src="assets/flag-us.svg" alt="US"><span>English</span>
                                 </div>
                             </div>
                         </div>
@@ -1499,7 +1504,7 @@
                     <div style="height: 4px; background-color: var(--color-border); border-radius: 2px; overflow: hidden; display: none;"
                         id="tts-progress-container-long">
                         <div id="tts-progress-bar-long"
-                            style="height: 100%; width: 0%; background-color: var(--color-primary); transition: width 0.3s ease;">
+                            style="height: 100%; width: 0; background-color: var(--color-primary); transition: width 0.3s ease;">
                         </div>
                     </div>
                 </div>
@@ -1751,7 +1756,7 @@
 
                 <div class="form-group">
                     <label class="form-label" for="new-item-icon">Kategorie / Symbol</label>
-                    <div style="display: flex; gap: 8px; justify-content: space-around; font-size: 28px;">
+                    <div id="new-item-icon" style="display: flex; gap: 8px; justify-content: space-around; font-size: 28px;">
                         <button class="category-button selected" style="padding: 10px; width: 60px; height: 60px;"
                             onclick="selectItemIcon(this, '🛠️')">🛠️</button>
                         <button class="category-button" style="padding: 10px; width: 60px; height: 60px;"
@@ -1908,8 +1913,24 @@
 
     </div>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="js/app.js"></script>
+    <script src="js/core/lucide.js"></script>
+    <script src="js/core/state.js"></script>
+    <script src="js/core/ui.js"></script>
+    <script src="js/core/forms.js"></script>
+    <script src="js/core/router.js"></script>
+    <script src="js/onboarding/netiquette.js"></script>
+    <script src="js/onboarding/address.js"></script>
+    <script src="js/onboarding/setup.js"></script>
+    <script src="js/onboarding/verification.js"></script>
+    <script src="js/profile/avatar.js"></script>
+    <script src="js/profile/profile.js"></script>
+    <script src="js/messages/chat.js"></script>
+    <script src="js/messages/tts.js"></script>
+    <script src="js/support/help.js"></script>
+    <script src="js/groups/groups.js"></script>
+    <script src="js/sharing/sharing.js"></script>
+    <script src="js/events/events.js"></script>
+    <script src="js/main.js"></script>
     <script>
         lucide.createIcons();
     </script>
