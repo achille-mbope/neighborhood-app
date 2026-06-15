@@ -25,5 +25,8 @@ function submitHelpRequest() {
 }
 
 function startHelpMatch(name, topic) {
-    openChatModal(name, 'UnterstÃ¼tzung: ' + topic);
+    const subtitle = typeof t === 'function'
+        ? t('chat_type_support').replace('{topic}', typeof translateStaticText === 'function' ? translateStaticText(topic) : topic)
+        : 'Unterstützung: ' + topic;
+    openChatModal(name, subtitle);
 }

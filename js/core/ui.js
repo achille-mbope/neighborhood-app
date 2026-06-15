@@ -1,5 +1,6 @@
 ﻿
 let rerender = () => {};
+let toastTimeoutId = null;
 
 function setRenderCallback(callback) {
     rerender = callback;
@@ -14,24 +15,50 @@ function refreshIcons() {
 function showToast(message) {
     const toast = document.getElementById('global-toast');
     if (!toast) return;
+    if (toastTimeoutId) {
+        clearTimeout(toastTimeoutId);
+    }
     toast.innerText = message;
     toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 3000);
+    toastTimeoutId = setTimeout(() => {
+        toast.classList.remove('show');
+        toastTimeoutId = null;
+    }, 3000);
+}
+
+function resetAppStorage() {
+    const confirmMessage = typeof window.t === 'function'
+        ? window.t('reset_confirm_message')
+        : 'Alle gespeicherten Daten zurücksetzen?';
+    if (!window.confirm(confirmMessage)) return;
+    clearBrowserStorage();
+    window.location.reload();
 }
 
 function getModal(id) {
     return document.getElementById(id) || document.getElementById('modal-' + id);
 }
 
+function syncModalScrollLock() {
+    const hasOpenModal = !!document.querySelector('.modal-overlay.active');
+    document.body.classList.toggle('modal-open', hasOpenModal);
+}
+
 function openGlobalModal(id) {
     const modal = getModal(id);
-    if (modal) modal.classList.add('active');
+    if (modal) {
+        modal.classList.add('active');
+        syncModalScrollLock();
+    }
     document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('show'));
 }
 
 function closeGlobalModal(id) {
     const modal = getModal(id);
-    if (modal) modal.classList.remove('active');
+    if (modal) {
+        modal.classList.remove('active');
+        syncModalScrollLock();
+    }
 }
 
 function toggleCustomSelect(trigger) {
@@ -91,7 +118,9 @@ function selectLanguage(lang) {
     localStorage.setItem('gartenzaun_language', lang);
     saveState();
     rerender();
-    showToast(typeof window.t === 'function' ? (window.t('toast_lang_changed') || 'Sprache geÃ¤ndert.') : 'Sprache geÃ¤ndert.');
+    document.querySelectorAll('.custom-select-options').forEach(options => options.classList.remove('open'));
+    const message = typeof window.t === 'function' ? window.t('toast_lang_change') : 'Sprache geändert.';
+    showToast(message === 'toast_lang_change' ? 'Sprache geändert.' : message);
 }
 
 function toggleLargeFont(checked) {

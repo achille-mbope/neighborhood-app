@@ -32,6 +32,18 @@ function updateProfileLendItems(value) {
     saveState();
 }
 
+function profileTranslate(key, fallback, replacements = {}) {
+    const value = typeof t === 'function' ? t(key) : fallback;
+    return Object.entries(replacements).reduce(
+        (text, [name, replacement]) => text.replace(`{${name}}`, replacement),
+        value === key ? fallback : value
+    );
+}
+
+function profileText(text) {
+    return typeof translateStaticText === 'function' ? translateStaticText(text) : text;
+}
+
 function toggleProfileSkill(skill) {
     const index = state.profileSkills.indexOf(skill);
     if (index >= 0) {
@@ -40,7 +52,7 @@ function toggleProfileSkill(skill) {
         state.profileSkills.push(skill);
     }
     saveState();
-    showToast(skill + ' aktualisiert');
+    showToast(profileTranslate('profile_skill_updated_toast', '{skill} aktualisiert', { skill: profileText(skill) }));
 }
 
 function setInputValue(id, value) {
@@ -75,8 +87,8 @@ function renderTagDisplay(containerId, tags, emptyText) {
     const container = document.getElementById(containerId);
     if (!container) return;
     container.innerHTML = tags.length
-        ? tags.map(tag => `<span class="tag-pill active">${typeof translateStaticText === 'function' ? translateStaticText(tag) : tag}</span>`).join('')
-        : `<span class="tag-pill active">${emptyText}</span>`;
+        ? tags.map(tag => `<span class="tag-pill active">${profileText(tag)}</span>`).join('')
+        : `<span class="tag-pill active">${profileText(emptyText)}</span>`;
 }
 
 function hydrateProfileSkills() {
@@ -122,7 +134,10 @@ function hydrateProfileView() {
 
     hydrateProfileImage('onboarding');
     hydrateProfileImage('profile');
-    renderTagDisplay('profile-interests-display', getProfileInterests(), 'Keine Interessen ausgewählt');
+    if (typeof updateProfilePictureNextButton === 'function') {
+        updateProfilePictureNextButton();
+    }
+    renderTagDisplay('profile-interests-display', getProfileInterests(), profileTranslate('profile_no_interests', 'Keine Interessen ausgewählt'));
     hydrateProfileSkills();
     hydrateProfileRadius();
 }
@@ -132,5 +147,5 @@ function logoutSimulation() {
     state.currentView = 'onboarding';
     state.onboardingStep = 'welcome';
     renderApp();
-    showToast('Abgemeldet');
+    showToast(profileTranslate('profile_logged_out_toast', 'Abgemeldet'));
 }

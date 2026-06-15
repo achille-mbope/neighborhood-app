@@ -1,4 +1,24 @@
 ﻿
+function getProfilePictureButtonText(key) {
+    if (typeof window.t === 'function') return window.t(key);
+    return key === 'btn_next' ? 'Weiter' : 'Überspringen';
+}
+
+function updateProfilePictureNextButton() {
+    const button = document.getElementById('profile-picture-next-btn');
+    if (!button) return;
+    const hasProfilePictureChange = Boolean(state.profilePictureChanged || state.profileImageDataUrl);
+    const labelKey = hasProfilePictureChange ? 'btn_next' : 'btn_skip';
+    button.dataset.i18n = labelKey;
+    button.innerText = getProfilePictureButtonText(labelKey);
+}
+
+function markOnboardingProfilePictureChanged() {
+    state.profilePictureChanged = true;
+    saveState();
+    updateProfilePictureNextButton();
+}
+
 function removeActiveProfilePicture() {
     state.profileImageDataUrl = '';
     state.profileImageKind = '';
@@ -14,6 +34,9 @@ function removeActiveProfilePicture() {
         if (placeholder) placeholder.style.display = 'inline';
         if (removeButton) removeButton.style.display = 'none';
     });
+    if (state.currentView === 'onboarding' && state.onboardingStep === 'profile-picture') {
+        markOnboardingProfilePictureChanged();
+    }
     showToast(typeof window.t === 'function' ? window.t('toast_photo_removed') : 'Foto entfernt.');
 }
 
@@ -106,13 +129,14 @@ function applyAvatarConfig() {
     const wasInApp = state.currentView === 'app';
     state.profileImageDataUrl = getAvatarDataUrl();
     state.profileImageKind = 'avatar';
+    if (!wasInApp) state.profilePictureChanged = true;
     saveState();
     applyAvatarToPreview('onboarding');
     applyAvatarToPreview('profile');
     closeAvatarEditor();
     showToast(typeof window.t === 'function' ? window.t('toast_avatar_saved') : 'Avatar gespeichert');
     if (wasInApp) renderApp();
-    else goToOnboardingStep('verify-select');
+    else updateProfilePictureNextButton();
 }
 
 function openAvatarEditor() {
@@ -141,6 +165,9 @@ function handleImageSelection(input, scope) {
         }
         if (placeholder) placeholder.style.display = 'none';
         if (removeButton) removeButton.style.display = 'inline-flex';
+        if (scope === 'onboarding') {
+            markOnboardingProfilePictureChanged();
+        }
     };
     reader.readAsDataURL(file);
 }

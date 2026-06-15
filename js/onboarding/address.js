@@ -1,4 +1,12 @@
 ﻿
+function addressText(key) {
+    return typeof window.t === 'function' ? window.t(key) : key;
+}
+
+function formatAddressText(key, values) {
+    return addressText(key).replace(/\{(\w+)\}/g, (_, name) => values[name] || '');
+}
+
 function setAddressValidationStatus(message, type) {
     const status = document.getElementById('address-validation-status');
     if (!status) return;
@@ -22,7 +30,7 @@ function setAddressButtonLoading(isLoading) {
     if (!button) return;
     button.disabled = isLoading;
     button.dataset.originalText = button.dataset.originalText || button.innerText;
-    button.innerText = isLoading ? 'Adresse wird geprÃ¼ft...' : button.dataset.originalText;
+    button.innerText = isLoading ? addressText('address_loading') : button.dataset.originalText;
 }
 
 function getAddressInputs() {
@@ -62,7 +70,7 @@ async function validateAddressWithOpenStreetMap(street, zipCity) {
     const response = await fetch(buildNominatimUrl(street, zipCity), {
         headers: { Accept: 'application/json' }
     });
-    if (!response.ok) throw new Error('OpenStreetMap konnte nicht erreicht werden.');
+    if (!response.ok) throw new Error(addressText('address_osm_unreachable'));
     const results = await response.json();
     return results.find(result => isLikelyValidAddress(result, street, zipCity)) || null;
 }
@@ -83,20 +91,20 @@ async function submitAddressAndRadius() {
     const zipCity = values.zipCity.trim();
 
     if (!firstName || !lastName || !street || !zipCity) {
-        setAddressValidationStatus('Bitte fÃ¼lle Vorname, Nachname, StraÃŸe sowie Postleitzahl & Ort aus.', 'error');
+        setAddressValidationStatus(addressText('address_error_required_fields'), 'error');
         return;
     }
     if (!/\d/.test(street)) {
-        setAddressValidationStatus('Bitte gib StraÃŸe und Hausnummer an, damit die Adresse eindeutig geprÃ¼ft werden kann.', 'error');
+        setAddressValidationStatus(addressText('address_error_missing_house_number'), 'error');
         return;
     }
 
     try {
         setAddressButtonLoading(true);
-        setAddressValidationStatus('Adresse wird mit OpenStreetMap geprÃ¼ft...', 'info');
+        setAddressValidationStatus(addressText('address_checking_osm'), 'info');
         const result = await validateAddressWithOpenStreetMap(street, zipCity);
         if (!result) {
-            setAddressValidationStatus('Diese Adresse konnte nicht eindeutig gefunden werden. Bitte prÃ¼fe StraÃŸe, Hausnummer, Postleitzahl und Ort.', 'error');
+            setAddressValidationStatus(addressText('address_error_not_found'), 'error');
             return;
         }
 
@@ -111,11 +119,13 @@ async function submitAddressAndRadius() {
         state.profileZip = zipCity;
         saveState();
 
-        setAddressValidationStatus('Adresse bestÃ¤tigt: ' + result.display_name, 'success');
-        showToast('Adresse erfolgreich bestÃ¤tigt');
+        setAddressValidationStatus(formatAddressText('address_success_confirmed', {
+            address: result.display_name
+        }), 'success');
+        showToast(addressText('toast_address_confirmed'));
         setTimeout(() => goToOnboardingStep('profile-setup'), 700);
     } catch (error) {
-        setAddressValidationStatus('Die OpenStreetMap-PrÃ¼fung ist fehlgeschlagen. Bitte prÃ¼fe deine Internetverbindung und versuche es erneut.', 'error');
+        setAddressValidationStatus(addressText('address_error_osm_failed'), 'error');
     } finally {
         setAddressButtonLoading(false);
     }
@@ -123,13 +133,14 @@ async function submitAddressAndRadius() {
 
 function hydrateAddressStep() {
     const nameParts = (state.profileName || '').split(' ');
+    const defaultProfileName = addressText('default_profile_name');
     const firstName = document.getElementById('profile-firstname');
     const lastName = document.getElementById('profile-lastname');
     const street = document.getElementById('address-street');
     const zip = document.getElementById('address-zip');
 
-    if (firstName && state.profileName && state.profileName !== 'Max Mustermann') firstName.value = nameParts.shift() || '';
-    if (lastName && state.profileName && state.profileName !== 'Max Mustermann') lastName.value = nameParts.join(' ');
+    if (firstName && state.profileName && state.profileName !== defaultProfileName) firstName.value = nameParts.shift() || '';
+    if (lastName && state.profileName && state.profileName !== defaultProfileName) lastName.value = nameParts.join(' ');
     if (street) street.value = state.profileStreet || '';
     if (zip) zip.value = state.profileZip || '';
     selectOnboardingRadius(state.radius || 100, false);
