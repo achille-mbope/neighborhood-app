@@ -780,10 +780,10 @@ function renderShareFlowModal() {
                     <input type="date" class="search-bar" id="new-item-to" style="margin-bottom: 0;">
                 </div>
             </div>
-            <div class="share-checkbox-list">
-                <label><input type="checkbox" id="new-item-free" checked> ${text('share_add_free_option', 'Kostenlos verleihen')}</label>
-                <label><input type="checkbox" id="new-item-effort"> ${text('share_add_effort_option', 'Gegen kleine Aufwandsentschädigung (nicht monetär)')}</label>
-                <label><input type="checkbox" id="new-item-confirmed-only"> ${text('share_add_confirmed_only_option', 'Nur für bestätigte Nachbarn sichtbar')}</label>
+            <div class="share-checkbox-list" role="radiogroup" aria-label="${text('share_add_options_label', 'Ausleihoption')}">
+                <label><input type="radio" name="new-item-share-option" id="new-item-free" checked> ${text('share_add_free_option', 'Kostenlos verleihen')}</label>
+                <label><input type="radio" name="new-item-share-option" id="new-item-effort"> ${text('share_add_effort_option', 'Gegen kleine Aufwandsentschädigung (nicht monetär)')}</label>
+                <label><input type="radio" name="new-item-share-option" id="new-item-confirmed-only"> ${text('share_add_confirmed_only_option', 'Nur für bestätigte Nachbarn sichtbar')}</label>
             </div>
         </div>
         <div class="share-flow-step" data-share-step="3">
