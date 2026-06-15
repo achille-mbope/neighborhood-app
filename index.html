@@ -1178,44 +1178,98 @@
             <!-- TAB 4: EVENTS (Events & Begegnungen) -->
             <section class="screen" id="tab-events">
                 <div class="events-page">
-                    <div class="events-topbar">
-                        <h1 class="events-heading" data-i18n="events_page_title">Events in deiner Nachbarschaft</h1>
+                    <div class="share-hero events-hero">
+                        <div class="share-hero-content">
+                            <p class="share-kicker" data-i18n="events_kicker">Events & Begegnungen</p>
+                            <h1 class="share-title" data-i18n="events_page_title">Events in deiner Nachbarschaft</h1>
+                            <p class="share-subtitle" data-i18n="events_page_subtitle">Finde Treffen, Aktionen und gemeinsame Aktivitäten direkt in deiner Umgebung.</p>
+                            <div class="share-hero-actions">
+                                <button class="btn btn-primary share-add-btn event-add-btn" type="button"
+                                    onclick="openAddEventModal()"
+                                    aria-label="Neues Event erstellen" data-i18n="event_add_button"
+                                    data-i18n-aria-label="event_create_aria">Event hinzufügen</button>
+                                <div class="share-hero-note">
+                                    <strong data-i18n="events_next_label">Als Nächstes</strong>
+                                    <span data-i18n="events_next_summary">6 kommende Events in deiner Umgebung</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="events-search-row">
-                        <div class="events-search-box">
-                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                <circle cx="11" cy="11" r="7"></circle>
-                                <path d="m20 20-3.5-3.5"></path>
-                            </svg>
-                            <input type="search" placeholder="Events suchen..." aria-label="Events suchen"
+                    <div class="share-search-panel events-search-panel">
+                        <div class="share-search-shell">
+                            <span class="share-search-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="7"></circle>
+                                    <path d="M20 20L16.5 16.5"></path>
+                                </svg>
+                            </span>
+                            <input type="search" class="search-bar" id="event-search" placeholder="Events suchen..." aria-label="Events suchen"
                                 data-i18n-placeholder="event_search_placeholder"
                                 data-i18n-aria-label="event_search_aria">
+                            <details class="share-filter-disclosure event-filter-disclosure">
+                                <summary class="share-filter-button event-filter-button" aria-label="Filter anzeigen"
+                                    data-i18n-aria-label="share_filter_aria">
+                                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4 7H20"></path>
+                                        <path d="M4 17H20"></path>
+                                        <circle cx="9" cy="7" r="2"></circle>
+                                        <circle cx="15" cy="17" r="2"></circle>
+                                    </svg>
+                                </summary>
+                                <div class="share-filter-menu event-filter-menu">
+                                    <div class="share-filter-group">
+                                        <span class="share-filter-label" data-i18n="event_filter_categories">Kategorien</span>
+                                        <div class="share-category-grid" aria-label="Event Kategorien"
+                                            data-i18n-aria-label="event_filter_categories">
+                                            <button class="share-category-tile event-category-tile" type="button" data-event-category="food">
+                                                <span class="share-category-icon">🍽️</span>
+                                                <span data-i18n="event_cat_food">Essen & Trinken</span>
+                                            </button>
+                                            <button class="share-category-tile event-category-tile" type="button" data-event-category="outdoor">
+                                                <span class="share-category-icon">🌿</span>
+                                                <span data-i18n="event_cat_outdoor">Outdoor</span>
+                                            </button>
+                                            <button class="share-category-tile event-category-tile" type="button" data-event-category="sport">
+                                                <span class="share-category-icon">🧘</span>
+                                                <span data-i18n="event_cat_sport">Sport & Bewegung</span>
+                                            </button>
+                                            <button class="share-category-tile event-category-tile" type="button" data-event-category="culture">
+                                                <span class="share-category-icon">🎨</span>
+                                                <span data-i18n="event_cat_culture">Kultur & Kreativ</span>
+                                            </button>
+                                            <button class="share-category-tile event-category-tile" type="button" data-event-category="community">
+                                                <span class="share-category-icon">👥</span>
+                                                <span data-i18n="event_cat_community">Community</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-secondary event-filter-reset" type="button"
+                                        data-i18n="event_filter_reset">Filter zurücksetzen</button>
+                                </div>
+                            </details>
                         </div>
-                        <button class="event-filter-button" type="button" aria-label="Filter anzeigen"
-                            data-i18n-aria-label="share_filter_aria">
-                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M4 6h16M7 12h10M10 18h4"></path>
-                            </svg>
-                        </button>
                     </div>
 
-                    <div class="events-tabs" role="tablist" aria-label="Event Ansicht"
+                    <div class="segmented-control events-tabs" role="tablist" aria-label="Event Ansicht"
                         data-i18n-aria-label="event_tabs_aria">
-                        <button class="active" type="button" data-i18n="event_tab_upcoming">Kommende Events</button>
-                        <button type="button" data-i18n="event_tab_past">Vergangene Events</button>
+                        <button class="segmented-btn active" type="button" data-event-filter="upcoming" aria-selected="true" data-i18n="event_tab_upcoming">Kommende Events</button>
+                        <button class="segmented-btn" type="button" data-event-filter="past" aria-selected="false" data-i18n="event_tab_past">Vergangene Events</button>
                     </div>
 
                     <div class="events-list">
                     <!-- Event 1 -->
-                    <div class="event-card">
+                    <div class="event-card" data-event-date="2026-06-15" data-event-category="food" role="button" tabindex="0">
                         <div class="event-thumb event-thumb-grill" aria-hidden="true"></div>
                         <div class="event-card-content">
+                            <span class="share-category-chip event-category-chip" data-i18n="event_cat_food">Essen & Trinken</span>
                             <div class="event-title">Sommergrillen im Hof</div>
                             <div class="event-meta">
                                 <div class="event-meta-item">
-                                    <span>▣</span>
-                                    <span>24. Mai 2025 · 17:00 Uhr</span>
+                                    <i data-lucide="calendar" aria-hidden="true"></i>
+                                    <span>15. Juni 2026 · 17:00 Uhr</span>
                                 </div>
                                 <div class="event-meta-item">
                                     <span>👥</span>
@@ -1227,14 +1281,15 @@
                     </div>
 
                     <!-- Event 2 -->
-                    <div class="event-card">
+                    <div class="event-card" data-event-date="2026-06-16" data-event-category="outdoor" role="button" tabindex="0">
                         <div class="event-thumb event-thumb-hike" aria-hidden="true"></div>
                         <div class="event-card-content">
+                            <span class="share-category-chip event-category-chip" data-i18n="event_cat_outdoor">Outdoor</span>
                             <div class="event-title">Wanderung am See</div>
                             <div class="event-meta">
                                 <div class="event-meta-item">
-                                    <span>▣</span>
-                                    <span>25. Mai 2025 · 09:30 Uhr</span>
+                                    <i data-lucide="calendar" aria-hidden="true"></i>
+                                    <span>16. Juni 2026 · 09:30 Uhr</span>
                                 </div>
                                 <div class="event-meta-item">
                                     <span>👥</span>
@@ -1246,14 +1301,15 @@
                     </div>
 
                     <!-- Event 3 -->
-                    <div class="event-card">
+                    <div class="event-card" data-event-date="2026-06-20" data-event-category="community" role="button" tabindex="0">
                         <div class="event-thumb event-thumb-game" aria-hidden="true"></div>
                         <div class="event-card-content">
+                            <span class="share-category-chip event-category-chip" data-i18n="event_cat_community">Community</span>
                             <div class="event-title">Spieleabend</div>
                             <div class="event-meta">
                                 <div class="event-meta-item">
-                                    <span>▣</span>
-                                    <span>28. Mai 2025 · 19:00 Uhr</span>
+                                    <i data-lucide="calendar" aria-hidden="true"></i>
+                                    <span>20. Juni 2026 · 19:00 Uhr</span>
                                 </div>
                                 <div class="event-meta-item">
                                     <span>👥</span>
@@ -1264,45 +1320,87 @@
                         <span class="event-status closed" data-i18n="event_status_closed">Geschlossen</span>
                     </div>
 
-                    <div class="event-card">
+                    <div class="event-card" data-event-date="2026-06-18" data-event-category="food" role="button" tabindex="0">
                         <div class="event-thumb event-thumb-coffee" aria-hidden="true"></div>
                         <div class="event-card-content">
+                            <span class="share-category-chip event-category-chip" data-i18n="event_cat_food">Essen & Trinken</span>
                             <div class="event-title">Business Breakfast</div>
                             <div class="event-meta">
-                                <div class="event-meta-item"><span>▣</span><span>30. Mai 2025 · 08:00 Uhr</span></div>
+                                <div class="event-meta-item"><i data-lucide="calendar" aria-hidden="true"></i><span>18. Juni 2026 · 08:00 Uhr</span></div>
                                 <div class="event-meta-item"><span>👥</span><span class="event-participants-count">15 / 25 Teilnehmer</span></div>
                             </div>
                         </div>
                         <span class="event-status open" data-i18n="event_status_open">Offen</span>
                     </div>
 
-                    <div class="event-card">
+                    <div class="event-card" data-event-date="2026-06-22" data-event-category="sport" role="button" tabindex="0">
                         <div class="event-thumb event-thumb-yoga" aria-hidden="true"></div>
                         <div class="event-card-content">
+                            <span class="share-category-chip event-category-chip" data-i18n="event_cat_sport">Sport & Bewegung</span>
                             <div class="event-title">Yoga im Grünen</div>
                             <div class="event-meta">
-                                <div class="event-meta-item"><span>▣</span><span>5. Juni 2025 · 10:00 Uhr</span></div>
+                                <div class="event-meta-item"><i data-lucide="calendar" aria-hidden="true"></i><span>22. Juni 2026 · 10:00 Uhr</span></div>
                                 <div class="event-meta-item"><span>👥</span><span class="event-participants-count">5 / 15 Teilnehmer</span></div>
                             </div>
                         </div>
                         <span class="event-status open" data-i18n="event_status_open">Offen</span>
                     </div>
 
-                    <div class="event-card">
+                    <div class="event-card" data-event-date="2026-06-27" data-event-category="culture" role="button" tabindex="0">
                         <div class="event-thumb event-thumb-art" aria-hidden="true"></div>
                         <div class="event-card-content">
+                            <span class="share-category-chip event-category-chip" data-i18n="event_cat_culture">Kultur & Kreativ</span>
                             <div class="event-title">Kunst im Park</div>
                             <div class="event-meta">
-                                <div class="event-meta-item"><span>▣</span><span>2. Juni 2025 · 16:00 Uhr</span></div>
+                                <div class="event-meta-item"><i data-lucide="calendar" aria-hidden="true"></i><span>27. Juni 2026 · 16:00 Uhr</span></div>
+                                <div class="event-meta-item"><span>👥</span><span class="event-participants-count">10 / ∞ Teilnehmer</span></div>
+                            </div>
+                        </div>
+                        <span class="event-status open" data-i18n="event_status_open">Offen</span>
+                    </div>
+
+                    <div class="event-card" data-event-date="2026-06-12" data-event-category="food" role="button" tabindex="0">
+                        <div class="event-thumb event-thumb-coffee" aria-hidden="true"></div>
+                        <div class="event-card-content">
+                            <span class="share-category-chip event-category-chip" data-i18n="event_cat_food">Essen & Trinken</span>
+                            <div class="event-title">Business Breakfast</div>
+                            <div class="event-meta">
+                                <div class="event-meta-item"><i data-lucide="calendar" aria-hidden="true"></i><span>12. Juni 2026 · 08:00 Uhr</span></div>
+                                <div class="event-meta-item"><span>👥</span><span class="event-participants-count">15 / 25 Teilnehmer</span></div>
+                            </div>
+                        </div>
+                        <span class="event-status open" data-i18n="event_status_open">Offen</span>
+                    </div>
+
+                    <div class="event-card" data-event-date="2026-06-10" data-event-category="sport" role="button" tabindex="0">
+                        <div class="event-thumb event-thumb-yoga" aria-hidden="true"></div>
+                        <div class="event-card-content">
+                            <span class="share-category-chip event-category-chip" data-i18n="event_cat_sport">Sport & Bewegung</span>
+                            <div class="event-title">Yoga im Grünen</div>
+                            <div class="event-meta">
+                                <div class="event-meta-item"><i data-lucide="calendar" aria-hidden="true"></i><span>10. Juni 2026 · 10:00 Uhr</span></div>
+                                <div class="event-meta-item"><span>👥</span><span class="event-participants-count">5 / 15 Teilnehmer</span></div>
+                            </div>
+                        </div>
+                        <span class="event-status open" data-i18n="event_status_open">Offen</span>
+                    </div>
+
+                    <div class="event-card" data-event-date="2026-06-14" data-event-category="culture" role="button" tabindex="0">
+                        <div class="event-thumb event-thumb-art" aria-hidden="true"></div>
+                        <div class="event-card-content">
+                            <span class="share-category-chip event-category-chip" data-i18n="event_cat_culture">Kultur & Kreativ</span>
+                            <div class="event-title">Kunst im Park</div>
+                            <div class="event-meta">
+                                <div class="event-meta-item"><i data-lucide="calendar" aria-hidden="true"></i><span>14. Juni 2026 · 16:00 Uhr</span></div>
                                 <div class="event-meta-item"><span>👥</span><span class="event-participants-count">10 / ∞ Teilnehmer</span></div>
                             </div>
                         </div>
                         <span class="event-status closed" data-i18n="event_status_closed">Geschlossen</span>
                     </div>
+                    <p class="events-empty" hidden data-i18n="events_empty_state">Keine Events in dieser Ansicht.</p>
                 </div>
-                    <button class="event-floating-add" type="button" aria-label="Neues Event erstellen"
-                        data-i18n-aria-label="event_create_aria">+</button>
                 </div>
+                <div id="event-detail-view" class="share-detail-view event-detail-view" hidden></div>
             </section>
 
             <!-- TAB 5: PROFIL (Nutzerprofil) -->
@@ -1868,6 +1966,95 @@
                 </div>
 
                 <button class="btn btn-primary" onclick="submitAddShareItem()" data-i18n="share_add_submit">Einstellen</button>
+            </div>
+        </div>
+
+        <!-- Modal 7.5: Neues Event erstellen -->
+        <div class="modal-overlay" id="modal-add-event">
+            <div class="modal-content">
+                <button class="modal-close-btn" onclick="closeAddEventModal()" aria-label="Schließen"
+                    data-i18n-aria-label="modal_close_aria">×</button>
+                <h2 class="modal-title" id="event-modal-title" data-i18n="event_add_modal_title">Event hinzufügen</h2>
+
+                <div class="form-group">
+                    <label class="form-label" for="new-event-title" data-i18n="event_add_title_label">Eventname</label>
+                    <input type="text" class="search-bar" id="new-event-title" placeholder="z.B. Nachbarschaftsbrunch"
+                        data-i18n-placeholder="event_add_title_placeholder" style="margin-bottom: 0;">
+                </div>
+
+                <div class="share-form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="new-event-category" data-i18n="event_add_category_label">Kategorie</label>
+                        <select class="search-bar" id="new-event-category" style="margin-bottom: 0;">
+                            <option value="food" data-i18n="event_cat_food">Essen & Trinken</option>
+                            <option value="outdoor" data-i18n="event_cat_outdoor">Outdoor</option>
+                            <option value="sport" data-i18n="event_cat_sport">Sport & Bewegung</option>
+                            <option value="culture" data-i18n="event_cat_culture">Kultur & Kreativ</option>
+                            <option value="community" data-i18n="event_cat_community">Community</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="new-event-participants" data-i18n="event_add_participants_label">Max. Teilnehmer</label>
+                        <input type="number" class="search-bar" id="new-event-participants" min="1" value="12"
+                            style="margin-bottom: 0;">
+                        <label class="event-inline-option" for="new-event-unlimited">
+                            <input type="checkbox" id="new-event-unlimited" onchange="toggleEventUnlimitedParticipants(this.checked)">
+                            <span data-i18n="event_add_unlimited_label">Unbegrenzt</span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <span class="form-label" data-i18n="event_add_status_label">Eventtyp</span>
+                        <div class="event-radio-row" role="radiogroup" aria-label="Eventtyp"
+                            data-i18n-aria-label="event_add_status_label">
+                            <label>
+                                <input type="radio" name="new-event-status" value="open" checked>
+                                <span data-i18n="event_status_open">Offen</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="new-event-status" value="closed">
+                                <span data-i18n="event_status_closed">Geschlossen</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="share-form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="new-event-date" data-i18n="event_detail_date_label">Datum</label>
+                        <input type="date" class="search-bar" id="new-event-date" style="margin-bottom: 0;">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="new-event-time" data-i18n="event_add_time_label">Uhrzeit</label>
+                        <input type="time" class="search-bar" id="new-event-time" style="margin-bottom: 0;">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="new-event-location" data-i18n="event_detail_location_label">Ort</label>
+                    <input type="text" class="search-bar" id="new-event-location" placeholder="z.B. Innenhof, Haus 4"
+                        data-i18n-placeholder="event_add_location_placeholder" style="margin-bottom: 0;">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="new-event-image" data-i18n="event_add_image_label">Bild hochladen</label>
+                    <input type="file" id="new-event-image" accept="image/*">
+                    <p class="feature-desc" style="font-size: var(--fs-xs); margin-top: 6px;"
+                        data-i18n="event_add_image_hint">Wenn kein Bild gewählt wird, nutzt das Event ein passendes Kategoriebild.</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="new-event-description" data-i18n="event_add_description_label">Beschreibung</label>
+                    <textarea class="form-textarea" id="new-event-description"
+                        placeholder="Worum geht es bei diesem Event?"
+                        data-i18n-placeholder="event_add_description_placeholder"></textarea>
+                </div>
+
+                <div class="share-flow-actions">
+                    <button class="btn btn-secondary" type="button" onclick="closeAddEventModal()"
+                        data-i18n="event_add_cancel">Abbrechen</button>
+                    <button class="btn btn-primary" id="event-submit-button" type="button" onclick="submitAddEvent()"
+                        data-i18n="event_add_submit">Event erstellen</button>
+                </div>
             </div>
         </div>
 
