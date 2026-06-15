@@ -187,6 +187,7 @@ const translations = {
         "profile_logged_out_toast": "Abgemeldet",
         "toast_id_confirmed": "Deine Identität wurde erfolgreich bestätigt 💚",
         "toast_welcome": "Willkommen in der Nachbarschaft! 🎉",
+        "toast_lang_change": "Sprache geändert.",
         "toast_avatar_saved": "Avatar gespeichert!",
         "toast_photo_removed": "Foto entfernt.",
         "toast_avatar_removed": "Avatar entfernt.",
@@ -340,6 +341,21 @@ const translations = {
         "chat_type_support": "Unterstützung: {topic}",
         "chat_type_event": "Event-Chat",
         "chat_report_sent": "Meldung gesendet: {reason}",
+        "events_page_title": "Events in deiner Nachbarschaft",
+        "event_menu_aria": "Menü öffnen",
+        "event_notifications_aria": "Benachrichtigungen",
+        "event_search_placeholder": "Events suchen...",
+        "event_search_aria": "Events suchen",
+        "event_tabs_aria": "Event Ansicht",
+        "event_tab_upcoming": "Kommende Events",
+        "event_tab_past": "Vergangene Events",
+        "event_join_button": "Ich bin dabei!",
+        "event_joined_button": "Du bist dabei",
+        "event_joined_toast": "Teilnahme bestätigt: {event}",
+        "event_left_toast": "Teilnahme entfernt",
+        "event_status_open": "Offen",
+        "event_status_closed": "Geschlossen",
+        "event_create_aria": "Neues Event erstellen",
         "group_join_button": "Beitreten",
         "group_joined_button": "Beigetreten",
         "group_joined_toast": "Gruppe beigetreten: {group}",
@@ -539,6 +555,7 @@ const translations = {
         "profile_logged_out_toast": "Logged out",
         "toast_id_confirmed": "Your identity was successfully confirmed 💚",
         "toast_welcome": "Welcome to the neighborhood! 🎉",
+        "toast_lang_change": "Language changed.",
         "toast_avatar_saved": "Avatar saved!",
         "toast_photo_removed": "Photo removed.",
         "toast_avatar_removed": "Avatar removed.",
@@ -692,6 +709,21 @@ const translations = {
         "chat_type_support": "Support: {topic}",
         "chat_type_event": "Event chat",
         "chat_report_sent": "Report sent: {reason}",
+        "events_page_title": "Events in your neighborhood",
+        "event_menu_aria": "Open menu",
+        "event_notifications_aria": "Notifications",
+        "event_search_placeholder": "Search events...",
+        "event_search_aria": "Search events",
+        "event_tabs_aria": "Event view",
+        "event_tab_upcoming": "Upcoming events",
+        "event_tab_past": "Past events",
+        "event_join_button": "I'm in!",
+        "event_joined_button": "You're in",
+        "event_joined_toast": "Participation confirmed: {event}",
+        "event_left_toast": "Participation removed",
+        "event_status_open": "Open",
+        "event_status_closed": "Closed",
+        "event_create_aria": "Create new event",
         "group_join_button": "Join",
         "group_joined_button": "Joined",
         "group_joined_toast": "Joined group: {group}",
@@ -1140,6 +1172,9 @@ function setLanguage(lang) {
         }
         if (typeof syncGroupJoinButtons === 'function') {
             syncGroupJoinButtons();
+        }
+        if (typeof syncEventJoinButtons === 'function') {
+            syncEventJoinButtons();
         }
     }
 }

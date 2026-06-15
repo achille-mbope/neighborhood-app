@@ -118,7 +118,9 @@ function selectLanguage(lang) {
     localStorage.setItem('gartenzaun_language', lang);
     saveState();
     rerender();
-    showToast(typeof window.t === 'function' ? (window.t('toast_lang_changed') || 'Sprache geÃ¤ndert.') : 'Sprache geÃ¤ndert.');
+    document.querySelectorAll('.custom-select-options').forEach(options => options.classList.remove('open'));
+    const message = typeof window.t === 'function' ? window.t('toast_lang_change') : 'Sprache geändert.';
+    showToast(message === 'toast_lang_change' ? 'Sprache geändert.' : message);
 }
 
 function toggleLargeFont(checked) {

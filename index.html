@@ -1177,106 +1177,131 @@
 
             <!-- TAB 4: EVENTS (Events & Begegnungen) -->
             <section class="screen" id="tab-events">
-                <!-- Green Rules Infobox -->
-                <div class="rules-infobox">
-                    <div class="rules-infobox-title">🌱 Gemeinsame Aktionen</div>
-                    <ul class="rules-infobox-list">
-                        <li class="rules-infobox-item">Zusagen sind verbindlich – bitte rechtzeitig absagen.</li>
-                        <li class="rules-infobox-item">Gemeinsam anpacken: Jede helfende Hand zählt.</li>
-                        <li class="rules-infobox-item">Müll vermeiden und den Treffpunkt sauber hinterlassen.</li>
-                        <li class="rules-infobox-item">Respektvoller Austausch bei allen Begegnungen.</li>
-                    </ul>
-                </div>
+                <div class="events-page">
+                    <div class="events-topbar">
+                        <h1 class="events-heading" data-i18n="events_page_title">Events in deiner Nachbarschaft</h1>
+                    </div>
 
-                <p class="onboarding-subtitle" style="margin-bottom: 20px;">Gemeinsam aktiv: Hier findest du Aktionen
-                    und Treffen in deiner Nachbarschaft.</p>
+                    <div class="events-search-row">
+                        <div class="events-search-box">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="11" cy="11" r="7"></circle>
+                                <path d="m20 20-3.5-3.5"></path>
+                            </svg>
+                            <input type="search" placeholder="Events suchen..." aria-label="Events suchen"
+                                data-i18n-placeholder="event_search_placeholder"
+                                data-i18n-aria-label="event_search_aria">
+                        </div>
+                        <button class="event-filter-button" type="button" aria-label="Filter anzeigen"
+                            data-i18n-aria-label="share_filter_aria">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M4 6h16M7 12h10M10 18h4"></path>
+                            </svg>
+                        </button>
+                    </div>
 
-                <div class="events-list">
+                    <div class="events-tabs" role="tablist" aria-label="Event Ansicht"
+                        data-i18n-aria-label="event_tabs_aria">
+                        <button class="active" type="button" data-i18n="event_tab_upcoming">Kommende Events</button>
+                        <button type="button" data-i18n="event_tab_past">Vergangene Events</button>
+                    </div>
+
+                    <div class="events-list">
                     <!-- Event 1 -->
                     <div class="event-card">
-                        <div class="event-title">🗑️ Sauberes Viertel: Müllsammel-Aktion</div>
-                        <div class="event-meta">
-                            <div class="event-meta-item">
-                                <span>📅</span>
-                                <span>Samstag, 13. Juni um 10:00 Uhr</span>
-                            </div>
-                            <div class="event-meta-item">
-                                <span>📍</span>
-                                <span>Treffpunkt: Am Spielplatz Tulpenweg</span>
-                            </div>
-                            <div class="event-meta-item">
-                                <span>👥</span>
-                                <span class="event-participants-count">8 Nachbarn nehmen teil</span>
+                        <div class="event-thumb event-thumb-grill" aria-hidden="true"></div>
+                        <div class="event-card-content">
+                            <div class="event-title">Sommergrillen im Hof</div>
+                            <div class="event-meta">
+                                <div class="event-meta-item">
+                                    <span>▣</span>
+                                    <span>24. Mai 2025 · 17:00 Uhr</span>
+                                </div>
+                                <div class="event-meta-item">
+                                    <span>👥</span>
+                                    <span class="event-participants-count">12 / 20 Teilnehmer</span>
+                                </div>
                             </div>
                         </div>
-                        <p class="event-desc">Wir machen unsere Nachbarschaft schick! Greifzangen und Müllsäcke werden
-                            gestellt. Im Anschluss gibt es kühle Getränke am Gartenzaun.</p>
-                        <div style="display: flex; gap: 8px;">
-                            <button class="btn btn-primary" style="flex: 1;"
-                                onclick="toggleJoinEvent(this, 'Sauberes Viertel: Müllsammel-Aktion')">Ich bin
-                                dabei!</button>
-                            <button class="btn btn-secondary chat-btn"
-                                style="display: none; flex: 1; padding: 6px 12px;"
-                                onclick="openEventChat('Sauberes Viertel: Müllsammel-Aktion')">💬 Event-Chat</button>
-                        </div>
+                        <span class="event-status open" data-i18n="event_status_open">Offen</span>
                     </div>
 
                     <!-- Event 2 -->
                     <div class="event-card">
-                        <div class="event-title">🍪 Plätzchentausch & Sommerkaffee</div>
-                        <div class="event-meta">
-                            <div class="event-meta-item">
-                                <span>📅</span>
-                                <span>Sonntag, 21. Juni um 15:00 Uhr</span>
-                            </div>
-                            <div class="event-meta-item">
-                                <span>📍</span>
-                                <span>Treffpunkt: Helgas Vorgarten (Hausnr. 12)</span>
-                            </div>
-                            <div class="event-meta-item">
-                                <span>👥</span>
-                                <span class="event-participants-count">12 Nachbarn nehmen teil</span>
+                        <div class="event-thumb event-thumb-hike" aria-hidden="true"></div>
+                        <div class="event-card-content">
+                            <div class="event-title">Wanderung am See</div>
+                            <div class="event-meta">
+                                <div class="event-meta-item">
+                                    <span>▣</span>
+                                    <span>25. Mai 2025 · 09:30 Uhr</span>
+                                </div>
+                                <div class="event-meta-item">
+                                    <span>👥</span>
+                                    <span class="event-participants-count">8 / ∞ Teilnehmer</span>
+                                </div>
                             </div>
                         </div>
-                        <p class="event-desc">Jeder bringt eine Kleinigkeit zu knabbern oder zu trinken mit. Wir
-                            quatschen, tauschen Rezepte und lernen uns besser kennen.</p>
-                        <div style="display: flex; gap: 8px;">
-                            <button class="btn btn-primary" style="flex: 1;"
-                                onclick="toggleJoinEvent(this, 'Plätzchentausch & Sommerkaffee')">Ich bin
-                                dabei!</button>
-                            <button class="btn btn-secondary chat-btn"
-                                style="display: none; flex: 1; padding: 6px 12px;"
-                                onclick="openEventChat('Plätzchentausch & Sommerkaffee')">💬 Event-Chat</button>
-                        </div>
+                        <span class="event-status open" data-i18n="event_status_open">Offen</span>
                     </div>
 
                     <!-- Event 3 -->
                     <div class="event-card">
-                        <div class="event-title">🌱 Garten-Mit-Mach-Tag</div>
-                        <div class="event-meta">
-                            <div class="event-meta-item">
-                                <span>📅</span>
-                                <span>Samstag, 27. Juni um 11:00 Uhr</span>
-                            </div>
-                            <div class="event-meta-item">
-                                <span>📍</span>
-                                <span>Treffpunkt: Gemeinschaftsgarten Ecke Tulpenweg/Hauptstr.</span>
-                            </div>
-                            <div class="event-meta-item">
-                                <span>👥</span>
-                                <span class="event-participants-count">5 Nachbarn nehmen teil</span>
+                        <div class="event-thumb event-thumb-game" aria-hidden="true"></div>
+                        <div class="event-card-content">
+                            <div class="event-title">Spieleabend</div>
+                            <div class="event-meta">
+                                <div class="event-meta-item">
+                                    <span>▣</span>
+                                    <span>28. Mai 2025 · 19:00 Uhr</span>
+                                </div>
+                                <div class="event-meta-item">
+                                    <span>👥</span>
+                                    <span class="event-participants-count">6 / 10 Teilnehmer</span>
+                                </div>
                             </div>
                         </div>
-                        <p class="event-desc">Wir pflanzen neue Stauden und jäten Unkraut. Bringt gerne eigene
-                            Pflanzensprösslinge oder Ableger zum Tauschen mit!</p>
-                        <div style="display: flex; gap: 8px;">
-                            <button class="btn btn-primary" style="flex: 1;"
-                                onclick="toggleJoinEvent(this, 'Garten-Mit-Mach-Tag')">Ich bin dabei!</button>
-                            <button class="btn btn-secondary chat-btn"
-                                style="display: none; flex: 1; padding: 6px 12px;"
-                                onclick="openEventChat('Garten-Mit-Mach-Tag')">💬 Event-Chat</button>
-                        </div>
+                        <span class="event-status closed" data-i18n="event_status_closed">Geschlossen</span>
                     </div>
+
+                    <div class="event-card">
+                        <div class="event-thumb event-thumb-coffee" aria-hidden="true"></div>
+                        <div class="event-card-content">
+                            <div class="event-title">Business Breakfast</div>
+                            <div class="event-meta">
+                                <div class="event-meta-item"><span>▣</span><span>30. Mai 2025 · 08:00 Uhr</span></div>
+                                <div class="event-meta-item"><span>👥</span><span class="event-participants-count">15 / 25 Teilnehmer</span></div>
+                            </div>
+                        </div>
+                        <span class="event-status open" data-i18n="event_status_open">Offen</span>
+                    </div>
+
+                    <div class="event-card">
+                        <div class="event-thumb event-thumb-yoga" aria-hidden="true"></div>
+                        <div class="event-card-content">
+                            <div class="event-title">Yoga im Grünen</div>
+                            <div class="event-meta">
+                                <div class="event-meta-item"><span>▣</span><span>5. Juni 2025 · 10:00 Uhr</span></div>
+                                <div class="event-meta-item"><span>👥</span><span class="event-participants-count">5 / 15 Teilnehmer</span></div>
+                            </div>
+                        </div>
+                        <span class="event-status open" data-i18n="event_status_open">Offen</span>
+                    </div>
+
+                    <div class="event-card">
+                        <div class="event-thumb event-thumb-art" aria-hidden="true"></div>
+                        <div class="event-card-content">
+                            <div class="event-title">Kunst im Park</div>
+                            <div class="event-meta">
+                                <div class="event-meta-item"><span>▣</span><span>2. Juni 2025 · 16:00 Uhr</span></div>
+                                <div class="event-meta-item"><span>👥</span><span class="event-participants-count">10 / ∞ Teilnehmer</span></div>
+                            </div>
+                        </div>
+                        <span class="event-status closed" data-i18n="event_status_closed">Geschlossen</span>
+                    </div>
+                </div>
+                    <button class="event-floating-add" type="button" aria-label="Neues Event erstellen"
+                        data-i18n-aria-label="event_create_aria">+</button>
                 </div>
             </section>
 
