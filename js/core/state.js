@@ -31,6 +31,7 @@ var defaultState = {
     profileLendItems: '',
     profileImageDataUrl: '',
     profileImageKind: '',
+    profilePictureChanged: false,
     profileSkills: [],
     formValues: {},
     isVerified: false,
@@ -91,5 +92,12 @@ function saveState() {
 function resetSavedState() {
     try {
         localStorage.removeItem(STORAGE_KEY);
+    } catch (error) { }
+}
+
+function clearBrowserStorage() {
+    try {
+        localStorage.clear();
+        sessionStorage.clear();
     } catch (error) { }
 }

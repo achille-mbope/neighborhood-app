@@ -11,6 +11,15 @@
 
 <body>
 
+    <button class="app-reset-button" type="button" onclick="resetAppStorage()" aria-label="App zuruecksetzen"
+        data-i18n-aria-label="reset_button_aria" title="Zuruecksetzen" data-i18n-title="reset_button_title">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 3-6.7"></path>
+            <path d="M3 4v6h6"></path>
+        </svg>
+    </button>
+
     <div id="app-shell">
 
         <!-- GLOBAL APPBAND/HEADER (only visible after onboarding, or shown at top of app) -->
@@ -35,8 +44,9 @@
                 <span class="app-header-title">Gartenzaun</span>
             </div>
 
-            <!-- Three-Dot Menu -->
-            <div class="menu-container">
+            <!-- Header Actions -->
+            <div class="header-actions">
+                <div class="menu-container">
                 <button class="menu-button" id="menu-trigger" aria-label="Menü öffnen" onclick="toggleMenu(event)">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -51,6 +61,7 @@
                     <button class="dropdown-item" onclick="openGlobalModal('ueber-uns')">Über uns</button>
                     <button class="dropdown-item" onclick="openGlobalModal('faqs')">FAQs</button>
                 </div>
+                </div>
             </div>
         </header>
 
@@ -60,7 +71,8 @@
             <!-- Onboarding Header with Menu (Visible during onboarding) -->
             <header class="app-header" id="onboarding-header" style="border-bottom: none; background: transparent;">
                 <div></div>
-                <div class="menu-container">
+                <div class="header-actions">
+                    <div class="menu-container">
                     <button class="menu-button" id="onboarding-menu-trigger" aria-label="Menü öffnen"
                         onclick="toggleMenu(event)">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -75,6 +87,7 @@
                         <button class="dropdown-item" onclick="openGlobalModal('hilfe')">Hilfe</button>
                         <button class="dropdown-item" onclick="openGlobalModal('ueber-uns')">Über uns</button>
                         <button class="dropdown-item" onclick="openGlobalModal('faqs')">FAQs</button>
+                    </div>
                     </div>
                 </div>
             </header>
@@ -874,7 +887,8 @@
                         </div>
                         <div style="display: flex; gap: 8px; align-items: center;">
                             <button class="btn btn-primary group-action-btn" style="min-width: 100px;"
-                                onclick="toggleJoinGroup(this, 'Gartenfreunde Tulpenweg')">Beitreten</button>
+                                onclick="toggleJoinGroup(this, 'Gartenfreunde Tulpenweg')" data-joined="false"
+                                data-i18n="group_join_button">Beitreten</button>
                             <button class="btn btn-secondary group-action-btn chat-btn"
                                 style="display: none; padding: 6px 12px;"
                                 onclick="openGroupChat('Gartenfreunde Tulpenweg')">💬 Chat</button>
@@ -888,7 +902,8 @@
                         </div>
                         <div style="display: flex; gap: 8px; align-items: center;">
                             <button class="btn btn-primary group-action-btn" style="min-width: 100px;"
-                                onclick="toggleJoinGroup(this, 'Lastenrad-Gemeinschaft')">Beitreten</button>
+                                onclick="toggleJoinGroup(this, 'Lastenrad-Gemeinschaft')" data-joined="false"
+                                data-i18n="group_join_button">Beitreten</button>
                             <button class="btn btn-secondary group-action-btn chat-btn"
                                 style="display: none; padding: 6px 12px;"
                                 onclick="openGroupChat('Lastenrad-Gemeinschaft')">💬 Chat</button>
@@ -902,7 +917,8 @@
                         </div>
                         <div style="display: flex; gap: 8px; align-items: center;">
                             <button class="btn btn-primary group-action-btn" style="min-width: 100px;"
-                                onclick="toggleJoinGroup(this, 'Kaffeeklatsch am Sonntag')">Beitreten</button>
+                                onclick="toggleJoinGroup(this, 'Kaffeeklatsch am Sonntag')" data-joined="false"
+                                data-i18n="group_join_button">Beitreten</button>
                             <button class="btn btn-secondary group-action-btn chat-btn"
                                 style="display: none; padding: 6px 12px;"
                                 onclick="openGroupChat('Kaffeeklatsch am Sonntag')">💬 Chat</button>
@@ -1056,11 +1072,6 @@
                                     <span data-i18n="share_items_nearby">4 Gegenstände in deiner Umgebung</span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="share-hero-visual" aria-hidden="true">
-                            <span class="share-visual-main">🛠️</span>
-                            <span class="share-visual-badge share-visual-badge-top">🌱</span>
-                            <span class="share-visual-badge share-visual-badge-bottom">🚲</span>
                         </div>
                     </div>
 
@@ -1276,10 +1287,11 @@
                         <div id="profile-avatar-preview-container" class="profile-avatar"
                             style="width: 100%; height: 100%; font-size: 60px; background-color: var(--color-primary-light); color: var(--color-primary); display: flex; align-items: center; justify-content: center;">
                             <span id="profile-avatar-placeholder">🧔</span>
-                            <img id="profile-avatar-image" src="" alt="Profilbild"
+                            <img id="profile-avatar-image" src="" alt="Profilbild" data-i18n-alt="profile_picture_alt"
+                                aria-label="Profilbild" data-i18n-aria-label="profile_picture_alt"
                                 style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: none;">
                         </div>
-                        <div class="verification-status-badge" title="Verifiziertes Mitglied"
+                        <div class="verification-status-badge" title="Verifiziertes Mitglied" data-i18n-title="verified_member_title"
                             style="bottom: 0; right: 0;">
                             ✓
                         </div>
@@ -1292,19 +1304,19 @@
 
                         <button id="profile-btn-avatar" class="btn btn-secondary"
                             style="width: 100%; padding: 8px 12px; font-size: var(--fs-sm); display: flex; align-items: center; justify-content: center; gap: 8px;"
-                            onclick="openAvatarEditor()">
+                            onclick="openAvatarEditor()" data-i18n="btn_create_avatar">
                             Avatar erstellen
                         </button>
 
                         <button id="profile-btn-photo" class="btn btn-secondary"
                             style="width: 100%; padding: 8px 12px; font-size: var(--fs-sm); display: flex; align-items: center; justify-content: center; gap: 8px;"
-                            onclick="document.getElementById('profile-image-input').click()">
+                            onclick="document.getElementById('profile-image-input').click()" data-i18n="btn_upload_photo">
                             Foto hochladen
                         </button>
 
                         <button id="profile-remove-active-btn" class="btn btn-text"
                             style="color: var(--color-danger); margin-top: 4px; padding: 4px; font-size: var(--fs-xs); display: none;"
-                            onclick="removeActiveProfilePicture()">Foto löschen</button>
+                            onclick="removeActiveProfilePicture()" data-i18n="btn_delete_photo">Foto löschen</button>
                     </div>
 
                     <div style="margin-top: 8px;">
@@ -1312,36 +1324,36 @@
                         </h1>
                         <span class="ambassador-badge" id="profile-verify-status"
                             style="background-color: #E8F8F5; color: var(--color-success); display: inline-block;">✓
-                            Verifizierter Nachbar</span>
+                            <span data-i18n="verified_neighbor_label">Verifizierter Nachbar</span></span>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="profile-name-input">Dein Name</label>
+                    <label class="form-label" for="profile-name-input" data-i18n="profile_name_label">Dein Name</label>
                     <input type="text" class="search-bar" id="profile-name-input" value="Max Mustermann"
                         style="margin-bottom: 0;" oninput="updateProfileName(this.value)">
                 </div>
 
-                <h2 class="section-title">Deine Adresse & Umkreis</h2>
+                <h2 class="section-title" data-i18n="profile_address_radius_title">Deine Adresse & Umkreis</h2>
                 <div class="form-group"
                     style="background-color: var(--color-card-bg); border: 1px solid var(--color-border); padding: 16px; border-radius: var(--border-radius-md); display: flex; flex-direction: column; gap: 12px;">
                     <div>
                         <label class="form-label" for="profile-street-input"
-                            style="font-size: var(--fs-sm); margin-bottom: 4px;">Straße & Hausnummer</label>
+                            style="font-size: var(--fs-sm); margin-bottom: 4px;" data-i18n="street_label">Straße & Hausnummer</label>
                         <input type="text" class="search-bar" id="profile-street-input" value=""
                             oninput="updateProfileStreet(this.value)"
                             style="margin-bottom: 0; padding: 8px 12px; font-size: var(--fs-sm);">
                     </div>
                     <div>
                         <label class="form-label" for="profile-zip-input"
-                            style="font-size: var(--fs-sm); margin-bottom: 4px;">Postleitzahl & Ort</label>
+                            style="font-size: var(--fs-sm); margin-bottom: 4px;" data-i18n="zip_city_label">Postleitzahl & Ort</label>
                         <input type="text" class="search-bar" id="profile-zip-input" value=""
                             oninput="updateProfileZip(this.value)"
                             style="margin-bottom: 0; padding: 8px 12px; font-size: var(--fs-sm);">
                     </div>
                     <div>
                         <label class="form-label"
-                            style="font-size: var(--fs-sm); margin-bottom: 6px;">Nachbar-Umkreis</label>
+                            style="font-size: var(--fs-sm); margin-bottom: 6px;" data-i18n="profile_neighbor_radius_label">Nachbar-Umkreis</label>
                         <div style="display: flex; gap: 8px;">
                             <button class="btn btn-secondary" id="profile-rad-50"
                                 style="min-height: 40px; font-size: var(--fs-sm); padding: 6px 12px; flex: 1;"
@@ -1356,44 +1368,44 @@
                     </div>
                 </div>
 
-                <h2 class="section-title">Meine Interessen</h2>
+                <h2 class="section-title" data-i18n="profile_my_interests_title">Meine Interessen</h2>
                 <div class="tag-group" id="profile-interests-display"
                     style="background-color: var(--color-white); border: 1px solid var(--color-border); padding: 16px; border-radius: var(--border-radius-md); margin-bottom: 20px;">
-                    <span class="tag-pill active">Keine Interessen ausgewählt</span>
+                    <span class="tag-pill active" data-i18n="profile_no_interests">Keine Interessen ausgewählt</span>
                 </div>
 
-                <h2 class="section-title">Meine Fähigkeiten (Ich kann unterstützen bei...)</h2>
+                <h2 class="section-title" data-i18n="profile_my_skills_title">Meine Fähigkeiten (Ich kann unterstützen bei...)</h2>
                 <div class="skills-list" id="profile-skills-checkboxes">
                     <label class="skill-checkbox-item" for="skill-shopping">
                         <input type="checkbox" id="skill-shopping" checked onchange="toggleProfileSkill('Einkäufe')">
-                        <span class="skill-checkbox-label">🛒 Einkäufe mitbringen</span>
+                        <span class="skill-checkbox-label" data-i18n="profile_skill_shopping">🛒 Einkäufe mitbringen</span>
                     </label>
                     <label class="skill-checkbox-item" for="skill-garden">
                         <input type="checkbox" id="skill-garden" checked onchange="toggleProfileSkill('Gartenarbeit')">
-                        <span class="skill-checkbox-label">🌱 Garten & Pflanzen pflegen</span>
+                        <span class="skill-checkbox-label" data-i18n="profile_skill_garden">🌱 Garten & Pflanzen pflegen</span>
                     </label>
                     <label class="skill-checkbox-item" for="skill-tech">
                         <input type="checkbox" id="skill-tech" onchange="toggleProfileSkill('Technik-Unterstützung')">
-                        <span class="skill-checkbox-label">🔧 Technik & Handwerk erklären</span>
+                        <span class="skill-checkbox-label" data-i18n="profile_skill_tech">🔧 Technik & Handwerk erklären</span>
                     </label>
                     <label class="skill-checkbox-item" for="skill-craft">
                         <input type="checkbox" id="skill-craft" onchange="toggleProfileSkill('Handwerk')">
-                        <span class="skill-checkbox-label">🔨 Handwerk</span>
+                        <span class="skill-checkbox-label" data-i18n="profile_skill_craft">🔨 Handwerk</span>
                     </label>
                     <label class="skill-checkbox-item" for="skill-animals">
                         <input type="checkbox" id="skill-animals" onchange="toggleProfileSkill('Haustier-Betreuung')">
-                        <span class="skill-checkbox-label">🐾 Haustier-Betreuung</span>
+                        <span class="skill-checkbox-label" data-i18n="profile_skill_animals">🐾 Haustier-Betreuung</span>
                     </label>
                     <label class="skill-checkbox-item" for="skill-chat">
                         <input type="checkbox" id="skill-chat" onchange="toggleProfileSkill('Gesellschaft leisten')">
-                        <span class="skill-checkbox-label">💬 Gesellschaft leisten</span>
+                        <span class="skill-checkbox-label" data-i18n="profile_skill_chat">💬 Gesellschaft leisten</span>
                     </label>
                 </div>
 
-                <h2 class="section-title">Gegenstände zum Verleihen</h2>
+                <h2 class="section-title" data-i18n="profile_lend_items_title">Gegenstände zum Verleihen</h2>
                 <div class="form-group">
                     <input type="text" class="search-bar" id="profile-lend-items-input" value=""
-                        placeholder="z.B. Teleskopleiter, Schlagbohrer" style="margin-bottom: 0;"
+                        placeholder="z.B. Teleskopleiter, Schlagbohrer" data-i18n-placeholder="profile_lend_items_placeholder" style="margin-bottom: 0;"
                         oninput="updateProfileLendItems(this.value)">
                 </div>
 
@@ -1439,21 +1451,21 @@
                     </div>
                 </div>
 
-                <h2 class="section-title">Privatsphäre & Sicherheit</h2>
+                <h2 class="section-title" data-i18n="profile_privacy_security_title">Privatsphäre & Sicherheit</h2>
                 <div class="skills-list">
                     <label class="skill-checkbox-item" for="privacy-address">
                         <input type="checkbox" id="privacy-address" checked>
-                        <span class="skill-checkbox-label">Hausnummer für Nicht-Nachbarn verbergen</span>
+                        <span class="skill-checkbox-label" data-i18n="profile_privacy_hide_house_number">Hausnummer für Nicht-Nachbarn verbergen</span>
                     </label>
                     <label class="skill-checkbox-item" for="privacy-status">
                         <input type="checkbox" id="privacy-status" checked>
-                        <span class="skill-checkbox-label">Online-Status nicht anzeigen</span>
+                        <span class="skill-checkbox-label" data-i18n="profile_privacy_hide_online_status">Online-Status nicht anzeigen</span>
                     </label>
                 </div>
 
                 <button class="btn btn-secondary"
                     style="margin-top: 12px; color: var(--color-danger); border-color: var(--color-danger); background: transparent;"
-                    onclick="logoutSimulation()">Abmelden</button>
+                    onclick="logoutSimulation()" data-i18n="profile_logout">Abmelden</button>
             </section>
 
             <!-- Bottom Navigation Bar -->
@@ -1614,12 +1626,14 @@
         <!-- Modal 5: Botschafter-Chat & Hilfeberechtigten-Chat -->
         <div class="modal-overlay" id="modal-chat">
             <div class="modal-content" style="padding: 16px;">
-                <button class="modal-close-btn" onclick="closeChatModal()">✕</button>
+                <button class="modal-close-btn" onclick="closeChatModal()" aria-label="Schließen"
+                    data-i18n-aria-label="modal_close_aria">✕</button>
 
                 <div class="chat-header-container">
                     <h2 class="modal-title" id="chat-title" style="margin-bottom: 0;">Chat mit Helga</h2>
                     <button class="chat-report-btn" onclick="openGlobalModal('report')" title="Inhalt melden"
-                        aria-label="Beitrag melden">
+                        data-i18n-title="chat_report_title"
+                        aria-label="Beitrag melden" data-i18n-aria-label="chat_report_aria">
                         <!-- Alert Triangle SVG -->
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1634,14 +1648,15 @@
 
                 <div class="chat-container">
                     <div class="chat-messages" id="chat-messages-box">
-                        <div class="chat-bubble received" id="chat-welcome-msg">Hallo! Wie kann ich dich in der
+                        <div class="chat-bubble received" id="chat-welcome-msg" data-i18n="chat_welcome_initial">Hallo! Wie kann ich dich in der
                             Nachbarschaft oder in der App unterstützen?</div>
                     </div>
                     <div class="chat-input-area">
                         <input type="text" class="chat-input" id="chat-text-input"
                             placeholder="Schreibe eine Nachricht..."
+                            data-i18n-placeholder="chat_input_placeholder"
                             onkeydown="if(event.key === 'Enter') sendChatMessage()">
-                        <button class="btn btn-primary chat-send-btn" onclick="sendChatMessage()">Senden</button>
+                        <button class="btn btn-primary chat-send-btn" onclick="sendChatMessage()" data-i18n="chat_send_button">Senden</button>
                     </div>
                 </div>
             </div>
@@ -1780,20 +1795,41 @@
             </div>
         </div>
 
+        <!-- Modal 6.5: Gruppe verlassen bestätigen -->
+        <div class="modal-overlay" id="modal-leave-group">
+            <div class="modal-content">
+                <button class="modal-close-btn" onclick="closeLeaveGroupModal()" aria-label="Schließen"
+                    data-i18n-aria-label="modal_close_aria">✕</button>
+                <h2 class="modal-title" data-i18n="group_leave_confirm_title">Gruppe verlassen?</h2>
+                <div class="share-info-card" style="margin-bottom: 16px;">
+                    <strong id="leave-group-name">Gruppe</strong>
+                    <span id="leave-group-message" data-i18n="group_leave_confirm_text">Wenn du die Gruppe verlässt, wird der Gruppenchat ausgeblendet. Du kannst später jederzeit wieder beitreten.</span>
+                </div>
+                <div class="share-flow-actions">
+                    <button class="btn btn-secondary" type="button" onclick="closeLeaveGroupModal()"
+                        data-i18n="group_leave_cancel">In der Gruppe bleiben</button>
+                    <button class="btn btn-primary" type="button" onclick="confirmLeaveGroup()"
+                        data-i18n="group_leave_confirm_button">Gruppe verlassen</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Modal 7: Neuen Gegenstand teilen -->
         <div class="modal-overlay" id="modal-add-item">
             <div class="modal-content">
-                <button class="modal-close-btn" onclick="closeAddShareItemModal()">✕</button>
-                <h2 class="modal-title">Gegenstand zum Teilen hinzufügen</h2>
+                <button class="modal-close-btn" onclick="closeAddShareItemModal()" aria-label="Schließen"
+                    data-i18n-aria-label="modal_close_aria">✕</button>
+                <h2 class="modal-title" data-i18n="share_add_modal_title">Gegenstand einstellen</h2>
 
                 <div class="form-group">
-                    <label class="form-label" for="new-item-name">Name des Gegenstands</label>
+                    <label class="form-label" for="new-item-name" data-i18n="share_add_item_title_label">Titel des Gegenstands</label>
                     <input type="text" class="search-bar" id="new-item-name" placeholder="z.B. Vertikutierer, Bohrer"
+                        data-i18n-placeholder="share_add_item_title_placeholder"
                         style="margin-bottom: 0;">
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="new-item-icon">Kategorie / Symbol</label>
+                    <label class="form-label" for="new-item-icon" data-i18n="share_add_category_label">Kategorie</label>
                     <div id="new-item-icon" style="display: flex; gap: 8px; justify-content: space-around; font-size: 28px;">
                         <button class="category-button selected" style="padding: 10px; width: 60px; height: 60px;"
                             onclick="selectItemIcon(this, '🛠️')">🛠️</button>
@@ -1806,7 +1842,7 @@
                     </div>
                 </div>
 
-                <button class="btn btn-primary" onclick="submitAddShareItem()">Hinzufügen</button>
+                <button class="btn btn-primary" onclick="submitAddShareItem()" data-i18n="share_add_submit">Einstellen</button>
             </div>
         </div>
 

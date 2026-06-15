@@ -44,6 +44,20 @@ function shareText(text) {
     return typeof translateStaticText === 'function' ? translateStaticText(text) : text;
 }
 
+function shareDetailValue(text) {
+    const value = text || '';
+    const knownValues = {
+        'Adresse nach Annahme sichtbar': ['share_detail_address_after_acceptance', 'Adresse nach Annahme sichtbar'],
+        'Klingelhinweis nach Annahme': ['share_detail_bell_after_acceptance', 'Klingelhinweis nach Annahme'],
+        'nach Absprache': ['share_detail_by_agreement', 'nach Absprache'],
+        'wird abgestimmt': ['share_detail_to_be_arranged', 'wird abgestimmt']
+    };
+    if (knownValues[value]) {
+        return shareTranslate(knownValues[value][0], knownValues[value][1]);
+    }
+    return shareText(value);
+}
+
 function getShareCategoryLabel(category) {
     const keys = {
         Werkzeug: 'share_cat_tools',
@@ -298,7 +312,7 @@ function renderShareItemCard(item) {
 
     return `
         <button class="item-card share-item-card" type="button" onclick="openShareItemDetail('${item.id}')"${disabled}>
-            <div class="share-item-image" aria-label="Bild des Gegenstands">${getShareCategoryIcon(item.category)}</div>
+            ${renderShareItemImage(item, 'share-item-image')}
             <div class="share-card-body">
                 <div class="share-card-topline">
                     <span class="share-category-chip">${escapeHtml(getShareCategoryLabel(item.category))}</span>
@@ -319,6 +333,21 @@ function renderShareItemCard(item) {
             </div>
         </button>
     `;
+}
+
+function renderShareItemImage(item, className) {
+    const photo = Array.isArray(item.photos) && item.photos.length ? item.photos[0] : '';
+    const label = shareTranslate('share_item_image_aria', 'Bild des Gegenstands');
+
+    if (photo) {
+        return `
+            <div class="${className}">
+                <img src="${escapeHtml(photo)}" alt="${escapeHtml(label)}">
+            </div>
+        `;
+    }
+
+    return `<div class="${className}" aria-label="${escapeHtml(label)}">${getShareCategoryIcon(item.category)}</div>`;
 }
 
 function getShareCategoryIcon(category) {
@@ -432,15 +461,15 @@ function renderShareDetail(item) {
     const deposit = renderDepositSummary(item, accepted);
     const secureDetails = accepted ? renderSecureDetails(item) : `
         <div class="share-privacy-box">
-            <strong>Adressdaten geschützt</strong>
-            <p>Straße, Hausnummer, Stockwerk, Klingel- und Übergabehinweise werden erst nach Annahme der Anfrage angezeigt.</p>
+            <strong>${shareTranslate('share_detail_address_protected_title', 'Adressdaten geschützt')}</strong>
+            <p>${shareTranslate('share_detail_address_protected_text', 'Straße, Hausnummer, Stockwerk, Klingel- und Übergabehinweise werden erst nach Annahme der Anfrage angezeigt.')}</p>
         </div>
     `;
 
     return `
         <div class="share-detail-layout">
             <div class="share-detail-main">
-                <div class="share-detail-image">${getShareCategoryIcon(item.category)}</div>
+                ${renderShareItemImage(item, 'share-detail-image')}
                 <span class="share-category-chip">${escapeHtml(getShareCategoryLabel(item.category))}</span>
                 <h1 class="share-title">${escapeHtml(shareText(item.title))}</h1>
                 <p class="share-subtitle">${escapeHtml(shareText(item.description))}</p>
@@ -463,25 +492,33 @@ function renderShareDetail(item) {
 
 function renderDepositSummary(item, accepted) {
     if (item.depositType === 'none') {
-        return '<div class="share-info-card"><strong>Pfand</strong><span>Kein Pfand erforderlich.</span></div>';
+        return `<div class="share-info-card"><strong>${shareTranslate('share_detail_deposit_title', 'Pfand')}</strong><span>${shareTranslate('share_detail_deposit_none_required', 'Kein Pfand erforderlich.')}</span></div>`;
     }
-    const label = item.depositType === 'digital' ? 'Digitale Kaution (Simulation)' : 'Freiwilliges Pfand';
-    const method = item.depositType === 'digital' && item.depositMethod ? ` über ${item.depositMethod}` : '';
-    const visibility = accepted ? 'simuliert reserviert und nach Rückgabe freigegeben' : 'erst nach Annahme simuliert reserviert';
-    return `<div class="share-info-card"><strong>${label}</strong><span>${item.depositAmount || 'Betrag offen'}${method}, ${visibility}.</span></div>`;
+    const label = item.depositType === 'digital'
+        ? shareTranslate('share_add_deposit_digital', 'Digitale Kaution (Simulation)')
+        : shareTranslate('share_add_deposit_voluntary', 'Freiwilliges Pfand');
+    const method = item.depositType === 'digital' && item.depositMethod
+        ? shareTranslate('share_detail_deposit_method', ' über {method}', { method: item.depositMethod })
+        : '';
+    const amount = item.depositAmount ? shareText(item.depositAmount) : shareTranslate('share_detail_deposit_amount_open', 'Betrag offen');
+    const visibility = accepted
+        ? shareTranslate('share_detail_deposit_visibility_accepted', 'simuliert reserviert und nach Rückgabe freigegeben')
+        : shareTranslate('share_detail_deposit_visibility_pending', 'erst nach Annahme simuliert reserviert');
+    return `<div class="share-info-card"><strong>${label}</strong><span>${escapeHtml(amount)}${escapeHtml(method)}, ${visibility}.</span></div>`;
 }
 
 function renderSecureDetails(item) {
     const details = item.secureDetails || {};
+    const pending = shareTranslate('share_detail_to_be_arranged', 'wird abgestimmt');
     return `
         <div class="share-secure-details">
-            <strong>Sichere Übergabe</strong>
+            <strong>${shareTranslate('share_add_secure_handover_title', 'Sichere Übergabe')}</strong>
             <dl>
-                <div><dt>Adresse</dt><dd>${escapeHtml(details.street || 'wird abgestimmt')}</dd></div>
-                <div><dt>Stockwerk</dt><dd>${escapeHtml(details.floor || 'wird abgestimmt')}</dd></div>
-                <div><dt>Klingel</dt><dd>${escapeHtml(details.bell || 'wird abgestimmt')}</dd></div>
-                <div><dt>Hinweise</dt><dd>${escapeHtml(details.handover || 'wird abgestimmt')}</dd></div>
-                <div><dt>Abholzeiten</dt><dd>${escapeHtml(details.pickupTimes || 'nach Absprache')}</dd></div>
+                <div><dt>${shareTranslate('share_detail_address_label', 'Adresse')}</dt><dd>${escapeHtml(shareDetailValue(details.street || pending))}</dd></div>
+                <div><dt>${shareTranslate('share_add_floor_label', 'Stockwerk')}</dt><dd>${escapeHtml(shareDetailValue(details.floor || pending))}</dd></div>
+                <div><dt>${shareTranslate('share_detail_bell_label', 'Klingel')}</dt><dd>${escapeHtml(shareDetailValue(details.bell || pending))}</dd></div>
+                <div><dt>${shareTranslate('share_detail_notes_label', 'Hinweise')}</dt><dd>${escapeHtml(shareDetailValue(details.handover || pending))}</dd></div>
+                <div><dt>${shareTranslate('share_detail_pickup_times_label', 'Abholzeiten')}</dt><dd>${escapeHtml(shareDetailValue(details.pickupTimes || shareTranslate('share_detail_by_agreement', 'nach Absprache')))}</dd></div>
             </dl>
         </div>
     `;
@@ -489,66 +526,66 @@ function renderSecureDetails(item) {
 
 function renderRequestPanel(item, request) {
     if (!item.isAvailable) {
-        return '<div class="share-info-card"><strong>Nicht verfügbar</strong><span>Dieser Gegenstand ist aktuell verliehen.</span></div>';
+        return `<div class="share-info-card"><strong>${shareTranslate('share_detail_unavailable_title', 'Nicht verfügbar')}</strong><span>${shareTranslate('share_detail_unavailable_text', 'Dieser Gegenstand ist aktuell verliehen.')}</span></div>`;
     }
 
     if (!request) {
         return `
-            <h2>Anfrage senden</h2>
+            <h2>${shareTranslate('share_detail_send_request_title', 'Anfrage senden')}</h2>
             <div class="form-group">
-                <label class="form-label" for="share-request-start">Startdatum</label>
+                <label class="form-label" for="share-request-start">${shareTranslate('share_detail_start_date_label', 'Startdatum')}</label>
                 <input type="date" class="search-bar" id="share-request-start" style="margin-bottom: 0;">
             </div>
             <div class="form-group">
-                <label class="form-label" for="share-request-end">Rückgabedatum</label>
+                <label class="form-label" for="share-request-end">${shareTranslate('share_detail_return_date_label', 'Rückgabedatum')}</label>
                 <input type="date" class="search-bar" id="share-request-end" style="margin-bottom: 0;">
             </div>
             <div class="form-group">
-                <label class="form-label" for="share-request-message">Nachricht an den Verleiher</label>
-                <textarea class="form-textarea" id="share-request-message" placeholder="Kurz erklären, wofür du den Gegenstand brauchst."></textarea>
+                <label class="form-label" for="share-request-message">${shareTranslate('share_detail_message_label', 'Nachricht an den Verleiher')}</label>
+                <textarea class="form-textarea" id="share-request-message" placeholder="${shareTranslate('share_detail_message_placeholder', 'Kurz erklären, wofür du den Gegenstand brauchst.')}"></textarea>
             </div>
-            <button class="btn btn-primary" type="button" onclick="submitBorrowRequest('${item.id}')">Anfrage senden</button>
+            <button class="btn btn-primary" type="button" onclick="submitBorrowRequest('${item.id}')">${shareTranslate('share_detail_send_request_button', 'Anfrage senden')}</button>
         `;
     }
 
     if (request.status === 'pending') {
         return `
-            <h2>Anfrage beim Verleiher</h2>
-            <p class="feature-desc">Simulierte Benachrichtigung wurde an ${escapeHtml(item.owner)} gesendet.</p>
+            <h2>${shareTranslate('share_detail_request_owner_title', 'Anfrage beim Verleiher')}</h2>
+            <p class="feature-desc">${shareTranslate('share_detail_request_sent_to_owner', 'Simulierte Benachrichtigung wurde an {owner} gesendet.', { owner: escapeHtml(item.owner) })}</p>
             <div class="share-request-summary">
-                <span>${escapeHtml(request.startDate || 'Start offen')} bis ${escapeHtml(request.endDate || 'Rückgabe offen')}</span>
-                <p>${escapeHtml(request.message || 'Keine Nachricht')}</p>
+                <span>${escapeHtml(request.startDate || shareTranslate('share_detail_start_open', 'Start offen'))} ${shareTranslate('share_detail_until', 'bis')} ${escapeHtml(request.endDate || shareTranslate('share_detail_return_open', 'Rückgabe offen'))}</span>
+                <p>${escapeHtml(request.message || shareTranslate('share_detail_no_message', 'Keine Nachricht'))}</p>
             </div>
             <div class="share-action-stack">
-                <button class="btn btn-primary" type="button" onclick="respondToBorrowRequest('${item.id}', 'accepted')">Anfrage annehmen</button>
-                <button class="btn btn-secondary" type="button" onclick="respondToBorrowRequest('${item.id}', 'question')">Rückfrage stellen</button>
-                <button class="btn btn-secondary" type="button" onclick="respondToBorrowRequest('${item.id}', 'declined')">Anfrage ablehnen</button>
+                <button class="btn btn-primary" type="button" onclick="respondToBorrowRequest('${item.id}', 'accepted')">${shareTranslate('share_detail_accept_request', 'Anfrage annehmen')}</button>
+                <button class="btn btn-secondary" type="button" onclick="respondToBorrowRequest('${item.id}', 'question')">${shareTranslate('share_detail_ask_question', 'Rückfrage stellen')}</button>
+                <button class="btn btn-secondary" type="button" onclick="respondToBorrowRequest('${item.id}', 'declined')">${shareTranslate('share_detail_decline_request', 'Anfrage ablehnen')}</button>
             </div>
         `;
     }
 
     if (request.status === 'declined') {
-        return '<div class="share-info-card"><strong>Anfrage abgelehnt</strong><span>Du kannst eine neue Anfrage mit anderen Daten senden.</span></div>';
+        return `<div class="share-info-card"><strong>${shareTranslate('share_detail_request_declined_title', 'Anfrage abgelehnt')}</strong><span>${shareTranslate('share_detail_request_declined_text', 'Du kannst eine neue Anfrage mit anderen Daten senden.')}</span></div>`;
     }
 
     if (request.status === 'question') {
         return `
             <div class="share-info-card">
-                <strong>Rückfrage gestellt</strong>
-                <span>Der Verleiher fragt nach Details. Nutze den Chat, um die Übergabe abzustimmen.</span>
+                <strong>${shareTranslate('share_detail_question_title', 'Rückfrage gestellt')}</strong>
+                <span>${shareTranslate('share_detail_question_text', 'Der Verleiher fragt nach Details. Nutze den Chat, um die Übergabe abzustimmen.')}</span>
             </div>
-            <button class="btn btn-secondary" type="button" onclick="openBorrowChat('${escapeJs(item.title)}', '${escapeJs(item.owner)}')">Chat öffnen</button>
+            <button class="btn btn-secondary" type="button" onclick="openBorrowChat('${escapeJs(item.title)}', '${escapeJs(item.owner)}')">${shareTranslate('share_detail_open_chat', 'Chat öffnen')}</button>
         `;
     }
 
     return `
-        <h2>Leihvorgang aktiv</h2>
+        <h2>${shareTranslate('share_detail_loan_active_title', 'Leihvorgang aktiv')}</h2>
         <label class="share-confirmation">
             <input type="checkbox" id="share-handover-confirm" onchange="toggleHandoverConfirmation('${item.id}', this.checked)" ${request.handoverConfirmed ? 'checked' : ''}>
-            <span>Ich bestätige, dass ich den Gegenstand sorgfältig behandle und im vereinbarten Zustand zurückgebe.</span>
+            <span>${shareTranslate('share_detail_care_confirmation', 'Ich bestätige, dass ich den Gegenstand sorgfältig behandle und im vereinbarten Zustand zurückgebe.')}</span>
         </label>
-        <button class="btn btn-primary" type="button" onclick="confirmHandover('${item.id}')" ${request.handoverConfirmed ? '' : 'disabled'}>Übergabe abschließen</button>
-        <button class="btn btn-secondary" type="button" onclick="openBorrowChat('${escapeJs(item.title)}', '${escapeJs(item.owner)}')">Chat öffnen</button>
+        <button class="btn btn-primary" type="button" onclick="confirmHandover('${item.id}')" ${request.handoverConfirmed ? '' : 'disabled'}>${shareTranslate('share_detail_complete_handover', 'Übergabe abschließen')}</button>
+        <button class="btn btn-secondary" type="button" onclick="openBorrowChat('${escapeJs(item.title)}', '${escapeJs(item.owner)}')">${shareTranslate('share_detail_open_chat', 'Chat öffnen')}</button>
     `;
 }
 
@@ -561,12 +598,12 @@ function renderLoanStatus(item, request, loan) {
 
     return `
         <div class="share-status-card">
-            <strong>Status</strong>
+            <strong>${shareTranslate('share_detail_status_title', 'Status')}</strong>
             <ol>
-                <li class="${request ? 'done' : ''}">Anfrage gesendet</li>
-                <li class="${accepted ? 'done' : ''}">Annahme durch Verleiher</li>
-                <li class="${request.handoverComplete ? 'done' : ''}">Übergabe bestätigt</li>
-                <li class="${done ? 'done' : ''}">Rückgabe abgeschlossen</li>
+                <li class="${request ? 'done' : ''}">${shareTranslate('share_detail_status_request_sent', 'Anfrage gesendet')}</li>
+                <li class="${accepted ? 'done' : ''}">${shareTranslate('share_detail_status_owner_acceptance', 'Annahme durch Verleiher')}</li>
+                <li class="${request.handoverComplete ? 'done' : ''}">${shareTranslate('share_detail_status_handover_confirmed', 'Übergabe bestätigt')}</li>
+                <li class="${done ? 'done' : ''}">${shareTranslate('share_detail_status_return_done', 'Rückgabe abgeschlossen')}</li>
             </ol>
             ${accepted ? renderReturnPanel(item, loan) : ''}
         </div>
@@ -575,15 +612,15 @@ function renderLoanStatus(item, request, loan) {
 
 function renderReturnPanel(item, loan) {
     loan = loan || {};
-    const depositText = item.depositType === 'none' ? '' : '<p class="feature-desc">Pfandfreigabe wird nach beidseitiger Rückgabe simuliert ausgelöst.</p>';
+    const depositText = item.depositType === 'none' ? '' : `<p class="feature-desc">${shareTranslate('share_detail_deposit_release_text', 'Pfandfreigabe wird nach beidseitiger Rückgabe simuliert ausgelöst.')}</p>`;
     return `
         <div class="share-return-panel">
-            <h3>Rückgabeprozess</h3>
+            <h3>${shareTranslate('share_detail_return_process_title', 'Rückgabeprozess')}</h3>
             <div class="share-checkbox-list">
-                <label><input type="checkbox" onchange="toggleReturnConfirmation('${item.id}', 'borrower', this.checked)" ${loan.returnedByBorrower ? 'checked' : ''}> Ausleiher: Gegenstand zurückgegeben</label>
-                <label><input type="checkbox" onchange="toggleReturnConfirmation('${item.id}', 'owner', this.checked)" ${loan.returnedByOwner ? 'checked' : ''}> Verleiher: Rückgabe erhalten</label>
+                <label><input type="checkbox" onchange="toggleReturnConfirmation('${item.id}', 'borrower', this.checked)" ${loan.returnedByBorrower ? 'checked' : ''}> ${shareTranslate('share_detail_borrower_returned', 'Ausleiher: Gegenstand zurückgegeben')}</label>
+                <label><input type="checkbox" onchange="toggleReturnConfirmation('${item.id}', 'owner', this.checked)" ${loan.returnedByOwner ? 'checked' : ''}> ${shareTranslate('share_detail_owner_received', 'Verleiher: Rückgabe erhalten')}</label>
             </div>
-            <textarea class="form-textarea" id="share-return-note" placeholder="Optional: Zustand dokumentieren"></textarea>
+            <textarea class="form-textarea" id="share-return-note" placeholder="${shareTranslate('share_detail_return_note_placeholder', 'Optional: Zustand dokumentieren')}"></textarea>
             ${depositText}
         </div>
     `;
@@ -602,8 +639,8 @@ function submitBorrowRequest(itemId) {
         handoverComplete: false
     };
     saveState();
-    showToast('Neue Anfrage gesendet');
-    renderShareNotification('Neue Anfrage wurde simuliert an den Verleiher gesendet.');
+    showToast(shareTranslate('share_toast_request_sent', 'Neue Anfrage gesendet'));
+    renderShareNotification(shareTranslate('share_notification_request_sent', 'Neue Anfrage wurde simuliert an den Verleiher gesendet.'));
     openShareItemDetail(itemId);
 }
 
@@ -617,14 +654,14 @@ function respondToBorrowRequest(itemId, status) {
             returnedByOwner: false,
             depositReleased: false
         };
-        showToast('Anfrage angenommen');
-        renderShareNotification('Anfrage angenommen: Leihvorgang wurde erstellt.');
+        showToast(shareTranslate('share_toast_request_accepted', 'Anfrage angenommen'));
+        renderShareNotification(shareTranslate('share_notification_request_accepted', 'Anfrage angenommen: Leihvorgang wurde erstellt.'));
     } else if (status === 'declined') {
-        showToast('Anfrage abgelehnt');
-        renderShareNotification('Anfrage wurde abgelehnt.');
+        showToast(shareTranslate('share_toast_request_declined', 'Anfrage abgelehnt'));
+        renderShareNotification(shareTranslate('share_notification_request_declined', 'Anfrage wurde abgelehnt.'));
     } else {
-        showToast('Rückfrage gestellt');
-        renderShareNotification('Rückfrage wurde simuliert gesendet.');
+        showToast(shareTranslate('share_toast_question_sent', 'Rückfrage gestellt'));
+        renderShareNotification(shareTranslate('share_notification_question_sent', 'Rückfrage wurde simuliert gesendet.'));
     }
     saveState();
     openShareItemDetail(itemId);
@@ -640,13 +677,13 @@ function toggleHandoverConfirmation(itemId, checked) {
 function confirmHandover(itemId) {
     const request = state.shareRequests[itemId];
     if (!request || !request.handoverConfirmed) {
-        showToast('Bitte bestätige zuerst die sorgfältige Behandlung.');
+        showToast(shareTranslate('share_toast_confirm_care_first', 'Bitte bestätige zuerst die sorgfältige Behandlung.'));
         return;
     }
     request.handoverComplete = true;
     saveState();
-    showToast('Übergabe abgeschlossen');
-    renderShareNotification('Übergabe bestätigt. Erinnerung zur Rückgabe ist aktiv.');
+    showToast(shareTranslate('share_toast_handover_complete', 'Übergabe abgeschlossen'));
+    renderShareNotification(shareTranslate('share_notification_handover_complete', 'Übergabe bestätigt. Erinnerung zur Rückgabe ist aktiv.'));
     openShareItemDetail(itemId);
 }
 
@@ -658,8 +695,8 @@ function toggleReturnConfirmation(itemId, party, checked) {
     const loan = state.shareLoans[itemId];
     if (loan.returnedByBorrower && loan.returnedByOwner) {
         loan.depositReleased = true;
-        showToast('Rückgabe abgeschlossen. Pfandfreigabe simuliert.');
-        renderShareNotification('Erfolgreicher Abschluss: Rückgabe bestätigt und Pfand freigegeben.');
+        showToast(shareTranslate('share_toast_return_complete', 'Rückgabe abgeschlossen. Pfandfreigabe simuliert.'));
+        renderShareNotification(shareTranslate('share_notification_return_complete', 'Erfolgreicher Abschluss: Rückgabe bestätigt und Pfand freigegeben.'));
     }
     saveState();
     openShareItemDetail(itemId);
@@ -680,122 +717,123 @@ function closeAddShareItemModal() {
 function renderShareFlowModal() {
     const modal = document.querySelector('#modal-add-item .modal-content');
     if (!modal) return;
+    const text = (key, fallback, replacements) => shareTranslate(key, fallback, replacements);
     modal.className = 'modal-content share-flow-modal';
     modal.innerHTML = `
-        <button class="modal-close-btn" onclick="closeAddShareItemModal()">×</button>
-        <h2 class="modal-title">Gegenstand einstellen</h2>
-        <div class="share-stepper" aria-label="Eingabeschritte">
+        <button class="modal-close-btn" onclick="closeAddShareItemModal()" aria-label="${text('modal_close_aria', 'Schließen')}">×</button>
+        <h2 class="modal-title">${text('share_add_modal_title', 'Gegenstand einstellen')}</h2>
+        <div class="share-stepper" aria-label="${text('share_add_steps_aria', 'Eingabeschritte')}">
             <span class="share-step-dot active" data-step-dot="1">1</span>
             <span class="share-step-dot" data-step-dot="2">2</span>
             <span class="share-step-dot" data-step-dot="3">3</span>
         </div>
         <div class="share-flow-step active" data-share-step="1">
             <div class="form-group">
-                <label class="form-label" for="new-item-name">Titel des Gegenstands</label>
-                <input type="text" class="search-bar" id="new-item-name" placeholder="z.B. Vertikutierer, Bohrer" style="margin-bottom: 0;">
+                <label class="form-label" for="new-item-name">${text('share_add_item_title_label', 'Titel des Gegenstands')}</label>
+                <input type="text" class="search-bar" id="new-item-name" placeholder="${text('share_add_item_title_placeholder', 'z.B. Vertikutierer, Bohrer')}" style="margin-bottom: 0;">
             </div>
             <div class="form-group">
-                <label class="form-label" for="new-item-category">Kategorie</label>
+                <label class="form-label" for="new-item-category">${text('share_add_category_label', 'Kategorie')}</label>
                 <select class="search-bar" id="new-item-category" style="margin-bottom: 0;">
-                    <option value="Werkzeug">Werkzeug</option>
-                    <option value="Garten">Garten</option>
-                    <option value="Haushalt">Haushalt</option>
-                    <option value="Freizeit & Sport">Freizeit & Sport</option>
+                    <option value="Werkzeug">${text('share_cat_tools', 'Werkzeug')}</option>
+                    <option value="Garten">${text('share_cat_garden', 'Garten')}</option>
+                    <option value="Haushalt">${text('share_cat_household', 'Haushalt')}</option>
+                    <option value="Freizeit & Sport">${text('share_cat_sports', 'Freizeit & Sport')}</option>
                 </select>
             </div>
             <div class="form-group">
-                <label class="form-label" for="new-item-description">Beschreibung</label>
-                <textarea class="form-textarea" id="new-item-description" placeholder="Kurz beschreiben, wofür der Gegenstand geeignet ist."></textarea>
+                <label class="form-label" for="new-item-description">${text('share_add_description_label', 'Beschreibung')}</label>
+                <textarea class="form-textarea" id="new-item-description" placeholder="${text('share_add_description_placeholder', 'Kurz beschreiben, wofür der Gegenstand geeignet ist.')}"></textarea>
             </div>
             <div class="form-group">
-                <label class="form-label" for="new-item-photos">Fotos hochladen</label>
+                <label class="form-label" for="new-item-photos">${text('share_add_photos_label', 'Fotos hochladen')}</label>
                 <input type="file" id="new-item-photos" accept="image/*" multiple>
-                <p class="feature-desc" style="font-size: var(--fs-xs); margin-top: 6px;">Mehrere Fotos sind möglich. Die Vorschau wird lokal simuliert.</p>
+                <p class="feature-desc" style="font-size: var(--fs-xs); margin-top: 6px;">${text('share_add_photos_hint', 'Mehrere Fotos sind möglich. Die Vorschau wird lokal simuliert.')}</p>
             </div>
         </div>
         <div class="share-flow-step" data-share-step="2">
             <div class="share-form-grid">
                 <div class="form-group">
-                    <label class="form-label" for="new-item-condition">Zustand</label>
+                    <label class="form-label" for="new-item-condition">${text('share_condition_label', 'Zustand')}</label>
                     <select class="search-bar" id="new-item-condition" style="margin-bottom: 0;">
-                        <option value="neu">neu</option>
-                        <option value="sehr gut" selected>sehr gut</option>
-                        <option value="gebraucht">gebraucht</option>
+                        <option value="neu">${text('share_condition_new', 'neu')}</option>
+                        <option value="sehr gut" selected>${text('share_condition_very_good', 'sehr gut')}</option>
+                        <option value="gebraucht">${text('share_condition_used', 'gebraucht')}</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-label" for="new-item-count">Anzahl verfügbar</label>
+                    <label class="form-label" for="new-item-count">${text('share_add_count_label', 'Anzahl verfügbar')}</label>
                     <input type="number" class="search-bar" id="new-item-count" value="1" min="1" style="margin-bottom: 0;">
                 </div>
             </div>
             <div class="form-group">
-                <label class="form-label" for="new-item-link">Optional: Bedienungslink</label>
+                <label class="form-label" for="new-item-link">${text('share_add_manual_link_label', 'Optional: Bedienungslink')}</label>
                 <input type="url" class="search-bar" id="new-item-link" placeholder="https://..." style="margin-bottom: 0;">
             </div>
             <div class="share-form-grid">
                 <div class="form-group">
-                    <label class="form-label" for="new-item-from">Verfügbar von</label>
+                    <label class="form-label" for="new-item-from">${text('share_add_available_from_label', 'Verfügbar von')}</label>
                     <input type="date" class="search-bar" id="new-item-from" style="margin-bottom: 0;">
                 </div>
                 <div class="form-group">
-                    <label class="form-label" for="new-item-to">Verfügbar bis</label>
+                    <label class="form-label" for="new-item-to">${text('share_add_available_to_label', 'Verfügbar bis')}</label>
                     <input type="date" class="search-bar" id="new-item-to" style="margin-bottom: 0;">
                 </div>
             </div>
             <div class="share-checkbox-list">
-                <label><input type="checkbox" id="new-item-free" checked> Kostenlos verleihen</label>
-                <label><input type="checkbox" id="new-item-effort"> Gegen kleine Aufwandsentschädigung (nicht monetär)</label>
-                <label><input type="checkbox" id="new-item-confirmed-only"> Nur für bestätigte Nachbarn sichtbar</label>
+                <label><input type="checkbox" id="new-item-free" checked> ${text('share_add_free_option', 'Kostenlos verleihen')}</label>
+                <label><input type="checkbox" id="new-item-effort"> ${text('share_add_effort_option', 'Gegen kleine Aufwandsentschädigung (nicht monetär)')}</label>
+                <label><input type="checkbox" id="new-item-confirmed-only"> ${text('share_add_confirmed_only_option', 'Nur für bestätigte Nachbarn sichtbar')}</label>
             </div>
         </div>
         <div class="share-flow-step" data-share-step="3">
             <div class="form-group">
-                <label class="form-label" for="new-item-deposit-type">Pfandsystem</label>
+                <label class="form-label" for="new-item-deposit-type">${text('share_add_deposit_label', 'Pfandsystem')}</label>
                 <select class="search-bar" id="new-item-deposit-type" onchange="updateDepositFields()" style="margin-bottom: 0;">
-                    <option value="none">Kein Pfand</option>
-                    <option value="voluntary">Freiwilliges Pfand</option>
-                    <option value="digital">Digitale Kaution (Simulation)</option>
+                    <option value="none">${text('share_add_deposit_none', 'Kein Pfand')}</option>
+                    <option value="voluntary">${text('share_add_deposit_voluntary', 'Freiwilliges Pfand')}</option>
+                    <option value="digital">${text('share_add_deposit_digital', 'Digitale Kaution (Simulation)')}</option>
                 </select>
             </div>
             <div id="new-item-deposit-fields" class="share-deposit-fields" hidden>
                 <div class="share-form-grid">
                     <div class="form-group">
-                        <label class="form-label" for="new-item-deposit-amount">Betrag</label>
-                        <input type="text" class="search-bar" id="new-item-deposit-amount" placeholder="20 € Pfand" style="margin-bottom: 0;">
+                        <label class="form-label" for="new-item-deposit-amount">${text('share_add_deposit_amount_label', 'Betrag')}</label>
+                        <input type="text" class="search-bar" id="new-item-deposit-amount" placeholder="${text('share_add_deposit_amount_placeholder', '20 € Pfand')}" style="margin-bottom: 0;">
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="new-item-deposit-method">Methode</label>
+                        <label class="form-label" for="new-item-deposit-method">${text('share_add_deposit_method_label', 'Methode')}</label>
                         <select class="search-bar" id="new-item-deposit-method" style="margin-bottom: 0;">
                             <option value="PayPal">PayPal</option>
-                            <option value="Kreditkarte">Kreditkarte</option>
+                            <option value="Kreditkarte">${text('share_add_payment_card', 'Kreditkarte')}</option>
                             <option value="Wallet">Wallet</option>
                         </select>
                     </div>
                 </div>
             </div>
             <div class="share-privacy-box">
-                <strong>Sichere Übergabe</strong>
-                <p>Adressdaten sind nicht öffentlich sichtbar und werden erst nach Annahme der Anfrage zwischen Verleiher und Ausleiher angezeigt.</p>
+                <strong>${text('share_add_secure_handover_title', 'Sichere Übergabe')}</strong>
+                <p>${text('share_add_secure_handover_text', 'Adressdaten sind nicht öffentlich sichtbar und werden erst nach Annahme der Anfrage zwischen Verleiher und Ausleiher angezeigt.')}</p>
             </div>
             <div class="share-form-grid">
                 <div class="form-group">
-                    <label class="form-label" for="new-item-floor">Stockwerk</label>
-                    <input type="text" class="search-bar" id="new-item-floor" placeholder="z.B. 2. OG" style="margin-bottom: 0;">
+                    <label class="form-label" for="new-item-floor">${text('share_add_floor_label', 'Stockwerk')}</label>
+                    <input type="text" class="search-bar" id="new-item-floor" placeholder="${text('share_add_floor_placeholder', 'z.B. 2. OG')}" style="margin-bottom: 0;">
                 </div>
                 <div class="form-group">
-                    <label class="form-label" for="new-item-pickup-times">Bevorzugte Abholzeiten</label>
-                    <input type="text" class="search-bar" id="new-item-pickup-times" placeholder="z.B. werktags ab 18 Uhr" style="margin-bottom: 0;">
+                    <label class="form-label" for="new-item-pickup-times">${text('share_add_pickup_times_label', 'Bevorzugte Abholzeiten')}</label>
+                    <input type="text" class="search-bar" id="new-item-pickup-times" placeholder="${text('share_add_pickup_times_placeholder', 'z.B. werktags ab 18 Uhr')}" style="margin-bottom: 0;">
                 </div>
             </div>
             <div class="form-group">
-                <label class="form-label" for="new-item-handover">Klingel- und Übergabehinweise</label>
-                <textarea class="form-textarea" id="new-item-handover" placeholder="z.B. Klingel Müller, Übergabe im Hof."></textarea>
+                <label class="form-label" for="new-item-handover">${text('share_add_handover_label', 'Klingel- und Übergabehinweise')}</label>
+                <textarea class="form-textarea" id="new-item-handover" placeholder="${text('share_add_handover_placeholder', 'z.B. Klingel Müller, Übergabe im Hof.')}"></textarea>
             </div>
         </div>
         <div class="share-flow-actions">
-            <button class="btn btn-secondary" type="button" onclick="changeShareFlowStep(-1)" id="share-flow-back">Zurück</button>
-            <button class="btn btn-primary" type="button" onclick="changeShareFlowStep(1)" id="share-flow-next">Weiter</button>
-            <button class="btn btn-primary" type="button" onclick="submitAddShareItem()" id="share-flow-submit" hidden>Einstellen</button>
+            <button class="btn btn-secondary" type="button" onclick="changeShareFlowStep(-1)" id="share-flow-back">${text('btn_back', 'Zurück')}</button>
+            <button class="btn btn-primary" type="button" onclick="changeShareFlowStep(1)" id="share-flow-next">${text('btn_next', 'Weiter')}</button>
+            <button class="btn btn-primary" type="button" onclick="submitAddShareItem()" id="share-flow-submit" hidden>${text('share_add_submit', 'Einstellen')}</button>
         </div>
     `;
 }
@@ -818,7 +856,7 @@ function updateShareFlowStep() {
     const next = document.getElementById('share-flow-next');
     const submit = document.getElementById('share-flow-submit');
     if (back) back.disabled = step === 1;
-    if (next) next.hidden = step === 3;
+    if (next) next.disabled = step === 3;
     if (submit) submit.hidden = step !== 3;
 }
 
@@ -832,11 +870,12 @@ function selectItemIcon() {
     // Kept for compatibility with older inline handlers that may still exist in cached HTML.
 }
 
-function submitAddShareItem() {
+async function submitAddShareItem() {
     const title = getInputValue('new-item-name') || 'Gegenstand';
     const category = getInputValue('new-item-category') || 'Werkzeug';
     const depositType = getInputValue('new-item-deposit-type') || 'none';
     const depositMethod = getInputValue('new-item-deposit-method');
+    const photos = await readNewItemPhotos();
     const item = {
         id: 'user-' + Date.now(),
         title,
@@ -852,6 +891,7 @@ function submitAddShareItem() {
         depositType,
         depositAmount: getInputValue('new-item-deposit-amount'),
         depositMethod: depositType === 'digital' ? depositMethod : '',
+        photos,
         manualLink: getInputValue('new-item-link'),
         from: getInputValue('new-item-from'),
         to: getInputValue('new-item-to'),
@@ -871,6 +911,26 @@ function submitAddShareItem() {
     showToast('Gegenstand eingestellt: ' + title);
     renderShareItems();
     renderShareNotification('Neues Angebot wurde erstellt.');
+}
+
+function readNewItemPhotos() {
+    const input = document.getElementById('new-item-photos');
+    const files = input && input.files ? Array.from(input.files).slice(0, 4) : [];
+    return Promise.all(files.map(readFileAsDataUrl));
+}
+
+function readFileAsDataUrl(file) {
+    return new Promise(resolve => {
+        if (!file || !file.type.startsWith('image/')) {
+            resolve('');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result || '');
+        reader.onerror = () => resolve('');
+        reader.readAsDataURL(file);
+    });
 }
 
 function getNewItemOptions() {
